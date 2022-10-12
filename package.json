@@ -1,5 +1,5 @@
 {
-  "name": "loot",
+  "name": "@loot/monorepo",
   "private": true,
   "workspaces": [
     "packages/*"
