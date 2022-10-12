@@ -32,5 +32,6 @@
     "vite": "^3.1.0",
     "vue-tsc": "^0.40.4"
   },
-  "gitHead": "3156e2a162e5bbd2b310843e2a8978406602be1e"
+
+  "gitHead": "c5d879b760c6bf65aa7aee811d6a7a7bb2daf93b"
 }
