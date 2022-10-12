@@ -1,6 +1,6 @@
 {
   "name": "@loot/vue",
-  "version": "0.0.6-alpha.0",
+  "version": "0.0.6",
   "description": "vue tookit",
   "author": "ccwq <scwqd@qq.com>",
   "homepage": "",
@@ -32,5 +32,5 @@
     "vite": "^3.1.0",
     "vue-tsc": "^0.40.4"
   },
-  "gitHead": "c5d879b760c6bf65aa7aee811d6a7a7bb2daf93b"
+  "gitHead": "ddabeafd30307af02004041d6b8e3851d0943eb2"
 }
