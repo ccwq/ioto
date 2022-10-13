@@ -7,7 +7,6 @@ import dts from 'vite-plugin-dts'
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [
-    vue(),
     dts({
       outputDir: resolve(__dirname, 'types'),
     })
@@ -26,7 +25,7 @@ export default defineConfig({
       external: [],
       output: {
         globals: {
-          vue: 'Vue'
+          // vue: 'Vue'
         }
       }
     }
