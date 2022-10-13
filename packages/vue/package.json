@@ -1,5 +1,5 @@
 {
-  "name": "@toot/vue",
+  "name": "@ccwq/vue",
   "version": "0.0.7",
   "description": "vue tookit",
   "author": "ccwq <scwqd@qq.com>",
@@ -32,5 +32,5 @@
     "vite": "^3.1.0",
     "vue-tsc": "^0.40.4"
   },
-  "gitHead": "d778b684051cf924fdd2798246f0bf61ffed054a"
+  "gitHead": "5cae8afaf9865fa91fa4328fa1f0a445ea057f85"
 }
