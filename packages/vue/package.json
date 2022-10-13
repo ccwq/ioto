@@ -6,12 +6,14 @@
   "homepage": "",
   "license": "ISC",
   "main": "dist/index",
+  "types": "types/index.d.ts",
   "directories": {
     "lib": "src",
     "test": "__tests__"
   },
   "files": [
     "dist",
+    "types",
     "package.json",
     "README.md",
     "LICENSE"
