@@ -1,6 +1,6 @@
 {
   "name": "@ioto/vue",
-  "version": "0.0.9",
+  "version": "0.0.10",
   "description": "vue tookit",
   "author": "ccwq <scwqd@qq.com>",
   "homepage": "",
@@ -36,6 +36,5 @@
     "vite-plugin-dts": "^1.6.5",
     "vue-tsc": "^0.40.4"
   },
-
   "gitHead": "5cae8afaf9865fa91fa4328fa1f0a445ea057f85"
 }
