@@ -5,13 +5,16 @@
   "author": "ccwq <scwqd@qq.com>",
   "homepage": "https://github.com/ccwq/ioto#readme",
   "license": "ISC",
-  "main": "dist/index.js",
+  "main": "dist/index",
   "directories": {
     "lib": "src",
     "test": "__tests__"
   },
   "files": [
-    "dist"
+    "dist",
+    "package.json",
+    "README.md",
+    "LICENSE"
   ],
   "publishConfig": {
     "access": "public"

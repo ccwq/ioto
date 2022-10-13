@@ -11,10 +11,10 @@ export default defineConfig({
   build:{
     lib:{
       entry: resolve(__dirname, 'src/index.ts'),
-      // name: 'foo',
-      formats: ['es'],
+      name: 'index',
+      // formats: ['es'],
       // the proper extensions will be added
-      // fileName: 'index'
+      fileName: 'index'
     },
     rollupOptions: {
       external: ['vue'],
