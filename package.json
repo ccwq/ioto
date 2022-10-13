@@ -1,5 +1,5 @@
 {
-  "name": "@ccwq/monorepo",
+  "name": "@ioto/monorepo",
   "private": true,
   "workspaces": [
     "packages/*"
