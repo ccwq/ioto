@@ -1,9 +1,9 @@
 {
-  "name": "@ioto/vue",
+  "name": "@ioto/core",
   "version": "0.0.9",
-  "description": "vue tookit",
+  "description": "base javascript functions",
   "author": "ccwq <scwqd@qq.com>",
-  "homepage": "",
+  "homepage": "https://github.com/ccwq/ioto#readme",
   "license": "ISC",
   "main": "dist/index.js",
   "directories": {
@@ -11,22 +11,20 @@
     "test": "__tests__"
   },
   "files": [
-    "dist",
-    "package.json",
-    "README.md",
-    "LICENSE"
+    "dist"
   ],
   "publishConfig": {
-    "access": "public",
-    "registry": "https://registry.npmjs.org/"
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ccwq/ioto.git"
   },
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "preview": "vite preview"
-  },
-  "dependencies": {
-    "vue": "^3.2.37"
+    "preview": "vite preview",
+    "test": "node ./__tests__/@ioto/core.test.js"
   },
   "devDependencies": {
     "@types/node": "^18.8.4",
@@ -36,6 +34,10 @@
     "vite-plugin-dts": "^1.6.5",
     "vue-tsc": "^0.40.4"
   },
-
-  "gitHead": "5cae8afaf9865fa91fa4328fa1f0a445ea057f85"
+  "bugs": {
+    "url": "https://github.com/ccwq/ioto/issues"
+  },
+  "dependencies": {
+    "vue": "^3.2.40"
+  }
 }
