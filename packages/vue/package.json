@@ -5,7 +5,7 @@
   "author": "ccwq <scwqd@qq.com>",
   "homepage": "",
   "license": "ISC",
-  "main": "lib/vue.js",
+  "main": "dist/index.js",
   "directories": {
     "lib": "lib",
     "test": "__tests__"
@@ -30,7 +30,9 @@
     "@vitejs/plugin-vue": "^3.1.0",
     "typescript": "^4.6.4",
     "vite": "^3.1.0",
+    "vite-plugin-dts": "^1.6.5",
     "vue-tsc": "^0.40.4"
   },
+
   "gitHead": "5cae8afaf9865fa91fa4328fa1f0a445ea057f85"
 }

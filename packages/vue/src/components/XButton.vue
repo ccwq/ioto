@@ -2,9 +2,9 @@
 <Button style="color:red; padding: 2em">{{props.message}} {{name}}</Button>
 </template>
 <script lang="ts">
-import {ref} from "vue-demi";
+import {ref,defineComponent} from "vue";
 
-export default {
+export default defineComponent({
     props:{
         message: {
             type: String,
@@ -12,6 +12,7 @@ export default {
         }
     },
     setup(props:any) {
+
 
         const name = ref("World");
 
@@ -23,5 +24,5 @@ export default {
             props,
         };
     }
-}
+})
 </script>

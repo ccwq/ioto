@@ -1,15 +1,20 @@
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import {resolve} from "path";
+
+//@ts-ignore
+import dts from 'vite-plugin-dts'
+
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [vue()],
+  plugins: [vue(), dts()],
   build:{
     lib:{
-      entry: resolve(__dirname, 'src/main.ts'),
-      name: 'foo',
+      entry: resolve(__dirname, 'src/index.ts'),
+      // name: 'foo',
+      formats: ['es'],
       // the proper extensions will be added
-      fileName: 'index'
+      // fileName: 'index'
     },
     rollupOptions: {
       external: ['vue'],
