@@ -22,14 +22,12 @@ export const safeBindToObject = function (object: any, key: string, value: any, 
 
 
 /**
- *
  * 遍历树
  * @param treedata
  * @param childrenField
  * @param stepCallback
  */
 export const treeEach = function(treedata:treeData, childrenField:string, stepCallback:Parameters<typeof crawl>[1]){
-
     let isArray = false;
     if (Array.isArray(treedata)) {
         treedata = {[childrenField]: treedata}
@@ -73,22 +71,21 @@ interface elFormatter {
  * ["value, name", "value1, name1"]->
  *      [{value: "value", name: "name"}, {value: "value1", name: "name1"}]
  * @param options 带解析的内容
- * @param stringElSplit 在使用文本形式options时item之间分割的符
+ * @param spliterOption 在使用文本形式options时item之间分割的符
  * @param defaultLs 没有提供options时使用默认options
- * @param stringValueNameSplit 使用文本item时，用来分割value和name
+ * @param spliterValueName 使用文本item时，用来分割value和name
  * @param nameField 使用object类型itme时name的字段
  * @param valueField 使用object类型item时value的字段
  * @returns {Promise<*>}
  */
 export const all2valueName = function(
     options:any,
-    stringElSplit = /\s+/,
+    valueField:string|string[]="value",
+    nameField:string|string[]="name",
+    spliterValueName=",",
+    spliterOption = /\s+/,
     defaultLs:any = ["0, 请提供options"],
     elFormatter:elFormatter|null=null,
-    stringValueNameSplit=",",
-    nameField:string|string[]="name",
-    valueField:string|string[]="value",
-    isDebug:boolean=false,
 ){
     let ls, _promise;
 
@@ -102,13 +99,13 @@ export const all2valueName = function(
 
     //字符串的形式
     if (typeof options == "string") {
-        ls = options.split(stringElSplit).map(el=>el.trim());
+        ls = options.split(spliterOption).map(el=>el.trim());
 
-        //是数组
+    //是数组
     }else if(Array.isArray(options)){
         ls = options;
 
-        //其他类型
+    //其他类型
     }else{
         if (Array.isArray(defaultLs)) {
             ls = defaultLs
@@ -150,7 +147,7 @@ export const all2valueName = function(
 
             //切割字符串
             if (typeof el == "string" || typeof el == "number") {
-                el = (el + "").split(stringValueNameSplit).map(el => el.trim());
+                el = (el + "").split(spliterValueName).map(el => el.trim());
             }
 
             if (Array.isArray(el)) {

@@ -1,3 +1,4 @@
+/// <reference types="vitest" />
 import { defineConfig } from 'vite'
 import {resolve} from "path";
 
@@ -29,5 +30,10 @@ export default defineConfig({
         }
       }
     }
+  },
+  test:{
+
+    // 解决类似windows is not define问题
+    environment:"jsdom",
   },
 })
