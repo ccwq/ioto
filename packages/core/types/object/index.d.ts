@@ -9,5 +9,6 @@ import { ObjectPath } from "../types";
  * @returns {*}
  */
 export declare const tryGet: (object: any, keyLs: ObjectPath, defaultValue?: any, isUseNil?: boolean) => any;
+export declare const isPlainObject: (obj: any) => boolean;
 export { travelTree, makeTreeDataHelper } from "./treeDataHelper";
 export type { INode, INodeList, INodeDic, IInputData, ITravelCallback, ITravelAllCallback, ITravelTreeCallback, IFilterFunction, } from "./treeDataHelper";

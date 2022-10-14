@@ -2,6 +2,7 @@ import crawl from "tree-crawl";
 import compact from "lodash/compact";
 import {tryGet} from "./object";
 import {IObject, stringNumber, treeData} from "./types";
+import {isPlainObject} from "./object";
 
 /**
  * 给对象上赋值,如果键已经存在,则在前面加上prefix
@@ -183,5 +184,51 @@ export const all2valueName = function(
         return handler(ls);
     }else{
         return _promise.then((ls:Array<any>) => handler(ls));
+    }
+}
+
+/**
+ * json转换
+ * @param jsonString
+ */
+export const safeJsonParser = function (jsonString: string | IObject, backupValue: {} | null = null): any {
+    // 如果本来就是对象，直接返回原始对象
+    if (isPlainObject(jsonString)) {
+        return jsonString;
+    } else if (typeof jsonString != "string") {
+        console.warn("safeJsonParser error", jsonString);
+        return backupValue;
+    }
+    try {
+        return JSON.parse(jsonString)
+    } catch (e) {
+        console.log("json解析失败:", jsonString)
+        return backupValue
+    }
+};
+
+
+/**
+ * 判断并返回值是否属于某个集合安全值
+ * @param value 要检测的值
+ * @param options 候选值
+ * @param defaultIndexInOptions 如果不属于候选值，返回候选值的第几个值,如果设置为-1,则返回defaultValue
+ * @param defaultValue 如果value不在候选值中,并且defaultIndexInOptions也不在候选值中，返回这个值
+ * @returns {any}
+ */
+export const safeValueInList = function (
+    value:any,
+    options:any[],
+    defaultIndexInOptions:number|-1= 0,
+    defaultValue = undefined
+) {
+    if (options.includes(value)) {
+        return value
+    } else {
+        let ret = options[defaultIndexInOptions];
+        if (ret === undefined) {
+            ret = defaultValue;
+        }
+        return ret;
     }
 }

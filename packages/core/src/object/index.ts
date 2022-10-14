@@ -33,6 +33,11 @@ export const tryGet = function (object: any, keyLs: ObjectPath, defaultValue:any
 }
 
 
+export const isPlainObject = (obj: any) => {
+    return Object.prototype.toString.call(obj) == "[object Object]";
+}
+
+
 export {
     travelTree,
     makeTreeDataHelper

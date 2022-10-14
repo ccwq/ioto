@@ -47,3 +47,4 @@ export declare function encodeStringToGBK(cnString: string, outtype?: string): a
  * @return {number}
  */
 export declare function getByteLength(string: string): number;
+export declare const safeStringify: (input: any, backupValue?: string) => string;

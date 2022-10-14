@@ -1,11 +1,12 @@
-import $D from "./date-prototype";
+//@ts-ignore
+import * as $D from "./date-prototype";
 
 /*
  * 转换各种类型的数据到日期
  * @param input {Date|Number|String}
  * @returns {Date|*}
  */
-export const all2date = function(input){
+export const all2date:(input:any)=>Date|undefined = function(input:any){
     const now = new Date();
 
     //空对象
@@ -22,9 +23,9 @@ export const all2date = function(input){
         const str = (input + "");
 
         const strArr = str.split("");
-        const _year = strArr.splice(0, 4).join("");
+        const _year = parseInt(strArr.splice(0, 4).join(""));
         const _month = parseInt(strArr.splice(0, 2).join("")) - 1;
-        const _day = strArr.splice(0, 2).join("");
+        const _day = parseInt(strArr.splice(0, 2).join(""))
 
         //年份
         if (str.length == 4) {
@@ -70,8 +71,8 @@ export const all2date = function(input){
 
             const num = parseInt([
                 y,
-                (m + "").padStart(2, 0),
-                (d + "").padStart(2, 0),
+                (m + "").padStart(2, "0"),
+                (d + "").padStart(2, "0"),
             ].join(""));
 
             //只有年月日的情况
@@ -81,6 +82,9 @@ export const all2date = function(input){
             //包含时间
             }else{
                 const date = all2date(num);
+                if (!date) {
+                    throw new Error("无法解析的日期格式");
+                }
                 date.setHours(h, mm, s);
                 return date;
             }
@@ -90,60 +94,47 @@ export const all2date = function(input){
 
 export const parse2date = all2date;
 
-export default class DateUtils{
 
-    /*
-     * 转换各种类型的数据到日期
-     * @param input {Date|Number|String}
-     * @returns {Date|*}
-     */
-    static parse2date(input) {
-        return all2date(input);
-    }
+/**
+ * 根据年月获取当月的天数
+ * @param month "2015-06"
+ */
+export function getDayMountByMonth(month:string|number){
+    var dateStr = "";
 
-
-
-    static getDayMountByMonth(month){
-        const m = this;
-        var dateStr = "";
-        if (typeof month == "string") {
-            let splited = month.split("-");
-            if (splited.length == 1) {
-                month = parseInt(month)
-            }else if(splited.length==2){
-                dateStr = month + "-01"
-            }else{
-                dateStr = month
-            }
-        }else if(typeof month == "number"){
-            //什么都不做
+    if (typeof month == "string") {
+        let splited = month.split("-");
+        if (splited.length == 1) {
+            month = parseInt(month)
+        }else if(splited.length==2){
+            dateStr = month + "-01"
         }else{
-            throw new Error("请传入有效类型")
+            dateStr = month
         }
-
-
-        var d;
-        if (dateStr) {
-            d = $D(dateStr);
-        }else{
-            d = new Date();
-            d.setMonth(month-1);
-        }
-
-        return m.getDayMount(d);
-    }
-
-    /**
-     * 获取当前月份的的天数
-     * @param date 各种日期类型的数据
-     * @returns {number}
-     */
-    getDayLengthInMonth(date) {
-        date = parse2date(date).clone();
-        date.add(1,"month");
-        date.setDate(0);
-        return date.getDate();
+        const d = $D(dateStr);
+        return getDayLengthInMonth(d);
+    }else if(typeof month =="number"){
+        const d = new Date;
+        d.setMonth(month - 1);
+        return getDayLengthInMonth(d);
+    } else{
+        throw new Error("请传入有效类型")
     }
 }
 
+/**
+ * 获取当前月份的的天数
+ * @param date 各种日期类型的数据
+ * @returns {number}
+ */
+export function getDayLengthInMonth(date:any) {
+    date = new Date(parse2date(date)!.getTime())
+    date.add(1,"month");
+    date.setDate(0);
+    return date.getDate();
+}
 
+
+export {
+    default as Date2
+} from "./Date2";

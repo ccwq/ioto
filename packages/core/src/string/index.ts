@@ -1,3 +1,5 @@
+import {isPlainObject} from "../object";
+
 const randomDic = new Map<string, boolean>();
 import $GBK from "../base/$GBK";
 
@@ -162,4 +164,15 @@ export function getByteLength(string: string) {
         }
     }
     return sum;
+}
+
+export const safeStringify = (input: any, backupValue = "") => {
+    if (isPlainObject(input)) {
+        return JSON.stringify(input)
+    } else if (typeof input == "string") {
+        return input
+    } else {
+        console.warn("safeStringify error(暂不支持的数据类型)", input);
+        return backupValue
+    }
 }

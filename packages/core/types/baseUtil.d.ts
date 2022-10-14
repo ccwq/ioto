@@ -1,6 +1,6 @@
 import crawl from "tree-crawl";
 import { tryGet } from "./object";
-import { stringNumber, treeData } from "./types";
+import { IObject, stringNumber, treeData } from "./types";
 /**
  * 给对象上赋值,如果键已经存在,则在前面加上prefix
  * @param object
@@ -38,4 +38,18 @@ interface elFormatter {
  * @returns {Promise<*>}
  */
 export declare const all2valueName: (options: any, stringElSplit?: RegExp, defaultLs?: any, elFormatter?: elFormatter | null, stringValueNameSplit?: string, nameField?: string | string[], valueField?: string | string[], isDebug?: boolean) => any;
+/**
+ * json转换
+ * @param jsonString
+ */
+export declare const safeJsonParser: (jsonString: string | IObject, backupValue?: {} | null) => any;
+/**
+ * 判断并返回值是否属于某个集合安全值
+ * @param value 要检测的值
+ * @param options 候选值
+ * @param defaultIndexInOptions 如果不属于候选值，返回候选值的第几个值,如果设置为-1,则返回defaultValue
+ * @param defaultValue 如果value不在候选值中,并且defaultIndexInOptions也不在候选值中，返回这个值
+ * @returns {any}
+ */
+export declare const safeValueInList: (value: any, options: any[], defaultIndexInOptions?: number | -1, defaultValue?: undefined) => any;
 export {};
