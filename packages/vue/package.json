@@ -1,6 +1,6 @@
 {
   "name": "@ioto/vue",
-  "version": "0.0.12",
+  "version": "0.0.13",
   "description": "vue tookit",
   "author": "ccwq <scwqd@qq.com>",
   "homepage": "",
@@ -28,8 +28,8 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@types/lodash": "^4.14.186",
     "@ioto/core": "link:../core",
+    "@types/lodash": "^4.14.186",
     "lodash": "^4.17.21",
     "vue": "^3.2.37"
   },
