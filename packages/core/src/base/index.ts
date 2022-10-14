@@ -1,4 +1,4 @@
-import crawl from "tree-crawl";
+import crawl from "./tree-crawl";
 import compact from "lodash/compact";
 import {tryGet} from "../object";
 import {IObject, stringNumber, treeData} from "../types";

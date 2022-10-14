@@ -1,4 +1,4 @@
-import crawl from "tree-crawl";
+import crawl from "./tree-crawl";
 import { tryGet } from "../object";
 import { IObject, stringNumber, treeData } from "../types";
 /**

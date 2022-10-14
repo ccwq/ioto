@@ -4,7 +4,6 @@ import get from "lodash/get";
 import isNil from "lodash/isNil";
 import { ObjectPath } from "../types";
 
-
 /**
  * 尝试获取对象的多个属性(支持深度获取属性),直到获取到某个非null的属性值
  * 比如keylist为["a","b","c"],则会依次获取obj.a,obj.a.b,obj.a.b.c,直到获取到非null的值
