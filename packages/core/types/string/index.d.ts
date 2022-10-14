@@ -48,3 +48,13 @@ export declare function encodeStringToGBK(cnString: string, outtype?: string): a
  */
 export declare function getByteLength(string: string): number;
 export declare const safeStringify: (input: any, backupValue?: string) => string;
+/**
+ * 驼峰转中划线 例如：helloWorld => hello-world
+ * @param str
+ */
+export declare const camel2dash: (str: string) => string;
+/**
+ * 中划线转驼峰 例如：hello-world => helloWorld
+ * @param str
+ */
+export declare const dash2camel: (str: string) => string;

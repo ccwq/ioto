@@ -13,11 +13,14 @@ const plugins = {
     },
 };
 
-
-// 其他导出组件方式
-// export { default as App } from './App.vue'
-
 export {default as YButton} from './components/YButton.vue'
+export {default as SizeMonitor} from './components/SizeMonitor.vue'
+export {default as VBox} from './components/VBox.vue'
+export {default as F9Layout} from './components/F9Layout.vue'
+export {
+    EChart,
+    initEchart,
+} from './components/e-chart'
 
 export {
     plugins,

@@ -1,8 +1,8 @@
 import crawl from "tree-crawl";
 import compact from "lodash/compact";
-import {tryGet} from "./object";
-import {IObject, stringNumber, treeData} from "./types";
-import {isPlainObject} from "./object";
+import {tryGet} from "../object";
+import {IObject, stringNumber, treeData} from "../types";
+import {isPlainObject} from "../object";
 
 /**
  * 给对象上赋值,如果键已经存在,则在前面加上prefix
@@ -232,3 +232,59 @@ export const safeValueInList = function (
         return ret;
     }
 }
+
+
+/**
+ * 根据image url或者blob获取图片的尺寸
+ * @param image
+ * @returns {Promise<{width: number, height: number}>}
+ */
+export function getImageSize (image:string|Blob) {
+    return new Promise(function (resolve, reject) {
+        var url = typeof image === 'string' ? image : URL.createObjectURL(image);
+        if (!url) throw new Error('Must use a valid image')
+        var img = document.createElement('img')
+        img.onload = ()=> {
+            if (typeof image !== 'string')
+                URL.revokeObjectURL(url)
+            resolve({width: img.width, height: img.height})
+        }
+
+        img.onerror = (err) =>{
+            if (typeof image !== 'string')
+                URL.revokeObjectURL(url)
+            reject(err)
+        }
+        img.src = url
+    })
+}
+
+//用来判断是否ie
+function getInternetExplorerVersion () {
+    const ua = window.navigator.userAgent
+
+    const msie = ua.indexOf('MSIE ')
+    if (msie > 0) {
+        // IE 10 or older => return version number
+        return parseInt(ua.substring(msie + 5, ua.indexOf('.', msie)), 10)
+    }
+
+    const trident = ua.indexOf('Trident/')
+    if (trident > 0) {
+        // IE 11 => return version number
+        const rv = ua.indexOf('rv:')
+        return parseInt(ua.substring(rv + 3, ua.indexOf('.', rv)), 10)
+    }
+
+    const edge = ua.indexOf('Edge/')
+    if (edge > 0) {
+        // Edge (IE 12+) => return version number
+        return parseInt(ua.substring(edge + 5, ua.indexOf('.', edge)), 10)
+    }
+
+    // other browser
+    return -1
+}
+
+
+export const isIE = getInternetExplorerVersion() !== -1;

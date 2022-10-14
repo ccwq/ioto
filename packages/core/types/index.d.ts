@@ -1,4 +1,4 @@
-export { safeBindToObject, safeJsonParser, treeEach, all2valueName, safeValueInList, } from "./baseUtil";
+export { safeBindToObject, safeJsonParser, treeEach, all2valueName, safeValueInList, getImageSize, } from "./base";
 export { BPromise, promiseMap, } from "./promise";
 export { stripString, randomString, firstLetterUppercase, fromGBKArrayToString, byteArrayToString, encodeStringToGBK, getByteLength, safeStringify, } from "./string";
 export { tryGet, travelTree, makeTreeDataHelper, isPlainObject } from "./object";

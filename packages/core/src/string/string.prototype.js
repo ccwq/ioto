@@ -1,5 +1,5 @@
 import Index from "./StringUtils";
-import {safeBindToObject} from "../baseUtil";
+import {safeBindToObject} from "../base/baseUtil";
 
 const p =  String.prototype;
 

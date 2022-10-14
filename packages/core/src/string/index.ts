@@ -176,3 +176,20 @@ export const safeStringify = (input: any, backupValue = "") => {
         return backupValue
     }
 }
+
+/**
+ * 驼峰转中划线 例如：helloWorld => hello-world
+ * @param str
+ */
+export const camel2dash = (str: string) => {
+    return str.replace(/([A-Z])/g, g => `-${g[0].toLowerCase()}`);
+}
+
+
+/**
+ * 中划线转驼峰 例如：hello-world => helloWorld
+ * @param str
+ */
+export const dash2camel = (str: string) => {
+    return str.replace(/-([a-z])/g, g => g[1].toUpperCase());
+}

@@ -26,3 +26,8 @@ export default defineComponent({
     }
 })
 </script>
+<style scoped lang="less">
+div{
+    color: red;
+}
+</style>

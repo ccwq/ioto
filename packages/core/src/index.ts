@@ -4,7 +4,8 @@ export {
     treeEach,
     all2valueName,
     safeValueInList,
-} from "./baseUtil"
+    getImageSize,
+} from "./base"
 
 export {
     BPromise,
