@@ -9,7 +9,6 @@ import { IObject, stringNumber, treeData } from "../types";
  */
 export declare const safeBindToObject: (object: any, key: string, value: any, prefix?: string, counter?: number) => void;
 /**
- *
  * 遍历树
  * @param treedata
  * @param childrenField
@@ -30,14 +29,14 @@ interface elFormatter {
  * ["value, name", "value1, name1"]->
  *      [{value: "value", name: "name"}, {value: "value1", name: "name1"}]
  * @param options 带解析的内容
- * @param stringElSplit 在使用文本形式options时item之间分割的符
+ * @param spliterOption 在使用文本形式options时item之间分割的符
  * @param defaultLs 没有提供options时使用默认options
- * @param stringValueNameSplit 使用文本item时，用来分割value和name
+ * @param spliterValueName 使用文本item时，用来分割value和name
  * @param nameField 使用object类型itme时name的字段
  * @param valueField 使用object类型item时value的字段
  * @returns {Promise<*>}
  */
-export declare const all2valueName: (options: any, stringElSplit?: RegExp, defaultLs?: any, elFormatter?: elFormatter | null, stringValueNameSplit?: string, nameField?: string | string[], valueField?: string | string[], isDebug?: boolean) => any;
+export declare const all2valueName: (options: any, valueField?: string | string[], nameField?: string | string[], spliterValueName?: string, spliterOption?: RegExp, defaultLs?: any, elFormatter?: elFormatter | null) => any;
 /**
  * json转换
  * @param jsonString
