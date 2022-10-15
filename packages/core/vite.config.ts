@@ -5,6 +5,9 @@ import {resolve} from "path";
 //@ts-ignore
 import dts from 'vite-plugin-dts'
 
+
+const isDev = process.env.NODE_ENV === 'development'
+
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [
@@ -31,7 +34,19 @@ export default defineConfig({
       }
     }
   },
+
+  define: {
+
+    // 一处vitest的测试代码
+    ...isDev?{}:{
+      'import.meta.vitest': 'undefined'
+    }
+  },
+
   test:{
+
+    // 文件内测试
+    includeSource: ['src/**/*.{js,ts}'],
 
     // 解决类似windows is not define问题
     environment:"jsdom",
