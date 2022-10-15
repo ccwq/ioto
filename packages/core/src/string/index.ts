@@ -185,6 +185,16 @@ export const camel2dash = (str: string) => {
     return str.replace(/([A-Z])/g, g => `-${g[0].toLowerCase()}`);
 }
 
+if (import.meta.vitest) {
+    const { it, expect, describe } = import.meta.vitest
+
+    it('aaaaa', () => {
+        expect(camel2dash("fooBar")).toBe("foo-bar")
+        // expect(add(1)).toBe(1)
+        // expect(add(1, 2, 3)).toBe(6)
+    })
+}
+
 
 /**
  * 中划线转驼峰 例如：hello-world => helloWorld
@@ -192,4 +202,4 @@ export const camel2dash = (str: string) => {
  */
 export const dash2camel = (str: string) => {
     return str.replace(/-([a-z])/g, g => g[1].toUpperCase());
-}
+};
