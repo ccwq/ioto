@@ -46,7 +46,7 @@ export default defineConfig({
   test:{
 
     // 文件内测试
-    includeSource: ['src/**/*.{js,ts}'],
+    // includeSource: ['src/**/*.{js,ts}'],
 
     // 解决类似windows is not define问题
     environment:"jsdom",
