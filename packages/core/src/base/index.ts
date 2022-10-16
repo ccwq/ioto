@@ -3,6 +3,7 @@ import compact from "lodash/compact";
 import {tryGet} from "../object";
 import {IObject, stringNumber, treeData} from "../types";
 import {isPlainObject} from "../object";
+import {isNull} from "lodash";
 
 /**
  * 给对象上赋值,如果键已经存在,则在前面加上prefix
@@ -55,13 +56,39 @@ export const treeEach = function(treedata:treeData, childrenField:string, stepCa
 interface elFormatter {
     (
         el: any,
-        options:{
-            nameField:string|string[],
-            valueField:string|string[],
-        },
+        sett:All2ValueNameOption,
         getFunction: typeof tryGet
     ): [stringNumber, stringNumber]
 }
+
+
+interface All2ValueNameOption {
+
+    // 获取value和name的字段,支持多字段尝试
+    valueGetField?: string|string[]
+    nameGetField?: string|string[]
+
+    // 设置value和name的字段
+    valueSetField?: string
+    nameSetField?: string
+
+    // 项目内的分割
+    spliterItemValue?: string|RegExp
+
+    // 项目间的分割
+    spliterBetweenItem?: string|RegExp
+
+    // 格式化
+    elFormatter?: elFormatter|null
+
+    defaultLs?: any[]|(() => any[])
+}
+
+
+type all2valueNameInputBase = string|Array<string>|Array<Array<string|number>>|Array<IObject>
+type all2valueNameInput = all2valueNameInputBase|((sett?:All2ValueNameOption)=>all2valueNameInputBase)
+
+
 
 /**
  * 解析optionsls
@@ -70,118 +97,124 @@ interface elFormatter {
  *      [{value: "idvalue", name: "idvalue"}, {value: "value1", name: "name1"}, {value: "value1", name: "name1"}]
  * ["value, name", "value1, name1"]->
  *      [{value: "value", name: "name"}, {value: "value1", name: "name1"}]
- * @param options 带解析的内容
- * @param spliterOption 在使用文本形式options时item之间分割的符
- * @param defaultLs 没有提供options时使用默认options
- * @param spliterValueName 使用文本item时，用来分割value和name
- * @param nameField 使用object类型itme时name的字段
- * @param valueField 使用object类型item时value的字段
- * @returns {Promise<*>}
+ * @param options 待解析的内容
+ * @returns {Array}
  */
-export const all2valueName = function(
-    options:any,
-    valueField:string|string[]="value",
-    nameField:string|string[]="name",
-    spliterValueName=",",
-    spliterOption = /\s+/,
-    defaultLs:any = ["0, 请提供options"],
-    elFormatter:elFormatter|null=null,
-){
-    let ls, _promise;
+export const all2valueName = function(options:all2valueNameInput, settings?:All2ValueNameOption){
+    const sett = {
+        valueGetField: "value",
+        nameGetField: "name",
+        valueSetField: "value",
+        nameSetField: "name",
+        spliterItemValue: ",",
+        spliterBetweenItem: /\s+/,
+        defaultLs: ["0, 请提供options"],
+        ...settings || {},
+    }
 
-    //数组解析
+    let input;
+
     //是函数
     if (typeof options == "function") {
-        _promise = options();
-
-
+        input = options(sett);
     }
 
     //字符串的形式
     if (typeof options == "string") {
-        ls = options.split(spliterOption).map(el=>el.trim());
+        input = options.trim().split(sett.spliterBetweenItem).map(el=>el.trim());
+    }
 
     //是数组
-    }else if(Array.isArray(options)){
-        ls = options;
+    else if(Array.isArray(options)){
+        input = options;
+    }
 
     //其他类型
-    }else{
-        if (Array.isArray(defaultLs)) {
-            ls = defaultLs
-        }else if(typeof defaultLs == "function"){
-            _promise = defaultLs();
+    else{
+        if (Array.isArray(sett.defaultLs)) {
+            input = sett.defaultLs
+        }else if(typeof sett.defaultLs === "function"){
+            input = sett.defaultLs();
         }else{
-            ls = [{
-                name:"请通过optionLs传入数组或者异步函数",
+            input = [{
+                name:"请通过optionLs传入数组或者函数",
                 value:-1,
             }]
         }
     }
 
-    const handler = function (ls:Array<any>) {
-        //处理formater
-        if (typeof elFormatter == "function") {
-            ls = ls.map((el) => {
-                let [value, name] = elFormatter(el, {
-                    valueField: valueField,
-                    nameField: nameField,
-                }, tryGet);
+    const handler = function (input:Array<any>) {
+        // 使用了formatter
+
+        const formatter = sett.elFormatter;
+        if (formatter) {
+            input = input.map((el) => {
+                let [value, name] = formatter(el, sett as All2ValueNameOption, tryGet);
                 return {value, name};
             });
         }
-
-
-        let _ls = compact(ls);
-
-        if (_ls.length != ls.length) {
-            console.warn("options中存在空选项", ls);
+        let compactInput = compact(input);
+        if (compactInput.length != input.length) {
+            console.warn("options中存在空选项", input);
         }
-
-        ls = _ls;
+        input = compactInput;
 
         //以数组为参数
-        ls = ls.map(el => {
+        input = input.map(option => {
 
-            const _el = el;
+            // 如果项目是字符串,进行切割
+            if (typeof option == "string") {
+                option = (option + "").split(sett.spliterItemValue).map(el => el.trim());
+            }else
 
-            //切割字符串
-            if (typeof el == "string" || typeof el == "number") {
-                el = (el + "").split(spliterValueName).map(el => el.trim());
+            // 数字,直接复制
+            if (typeof option == "number") {
+                option = [option, option];
             }
 
-            if (Array.isArray(el)) {
-                let [value, name] = el;
+            let value, name;
+            if (Array.isArray(option)) {
+                [value, name] = option;
                 if (name === undefined) {
                     name = value;
+                }else if(value === undefined){
+                    value = name;
                 }
-                return {value, name};
-            } else if (!el) {
-                return {
-                    name: "无效options",
-                    value: "-",
+                if(isNull(value) || isNull(name)) {
+                    throw "value和name不能同时为空";
                 }
-            } else {
-                return {
-                    name: tryGet(el, nameField),
-                    value: tryGet(el, valueField)
-                }
+            } else
+
+            // 空的el
+            if (!option) {
+                name = "无效options";
+                value = "-";
+            }
+
+            // 对象形式
+            else {
+                value = tryGet(option, sett.valueGetField);
+                name = tryGet(option, sett.nameGetField);
+            }
+
+            return {
+                [sett.valueSetField]: value,
+                [sett.nameSetField]: name,
             }
         });
 
-        ls.forEach(el => {
-            if (typeof el.value != "number" && typeof el.value != "string") {
-                el.value = el.value + "";
+        input.forEach(el => {
+            const value = el[sett.valueSetField];
+
+            // 不是数字或者字符串的,options 转为字符串
+            if (typeof value != "number" && typeof value != "string") {
+                console.warn("options中存在非法的value,需要是number或者string", el);
+                el[sett.valueSetField] = el.value + "";
             }
         })
-        return ls;
+        return input;
     };
-
-    if (ls) {
-        return handler(ls);
-    }else{
-        return _promise.then((ls:Array<any>) => handler(ls));
-    }
+    return handler(input)
 }
 
 /**
