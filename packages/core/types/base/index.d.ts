@@ -16,11 +16,20 @@ export declare const safeBindToObject: (object: any, key: string, value: any, pr
  */
 export declare const treeEach: (treedata: treeData, childrenField: string, stepCallback: Parameters<typeof crawl>[1]) => any;
 interface elFormatter {
-    (el: any, options: {
-        nameField: string | string[];
-        valueField: string | string[];
-    }, getFunction: typeof tryGet): [stringNumber, stringNumber];
+    (el: any, sett: All2ValueNameOption, getFunction: typeof tryGet): [stringNumber, stringNumber];
 }
+interface All2ValueNameOption {
+    valueGetField?: string | string[];
+    nameGetField?: string | string[];
+    valueSetField?: string;
+    nameSetField?: string;
+    spliterItemValue?: string | RegExp;
+    spliterBetweenItem?: string | RegExp;
+    elFormatter?: elFormatter | null;
+    defaultLs?: any[] | (() => any[]);
+}
+declare type all2valueNameInputBase = string | Array<string> | Array<Array<string | number>> | Array<IObject>;
+declare type all2valueNameInput = all2valueNameInputBase | ((sett?: All2ValueNameOption) => all2valueNameInputBase);
 /**
  * 解析optionsls
  * 把各种内容解析到{value, name}
@@ -28,15 +37,10 @@ interface elFormatter {
  *      [{value: "idvalue", name: "idvalue"}, {value: "value1", name: "name1"}, {value: "value1", name: "name1"}]
  * ["value, name", "value1, name1"]->
  *      [{value: "value", name: "name"}, {value: "value1", name: "name1"}]
- * @param options 带解析的内容
- * @param spliterOption 在使用文本形式options时item之间分割的符
- * @param defaultLs 没有提供options时使用默认options
- * @param spliterValueName 使用文本item时，用来分割value和name
- * @param nameField 使用object类型itme时name的字段
- * @param valueField 使用object类型item时value的字段
- * @returns {Promise<*>}
+ * @param options 待解析的内容
+ * @returns {Array}
  */
-export declare const all2valueName: (options: any, valueField?: string | string[], nameField?: string | string[], spliterValueName?: string, spliterOption?: RegExp, defaultLs?: any, elFormatter?: elFormatter | null) => any;
+export declare const all2valueName: (options: all2valueNameInput, settings?: All2ValueNameOption) => any[];
 /**
  * json转换
  * @param jsonString
