@@ -5,7 +5,7 @@ declare const _sfc_main: import("vue").DefineComponent<{
         required: false;
         default: string;
     };
-    raiseSlot: {
+    noScroll: {
         type: BooleanConstructor;
         required: false;
         default: boolean;
@@ -35,6 +35,7 @@ declare const _sfc_main: import("vue").DefineComponent<{
     props: any;
     handlerSize: (aSize?: [number, number]) => void;
     slotAnchor: import("vue").Ref<HTMLDivElement | undefined>;
+    overflowTypeString: import("vue").ComputedRef<string>;
     SizeMonitor: import("vue").DefineComponent<{
         offsetWidth: {
             type: NumberConstructor;
@@ -119,6 +120,7 @@ declare const _sfc_main: import("vue").DefineComponent<{
         fastMode: boolean;
         emitWhenReady: boolean;
     }>;
+    computed: typeof import("@vue/reactivity").computed;
     onMounted: (hook: () => any, target?: import("vue").ComponentInternalInstance | null | undefined) => false | Function | undefined;
     ref: typeof ref;
     watch: typeof watch;
@@ -128,7 +130,7 @@ declare const _sfc_main: import("vue").DefineComponent<{
         required: false;
         default: string;
     };
-    raiseSlot: {
+    noScroll: {
         type: BooleanConstructor;
         required: false;
         default: boolean;
@@ -155,7 +157,7 @@ declare const _sfc_main: import("vue").DefineComponent<{
     };
 }>>, {
     overflowType: string;
-    raiseSlot: boolean;
+    noScroll: boolean;
     offsetX: number;
     offsetY: number;
     disableSizeCalc: boolean;

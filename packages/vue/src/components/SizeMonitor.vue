@@ -48,8 +48,6 @@
             }
         }
 
-
-
         //关闭debounce和throttle
         if (props.fastMode) {
             resizeHandler = _resizeHandler;
@@ -62,11 +60,9 @@
             }
         }
 
-
         nextTick(() => {
             _w = $el.offsetWidth;
             _h = $el.offsetHeight;
-
             const object = document.createElement('object')
             _resizeObject = object
             object.setAttribute('aria-hidden', 'true')
@@ -75,7 +71,6 @@
             object.onload = _=>{
                 object.contentDocument?.defaultView?.addEventListener('resize', ()=>resizeHandler());
                 _resizeHandler();
-
                 //第一次派发
                 if (props.emitWhenReady) {
                     let size = [_w + props.offsetWidth, _h + props.offsetHeight];

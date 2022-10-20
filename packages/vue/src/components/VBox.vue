@@ -1,23 +1,23 @@
 <template lang="pug">
-.v-box-comp( :class="[`overflowType_${overflowType}`]" )
+.v-box( :class="[overflowTypeString]" )
     slot(name="header")
-    ._container_wp
+    .v-box-container
         SizeMonitor(
             v-if="!disableSizeCalc"
-            @input="sizeHandler"
+            @update:modelValue="handlerSize"
             :offsetHeight="offsetX"
             :offsetWidth="offsetY"
         )
-        ._container(v-if="!raiseSlot")
+        .v-box-scroller(v-if="!noScroll")
             slot( :size="size" :width="size[0]" :height="size[1]")
         template( v-else)
             span.__slot_anchor(ref="slotAnchor")
-            slot( :size="size" :width="size[0]" :height="size[1]" className="_container")
+            slot( :size="size" :width="size[0]" :height="size[1]" className="v-box-scroller")
     slot(name="footer")
 </template>
 <script lang="ts" setup>
     import SizeMonitor from "./SizeMonitor.vue"
-    import {onMounted, ref, watch} from "vue";
+    import {computed, onMounted, ref, watch} from "vue";
     const size = ref<[number|string, number|string]>([0, 0])
 
     interface Prop {
@@ -28,7 +28,7 @@
 
         //提升slot，以替换container的位置
         //需要slot为单节点
-        raiseSlot?: boolean,
+        noScroll?: boolean,
         offsetX?: number,
         offsetY?: number,
 
@@ -38,7 +38,7 @@
     }
     const props = withDefaults(defineProps<Prop>(), {
         overflowType:"y",
-        raiseSlot:false,
+        noScroll:false,
         offsetX:0,
         offsetY:0,
         disableSizeCalc:false,
@@ -56,24 +56,32 @@
 
     const slotAnchor = ref<HTMLDivElement>();
     onMounted(()=>{
-        watch(()=>props.raiseSlot, (v)=>{
+        watch(()=>props.noScroll, (v)=>{
             const nextEl = slotAnchor.value?.nextElementSibling;
             if (nextEl) {
-                nextEl.classList.add("_container");
+                nextEl.classList.add("v-box-scroller");
             }
         }, {immediate:true})
     })
+
+    const overflowTypeString = computed(()=>{
+        if (props.noScroll) {
+            return ""
+        }else{
+            return `overflowType_${props.overflowType}`;
+        }
+    })
 </script>
 <style lang="less">
-    .v-box-comp {
+    .v-box{
         display:flex;
         flex-direction: column;
         align-items: stretch;
 
-        >._container_wp{
+        >.v-box-container{
             position: relative;
             flex: 1;
-            >._container{
+            >.v-box-scroller{
                 position: absolute;
                 left: 0;
                 top: 0;
@@ -83,14 +91,14 @@
             }
         }
 
-        &.overflowType_hide{
-            >._container_wp>._container{
+        &.overflowType_hidden{
+            >.v-box-container>.v-box-scroller{
                 overflow: hidden;
             }
         }
 
         &.overflowType_auto{
-            >._container_wp>._container{
+            >.v-box-container>.v-box-scroller{
                 overflow: auto;
             }
         }
