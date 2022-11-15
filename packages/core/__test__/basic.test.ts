@@ -54,6 +54,23 @@ describe("src/base/index", () => {
             expect(all2valueName(简单原始数据, {nameGetField: "name", valueGetField: "id"})).toEqual(expectResult)
         })
 
+        it("同时改变对象输入和输出字符串", ()=> {
+            expect(all2valueName(
+                [{value: "jiji", id: "jojo"}],
+                {
+                    nameGetField: "value",
+                    valueGetField: "id",
+                    nameSetField: "title",
+                    valueSetField: "header",
+                }
+            )).toEqual(
+                [{
+                    title: "jiji",
+                    header: "jojo",
+                }]
+            )
+        })
+
 
         const 复杂原始数据 =  [{
             nickName: "ioto",

@@ -197,6 +197,8 @@ export const all2valueName = function(options:all2valueNameInput, settings?:All2
                 name = tryGet(option, sett.nameGetField);
             }
 
+
+
             return {
                 [sett.valueSetField]: value,
                 [sett.nameSetField]: name,

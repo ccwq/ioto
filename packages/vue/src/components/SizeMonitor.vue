@@ -3,7 +3,7 @@
 <script setup lang="ts">
     import debounce from "lodash/debounce";
     import throttle from "lodash/throttle";
-    import {isIE} from "@ioto/core/src/base";
+    import {isIE} from "../../../core/src/base";
     import {nextTick, onBeforeUnmount, onMounted, ref} from "vue";
 
     interface Props{
