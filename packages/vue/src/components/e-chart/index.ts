@@ -17,10 +17,10 @@ export const getColor = function(index:number){
 
 let Echarts:any = null;
 let echartBaseOption:any = {
-    color: colorLs,
+    // color: colorLs,
 };
 
-export const initEchart = function (echarts:any, baseOptions:any) {
+export const initEchart = function (echarts:any, baseOptions?:any) {
     Echarts = echarts;
 
     if (baseOptions) {
