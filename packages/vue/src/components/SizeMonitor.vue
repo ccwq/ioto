@@ -1,4 +1,4 @@
-<template><div class="size-monitor" tabindex="-1" ref="$$el"></div></template>
+<template><div class="size-monitor" tabindex="-1" ref="$$index"></div></template>
 
 <script setup lang="ts">
     import debounce from "lodash/debounce";
@@ -33,17 +33,17 @@
 
     let _w:number=0, _h:number=0;
 
-    const $$el = ref<HTMLElement>();
+    const $$index = ref<HTMLElement>();
     let _resizeObject:any
     let resizeHandler:Function
     onMounted(()=>{
-        const $el = $$el.value!;
+        const $index = $$index.value!;
 
         //尺寸变化的处理
         const _resizeHandler = ()=> {
-            if (_w !== $el.offsetWidth || _h !== $el.offsetHeight) {
-                _w = $el.offsetWidth;
-                _h = $el.offsetHeight;
+            if (_w !== $index.offsetWidth || _h !== $index.offsetHeight) {
+                _w = $index.offsetWidth;
+                _h = $index.offsetHeight;
                 emits("update:modelValue", [_w + props.offsetWidth, _h + props.offsetHeight]);
             }
         }
@@ -61,8 +61,8 @@
         }
 
         nextTick(() => {
-            _w = $el.offsetWidth;
-            _h = $el.offsetHeight;
+            _w = $index.offsetWidth;
+            _h = $index.offsetHeight;
             const object = document.createElement('object')
             _resizeObject = object
             object.setAttribute('aria-hidden', 'true')
@@ -81,11 +81,11 @@
 
             object.type = 'text/html'
             if (isIE) {
-                $el.appendChild(object)
+                $index.appendChild(object)
             }
             object.data = 'about:blank'
             if (!isIE) {
-                $el.appendChild(object)
+                $index.appendChild(object)
             }
         })
 

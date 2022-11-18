@@ -1,6 +1,6 @@
 <template lang="pug">
 .echarts-comp
-    .el(ref="$$el")
+    .index(ref="$$index")
     SizeMonitor(@update:modelValue="updateHandlerSize")
 </template>
 <script lang="ts" setup>
@@ -15,7 +15,7 @@ import isPlainObject from "lodash/isPlainObject";
 import {BPromise} from "@ioto/core";
 import {computed, onBeforeUnmount, onMounted, ref, toRaw, useAttrs, watch} from "vue";
 import {getEchartBaseOption, getEcharts} from "./index";
-const $$el = ref<HTMLDivElement>();
+const $$index = ref<HTMLDivElement>();
 const readyPromise = new BPromise<any>()
 let echartInst:any = undefined
 const emits = defineEmits<{
@@ -88,7 +88,7 @@ onMounted(()=>{
         console.warn("first place call \nimport {initEchart} from '@ioto/vue' \ninitEchart(echartFromLib, baseOptions)")
         throw new Error("echart is required")
     }
-    echartInst = Echart.init($$el.value);
+    echartInst = Echart.init($$index.value);
     readyPromise._resolve(echartInst) ;
 
     MOUSE_EVENT_LIST.forEach((eventName)=>{
@@ -123,7 +123,7 @@ onBeforeUnmount(()=>{
 <style lang="less">
 .echarts-comp {
     position: relative;
-    .el {
+    .index {
         width: 100%;
         height: 100%;
     }

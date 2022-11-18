@@ -26,11 +26,13 @@
     "build": "vite build",
     "preview": "vite preview"
   },
+  "peerDependencies": {
+    "vue": "^3.2.0"
+  },
   "dependencies": {
     "@ioto/core": "link:../core",
     "@types/lodash": "^4.14.186",
-    "lodash": "^4.17.21",
-    "vue": "^3.2.37"
+    "lodash": "^4.17.21"
   },
   "devDependencies": {
     "@types/node": "^18.8.4",

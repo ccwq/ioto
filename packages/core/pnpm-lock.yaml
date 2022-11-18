@@ -4,6 +4,7 @@ specifiers:
   '@types/lodash': ^4.14.186
   '@types/node': ^18.8.4
   '@vitest/ui': ^0.24.1
+  dayjs: ^1.11.5
   jsdom: ^20.0.1
   lodash: ^4.17.21
   typescript: ^4.6.4
@@ -12,12 +13,15 @@ specifiers:
   vitest: ^0.24.1
   vue-tsc: ^0.40.4
 
+dependencies:
+  dayjs: 1.11.6
+  lodash: 4.17.21
+
 devDependencies:
   '@types/lodash': 4.14.186
   '@types/node': 18.8.5
   '@vitest/ui': 0.24.1
   jsdom: 20.0.1
-  lodash: 4.17.21
   typescript: 4.8.4
   vite: 3.1.7
   vite-plugin-dts: 1.6.5_vite@3.1.7
@@ -479,6 +483,10 @@ packages:
       whatwg-mimetype: 3.0.0
       whatwg-url: 11.0.0
     dev: true
+
+  /dayjs/1.11.6:
+    resolution: {integrity: sha512-zZbY5giJAinCG+7AGaw0wIhNZ6J8AhWuSXKvuc1KAyMiRsvGQWqh4L+MomvhdAYjN+lqvVCMq1I41e3YHvXkyQ==}
+    dev: false
 
   /debug/4.3.4:
     resolution: {integrity: sha512-PRWFHuSU3eDtQJPvnNY7Jcket1j0t5OuOsFzPPzsekD52Zl8qUfFIPEiswXqIvHWGVHOgX+7G/vCNNhehwxfkQ==}
@@ -1026,7 +1034,6 @@ packages:
 
   /lodash/4.17.21:
     resolution: {integrity: sha512-v2kDEe57lecTulaDIuNTPy3Ry4gLGJ6Z1O3vE1krgXZNrsQ+LFTGHVxVjcXPs17LhbZVGedAJv8XZ1tvj5FvSg==}
-    dev: true
 
   /loupe/2.3.4:
     resolution: {integrity: sha512-OvKfgCC2Ndby6aSTREl5aCCPTNIzlDfQZvZxNUrBrihDhL3xcrYegTblhmEiCrg2kKQz4XsFIaemE5BF4ybSaQ==}

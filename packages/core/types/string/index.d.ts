@@ -58,3 +58,5 @@ export declare const camel2dash: (str: string) => string;
  * @param str
  */
 export declare const dash2camel: (str: string) => string;
+export declare const simpleEncryptString: (str: string) => string;
+export declare const simpleDecryptString: (str: string) => string;

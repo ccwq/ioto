@@ -203,3 +203,16 @@ if (import.meta.vitest) {
 export const dash2camel = (str: string) => {
     return str.replace(/-([a-z])/g, g => g[1].toUpperCase());
 };
+
+
+
+// 加单的加密
+export const simpleEncryptString = (str:string)=>{
+    return str.split("").map(c=>c.charCodeAt(0).toString(13)).join("")
+}
+
+
+// 解密
+export const simpleDecryptString = (str:string)=>{
+    return str.split("").map(c=>String.fromCharCode(parseInt(c, 13))).join("")
+}

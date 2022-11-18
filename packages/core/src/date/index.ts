@@ -1,5 +1,6 @@
 //@ts-ignore
 import * as $D from "./date-prototype";
+import {dayjs2} from "./dayjs-settup";
 
 /*
  * 转换各种类型的数据到日期
@@ -133,6 +134,35 @@ export function getDayLengthInMonth(date:any) {
     date.setDate(0);
     return date.getDate();
 }
+
+
+/**
+ * 获取日期所在周的周一和最周天(同时设定时间为00:00:00:0000和23:59:59:9999)
+ * @param date
+ * @param isMondayFirst {boolean}=true 是否周一为一周的第一天
+ */
+export const getWeekRangeByDay = (date: Date|string, isMondayFirst = true) => {
+    if(typeof date === "string"){
+        date = dayjs2(date).toDate();
+    }
+    const day = date.getDay();
+    const start = new Date(date);
+    start.setDate(date.getDate() - day);
+    start.setHours(0, 0, 0, 0);
+    const end = new Date(start);
+    end.setDate(start.getDate() + 6);
+    end.setHours(23, 59, 59, 999);
+    const thInYear = dayjs2(date).week();
+    const startYYYYMMDD = dayjs2(start).format("YYYY-MM-DD");
+
+    if (isMondayFirst) {
+        start.setDate(start.getDate() + 1);
+        end.setDate(end.getDate() + 1);
+    }
+    return {
+        startYYYYMMDD, start, end, thInYear
+    };
+};
 
 
 export {

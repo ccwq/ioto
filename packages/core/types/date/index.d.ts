@@ -11,4 +11,15 @@ export declare function getDayMountByMonth(month: string | number): any;
  * @returns {number}
  */
 export declare function getDayLengthInMonth(date: any): any;
+/**
+ * 获取日期所在周的周一和最周天(同时设定时间为00:00:00:0000和23:59:59:9999)
+ * @param date
+ * @param isMondayFirst {boolean}=true 是否周一为一周的第一天
+ */
+export declare const getWeekRangeByDay: (date: Date | string, isMondayFirst?: boolean) => {
+    startYYYYMMDD: string;
+    start: Date;
+    end: Date;
+    thInYear: number;
+};
 export { default as Date2 } from "./Date2";

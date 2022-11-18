@@ -19,7 +19,7 @@ export default defineConfig({
     lib:{
       entry: resolve(__dirname, 'src/index.ts'),
 
-      // Option "build.lib.name" is required when output formats include "umd" or "iife".
+      // Option "build.src.name" is required when output formats include "umd" or "iife".
       name: 'index',
       // formats: ['es'],
       // the proper extensions will be added
