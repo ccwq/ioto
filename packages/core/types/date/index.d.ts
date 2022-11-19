@@ -22,4 +22,16 @@ export declare const getWeekRangeByDay: (date: Date | string, isMondayFirst?: bo
     end: Date;
     thInYear: number;
 };
-export { default as Date2 } from "./Date2";
+/**
+ * 从年月和周再月的次序获取周的开始日如 2022-11/2拿到周的第一天的日期[2022-11-7]
+ * @param year
+ * @param month
+ * @param th
+ * @param isMondayFirst 设置周一是每周的第一天
+ */
+export declare const getWeekStartDateFromYYYYMMThInMonth: (year: number, month: number, th: number, isMondayFirst?: boolean) => Date;
+/**
+ * 从一个日期获取该日期所在周是当月的第几周
+ * @param date {Date|string}
+ */
+export declare const getWeekThInMonth: (date: Date | string) => number;

@@ -1,6 +1,4 @@
-//@ts-ignore
-import * as $D from "./date-prototype";
-import {dayjs2} from "./dayjs-settup";
+import {dayjs2} from "./dayjs-setup";
 
 /*
  * 转换各种类型的数据到日期
@@ -112,7 +110,7 @@ export function getDayMountByMonth(month:string|number){
         }else{
             dateStr = month
         }
-        const d = $D(dateStr);
+        const d = parse2date(dateStr);
         return getDayLengthInMonth(d);
     }else if(typeof month =="number"){
         const d = new Date;
@@ -134,7 +132,6 @@ export function getDayLengthInMonth(date:any) {
     date.setDate(0);
     return date.getDate();
 }
-
 
 /**
  * 获取日期所在周的周一和最周天(同时设定时间为00:00:00:0000和23:59:59:9999)
@@ -164,7 +161,33 @@ export const getWeekRangeByDay = (date: Date|string, isMondayFirst = true) => {
     };
 };
 
+/**
+ * 从年月和周再月的次序获取周的开始日如 2022-11/2拿到周的第一天的日期[2022-11-7]
+ * @param year
+ * @param month
+ * @param th
+ * @param isMondayFirst 设置周一是每周的第一天
+ */
+export const getWeekStartDateFromYYYYMMThInMonth =
+    (year: number, month: number, th: number, isMondayFirst = true) => {
+        const date = new Date(year, month - 1, 1);
+        const week = date.getDay();
+        const startDay = 1 + (th - 1) * 7 - week;
+        const startDay2 = isMondayFirst ? startDay + 1 : startDay;
+        return new Date(year, month - 1, startDay2)
+    };
 
-export {
-    default as Date2
-} from "./Date2";
+
+/**
+ * 从一个日期获取该日期所在周是当月的第几周
+ * @param date {Date|string}
+ */
+export const getWeekThInMonth = (date: Date|string) => {
+    if(typeof date === "string"){
+        date = dayjs2(date).toDate();
+    }
+    const day = date.getDate();
+    const week = date.getDay();
+    const th = Math.ceil((day + 6 - week) / 7);
+    return th;
+}

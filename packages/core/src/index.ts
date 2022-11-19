@@ -43,14 +43,20 @@ export {
     safeParseNumber,
 } from "./number"
 
-
+// date
 export {
-    Date2,
     parse2date,
     all2date,
     getDayMountByMonth,
     getDayLengthInMonth,
+    getWeekThInMonth,
+    getWeekStartDateFromYYYYMMThInMonth,
 } from "./date"
+
+export {default as DateWeek} from "./date/DateWeek"
+export {default as Date2} from "./date/Date2"
+export {dayjs2} from "./date/dayjs-setup"
+//end date
 
 export {
     columnParseFactory as viewuiColumnFactory,

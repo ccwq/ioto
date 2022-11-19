@@ -1,7 +1,7 @@
 export { columnParseFactory } from "./view-design-utils";
 /**
- * 防抖请求的封装
+ * 急促的连续请求，只执行最后一次，然后
  * @param asyncFunction
  * @param delay
  */
-export declare const debouncePromiseFunc: (asyncFunction: (...any: any[]) => any, delay?: number) => (this: any, ...args: any[]) => Promise<any>;
+export declare const debouncePromiseFunc: (asyncFunction: (...rest: any[]) => any, delay?: number) => (this: any, ...args: any[]) => Promise<any>;

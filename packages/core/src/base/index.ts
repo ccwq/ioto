@@ -3,7 +3,7 @@ import compact from "lodash/compact";
 import {tryGet} from "../object";
 import {IObject, stringNumber, treeData} from "../types";
 import {isPlainObject} from "../object";
-import {isNull} from "lodash";
+import isNull from "lodash/isNull";
 
 /**
  * 给对象上赋值,如果键已经存在,则在前面加上prefix

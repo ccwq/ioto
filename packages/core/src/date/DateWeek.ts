@@ -1,4 +1,5 @@
-import {getWeekRangeByDay} from "./index";
+import {getWeekRangeByDay, getWeekStartDateFromYYYYMMThInMonth, getWeekThInMonth} from "./index";
+import {dayjs2} from "./dayjs-setup";
 /**
  * 通过日期创建日期所在周的对象，包含周的关键信息
  * 比如周的第一天和最后一天，周在年中的次序，周在月中的次序
@@ -30,20 +31,18 @@ export default class DateWeek {
     }
 
     //从2021-11/5这种格式中解析出年份和周次
-    static fromYYYYMMThStr(string){
+    static fromYYYYMMThStr(string:string){
         const [yyyy, mm, th] = string.split(/[^\d]+/).filter(el=>el);
-        const start = getWeekStartDateFromYYYYMMThInMonth(yyyy, mm, th);
+        const start = getWeekStartDateFromYYYYMMThInMonth(parseInt(yyyy), parseInt(mm), parseInt(th));
         return new DateWeek(start);
     }
 
     public get YYYYMM(){
         return `${this.start.getFullYear()}-${this.start.getMonth()+1}`;
     }
-
     public get YYYY(){
         return this.start.getFullYear();
     }
-
     constructor(date:Date|string) {
         const {start, end, thInYear} = getWeekRangeByDay(date);
         this._start = start;
