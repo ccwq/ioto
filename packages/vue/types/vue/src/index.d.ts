@@ -13,4 +13,6 @@ export { default as SizeMonitor } from './components/SizeMonitor.vue';
 export { default as VBox } from './components/VBox.vue';
 export { default as F9Layout } from './components/F9Layout.vue';
 export { EChart, initEchart, } from './components/e-chart';
+export { default as usePageRequest } from './hooks/usePageRequest';
+export { default as useStepHelper } from './hooks/useStepHelper';
 export { plugins, XButton, useMouse, };

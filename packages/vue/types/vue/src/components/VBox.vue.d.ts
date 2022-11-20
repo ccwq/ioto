@@ -75,7 +75,7 @@ declare const _sfc_main: import("vue").DefineComponent<{
         };
         _w: number;
         _h: number;
-        $$el: import("vue").Ref<HTMLElement | undefined>;
+        $$index: import("vue").Ref<HTMLElement | undefined>;
         _resizeObject: any;
         resizeHandler: Function;
     }, unknown, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, ("update:modelValue" | "ready")[], "update:modelValue" | "ready", import("vue").VNodeProps & import("vue").AllowedComponentProps & import("vue").ComponentCustomProps, Readonly<import("vue").ExtractPropTypes<{
