@@ -51,8 +51,6 @@ export const treeEach = function(treedata:treeData, childrenField:string, stepCa
         return treedata;
     }
 }
-
-
 interface elFormatter {
     (
         el: any,
@@ -320,3 +318,7 @@ function getInternetExplorerVersion () {
 
 
 export const isIE = getInternetExplorerVersion() !== -1;
+export type {
+    All2ValueNameOption,
+    elFormatter,
+}

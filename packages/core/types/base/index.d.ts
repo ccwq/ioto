@@ -62,4 +62,4 @@ export declare const safeValueInList: (value: any, options: any[], defaultIndexI
  */
 export declare function getImageSize(image: string | Blob): Promise<unknown>;
 export declare const isIE: boolean;
-export {};
+export type { All2ValueNameOption, elFormatter, };

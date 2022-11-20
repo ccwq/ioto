@@ -5,6 +5,7 @@ export {
     all2valueName,
     safeValueInList,
     getImageSize,
+    isIE,
 } from "./base"
 
 export {
@@ -61,3 +62,8 @@ export {dayjs2} from "./date/dayjs-setup"
 export {
     columnParseFactory as viewuiColumnFactory,
 } from "./etc"
+
+// export type {
+//     All2ValueNameOption,
+//     elFormatter,
+// } from "./base/index";
