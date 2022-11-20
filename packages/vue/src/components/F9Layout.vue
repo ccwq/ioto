@@ -77,7 +77,7 @@ const rightWidth = computed(()=>{
 const sizes = computed<{
     [key:`${"col"|"row"}_${"h"|"w"}_${number}`]:number
 }>(()=>{
-    return Array(3).fill(1).reduce((ret, index, index)=>{
+    return Array(3).fill(1).reduce((ret, el, index)=>{
         ret[`col_w_${index + 1}`] = get(sizeLs.value, index + ".width", 0)
         ret[`row_h_${index + 1}`] = props.type == "9"?
             get(sizeLs.value, index * 3 + ".height", 0):
@@ -122,7 +122,7 @@ const urlLs = computed(()=>{
     if (props.urlList.length) {
         return props.urlList;
     }else{
-        return Array(props.type=="9"?9:3).fill(1).map((index, index)=>{
+        return Array(props.type=="9"?9:3).fill(1).map((el, index)=>{
             let partten:string;
             if (typeof props.urlPatten == "string") {
                 partten = props.urlPatten.replace(/\[index\]/g, index + props.startNum + "");
