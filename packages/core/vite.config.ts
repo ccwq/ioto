@@ -13,6 +13,7 @@ export default defineConfig({
     plugins: [
         dts({
             outputDir: resolve(__dirname, 'types'),
+            entryRoot: resolve(__dirname, 'src'),
         })
     ],
     build: {
