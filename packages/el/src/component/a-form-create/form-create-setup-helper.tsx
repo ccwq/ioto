@@ -26,7 +26,7 @@ export const textNodeComponent = defineComponent({
     }
 })
 
-export const textRule = ( title:string, value?:any, options?)=>{
+export const textRule = ( title:string, value?:any, options?:any)=>{
     if (!options) {
         options = {}
     }

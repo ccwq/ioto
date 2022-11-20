@@ -1,7 +1,7 @@
 // 导入表单创造
-import {App, nextTick, onBeforeUnmount, reactive, ref, shallowRef, isReactive, markRaw, defineComponent} from "vue"
-import formCreate,{maker} from '@form-create/element-ui'
-import type {ComputedRef} from 'vue'
+import { App, nextTick, onBeforeUnmount, reactive, ref, shallowRef, isReactive, markRaw, defineComponent } from "vue"
+import formCreate, { maker } from '@form-create/element-ui'
+import type { ComputedRef } from 'vue'
 import set from "lodash/set"
 import type {
     Options as FormOption,
@@ -9,9 +9,14 @@ import type {
     Api,
 } from "@form-create/element-ui";
 
-import type {ApiAttrs, CreatorAttrs, OptionAttrs} from "@form-create/element-ui/types/config";
 
-const dateOffset = (value:number, unit:"day"|"month"|"year"="day")=>{
+type FC = Api
+type FCRule = Rule
+type FCOptions = FormOption
+
+import type { ApiAttrs, CreatorAttrs, OptionAttrs } from "@form-create/element-ui/types/config";
+
+const dateOffset = (value: number, unit: "day" | "month" | "year" = "day") => {
     const date = new Date();
     switch (unit) {
         case "day":
@@ -27,17 +32,17 @@ const dateOffset = (value:number, unit:"day"|"month"|"year"="day")=>{
     return date;
 }
 
-const useFormCreate = (app:App)=>{
+const useFormCreate = (app: App) => {
     app.use(formCreate)
 }
 
 // 默认配置
-const defaultFormOptions:FormOption = {
+const defaultFormOptions: FormOption = {
 
 }
 
 // 合并默认配置
-const getFormOption = (option:FormOption)=>{
+const getFormOption = (option: FormOption) => {
     return {
         ...defaultFormOptions,
         ...option
@@ -54,14 +59,14 @@ type VNodeRule = Rule["suffix"];
 
 // 自定义option http://www.form-create.com/v3/guide/effect.html
 formCreate.register({
-    name:"customOption",
-    init({value}, rule, fapi) {
+    name: "customOption",
+    init({ value }, rule, fapi) {
 
     }
 })
 
-import {BPromise} from "../../../../core";
-import {rowTextComponent, textNodeComponent} from "./form-create-setup-helper";
+import { BPromise } from "@ioto/core";
+import { rowTextComponent, textNodeComponent } from "./form-create-setup-helper";
 
 interface FormOption2 extends Omit<OptionAttrs, "submitBtn" | "resetBtn"> {
     labelWidth?: string
@@ -78,27 +83,27 @@ interface FormOption2 extends Omit<OptionAttrs, "submitBtn" | "resetBtn"> {
         [key: string]: any
     } | boolean,
     onReady?: (api: FC) => void
-    onSubmit?: (formData:any, api: FC, ...rest:any[]) => void
-    onReset?: (api: FC, ...rest:any[]) => void
+    onSubmit?: (formData: any, api: FC, ...rest: any[]) => void
+    onReset?: (api: FC, ...rest: any[]) => void
 
-    global?:{
-        [key:string]:any
+    global?: {
+        [key: string]: any
     }
-    beforeSubmit?: (formData:any, api: FC, ...rest:any[]) => void
+    beforeSubmit?: (formData: any, api: FC, ...rest: any[]) => void
 }
 
 
-const useFC = (option?: FormOption2)=>{
+const useFC = (option?: FormOption2) => {
     const fcPromise = new BPromise<FC>()
     const fcRef = ref<FC>()
-    const labelWidthRef = ref<string|number>()
+    const labelWidthRef = ref<string | number>()
     const formDataRef = ref<any>();
     const disabledRef = ref<boolean>(false)
     const fcOptionRef = ref<OptionAttrs>({})
 
     //表单数据合并
-    const getFormOption = ()=>{
-        let _option = {...option};
+    const getFormOption = () => {
+        let _option = { ...option };
         if (!_option) {
             _option = {}
         }
@@ -112,7 +117,7 @@ const useFC = (option?: FormOption2)=>{
     fcOptionRef.value = getFormOption()
 
     // 用来获取fc引用
-    const handlerFcReady = (api:FC)=>{
+    const handlerFcReady = (api: FC) => {
         fcPromise._resolve(api)
         fcRef.value = api
         option?.onReady?.(api)
@@ -131,7 +136,7 @@ const useFC = (option?: FormOption2)=>{
     }
 
     // 设置表单禁用和可用状态
-    const disabledForm = async (disabled:boolean=true)=>{
+    const disabledForm = async (disabled: boolean = true) => {
         const fc = await fcPromise
         disabledRef.value = disabled
         set(fcOptionRef.value, "form.disabled", disabled)
@@ -140,13 +145,13 @@ const useFC = (option?: FormOption2)=>{
     }
 
     // 设置label宽度
-    const setLabelWidth = async (labelWidth:string)=>{
+    const setLabelWidth = async (labelWidth: string) => {
         const fc = await fcPromise;
         labelWidthRef.value = labelWidth
         set(fcOptionRef.value, "form.labelWidth", labelWidth)
-        fc.fields().forEach(fieldString=>{
+        fc.fields().forEach(fieldString => {
             fc.updateRule(fieldString, {
-                wrap:{
+                wrap: {
                     labelWidth,
                 }
             })
@@ -154,7 +159,7 @@ const useFC = (option?: FormOption2)=>{
     }
 
     // 设置表单值
-    const setFormData = async (formData:any)=>{
+    const setFormData = async (formData: any) => {
         const fc = await fcPromise;
         // formDataRef.value = formData
         fc.setValue(formData)
@@ -162,31 +167,31 @@ const useFC = (option?: FormOption2)=>{
 
     // 直接绑定到AFromCreate上的属性
     const aFormVBind = reactive({
-        onReady:handlerFcReady,
-        disabled:disabledRef,
+        onReady: handlerFcReady,
+        disabled: disabledRef,
         option: fcOptionRef,
         // "onSubmit":option?.onSubmit,
-        onSubmit:option?.onSubmit,
-        beforeSubmit:option?.beforeSubmit,
-        "onReset":option?.onReset,
+        onSubmit: option?.onSubmit,
+        beforeSubmit: option?.beforeSubmit,
+        "onReset": option?.onReset,
     })
 
 
-    const updateRule = async (field:string, rule:Rule)=>{
+    const updateRule = async (field: string, rule: Rule) => {
         const fc = await fcPromise;
         fc.updateRule(field, rule)
     }
-    const mergeRule = async (field:string, rule:Rule)=>{
+    const mergeRule = async (field: string, rule: Rule) => {
         const fc = await fcPromise;
         fc.mergeRule(field, rule)
     }
 
-    const updateRules = async (rules:Rule[])=>{
+    const updateRules = async (rules: Rule[]) => {
         const fc = await fcPromise;
         fc.updateRules(rules)
     }
 
-    const mergeRules = async (rules:Rule[])=>{
+    const mergeRules = async (rules: Record<string, Rule>) => {
         const fc = await fcPromise;
         fc.mergeRules(rules)
     }
@@ -230,26 +235,27 @@ namespace aMaker {
     type Size = keyof typeof WidthSizeDefine | `${number}${"em" | "px"}`;
 
 
-    interface ExRule extends Rule{
-        size?:Size
-        required?:boolean
-        colSpan?:number
+    interface ExRule extends Rule {
+        size?: Size
+        required?: boolean
+        colSpan?: number
 
         //number单位
-        unit?:string
+        unit?: string
 
         //date
-        offsetDate?:[number, ("day"|"month"|"year"|undefined)?]
+        offsetDate?: [number, ("day" | "month" | "year" | undefined)?]
 
         //switch
-        values?:[any, any]
-        labels?:[string, string]
+        values?: [any, any]
+        labels?: [string, string]
     }
 
 
-    const calcExField = (option:ExRule, type:string="")=>{
+
+    const calcExField = (option: ExRule, type: string = "") => {
         if (option?.size) {
-            const width = WidthSizeDefine[option.size || "medium"] || option.size;
+            const width = WidthSizeDefine[option.size as keyof typeof WidthSizeDefine] || option.size;
             set(option, "style.width", width)
             delete option.size
         }
@@ -283,9 +289,9 @@ namespace aMaker {
     }
 
     // 日期选择
-    export const number = (field:string, title:string, value=0, option = {} as ExRule)=>{
+    export const number = (field: string, title: string, value = 0, option = {} as ExRule) => {
         calcExField(option)
-        if(option?.unit){
+        if (option?.unit) {
             set(option, "suffix", option.unit)
             set(option, "style.marginRight", "0.25em")
         }
@@ -301,9 +307,9 @@ namespace aMaker {
 
 
     // 日期选择
-    export const date = (field:string, title:string, option = {} as ExRule)=>{
+    export const date = (field: string, title: string, option = {} as ExRule) => {
         calcExField(option)
-        if(option?.offsetDate){
+        if (option?.offsetDate) {
             // option.value = dayjs2().add(...option.offsetDate).format("YYYY-MM-DD")
             // option.value = dayjs2().add(...option.offsetDate).format("YYYY-MM-DD")
 
@@ -318,7 +324,7 @@ namespace aMaker {
         }
     }
 
-    export const input = (field:string, title:string, option = {} as ExRule)=>{
+    export const input = (field: string, title: string, option = {} as ExRule) => {
         calcExField(option)
         return {
             type: "input",
@@ -328,7 +334,7 @@ namespace aMaker {
         }
     }
 
-    export const textarea = (field:string, title:string, option = {} as ExRule)=>{
+    export const textarea = (field: string, title: string, option = {} as ExRule) => {
         set(option, "porps.type", "textarea")
         return input(field, title, option);
     }
@@ -342,9 +348,9 @@ namespace aMaker {
      * @param props
      * @param option
      */
-    export const component = (component:any, field:string, title:string, props:any, option = {} as ExRule)=>{
+    export const component = (component: any, field: string, title: string, props: any, option = {} as ExRule) => {
         calcExField(option)
-        if(props && !option?.props){
+        if (props && !option?.props) {
             set(option, "props", props)
         }
         component = markRaw(component)
@@ -352,20 +358,20 @@ namespace aMaker {
             component,
             field,
             title,
-            native:false,
+            native: false,
             ...option
         }
     }
 
     //rawText
-    export const rawText = (field:string, title:string, option = {} as ExRule)=>{
+    export const rawText = (field: string, title: string, option = {} as ExRule) => {
         calcExField(option)
         let component = markRaw(rowTextComponent) as any;
         return {
             component,
             field,
             title,
-            native:false,
+            native: false,
             ...option
         }
     }
@@ -373,7 +379,7 @@ namespace aMaker {
 
 
     // checkbox
-    export const checkbox = (field:string, title:string, list:OptionsList[], option = {} as ExRule)=>{
+    export const checkbox = (field: string, title: string, list: OptionsList[], option = {} as ExRule) => {
         calcExField(option)
         const options = list.map(([value, label, disabled]) => {
             return {
@@ -386,18 +392,18 @@ namespace aMaker {
             type: "checkbox",
             field,
             title,
-            options:options,
+            options: options,
             ...option
         }
     }
 
     // radio
-    export const radio = (field:string, title:string, list:OptionsList[], option = {} as ExRule)=>{
-        return checkbox(field, title, list, {type:"radio", ...option})
+    export const radio = (field: string, title: string, list: OptionsList[], option = {} as ExRule) => {
+        return checkbox(field, title, list, { type: "radio", ...option })
     }
 
     // switch
-    export const aSwitch = (field:string, title:string, option = {} as ExRule)=>{
+    export const aSwitch = (field: string, title: string, option = {} as ExRule) => {
         calcExField(option, "switch")
         return {
             type: "switch",
@@ -411,7 +417,7 @@ namespace aMaker {
 
 
     //hidden
-    export const hidden = (field:string, value?:any, option = {} as ExRule)=>{
+    export const hidden = (field: string, value?: any, option = {} as ExRule) => {
         calcExField(option)
         return {
             type: "hidden",
@@ -426,7 +432,7 @@ namespace aMaker {
     formCreate.component("text-node", componentText);
 
     // 在suffix和prefix中用来增加一段文字描述
-    export const textNode = (text:string, classList:string|string[]=[], option = {} as ExRule)=>{
+    export const textNode = (text: string, classList: string | string[] = [], option = {} as ExRule) => {
         calcExField(option)
         set(option, "props.text", text);
         set(option, "props.classList", classList);
@@ -448,12 +454,13 @@ export {
 }
 
 
-export {default as AFormCreate} from "./AFormCreate.vue"
+export { default as AFormCreate } from "./AFormCreate.vue"
 export type {
     ApiAttrs,
     CreatorAttrs,
     OptionAttrs,
     Rule,
+    FC,
     Api as FormApi,
     FormOption2,
 }

@@ -1,47 +1,58 @@
 {
-  "name": "@ioto/el",
-  "version": "0.0.15",
-  "description": "awesome about element-plus",
-  "author": "ccwq <scwqd@qq.com>",
-  "homepage": "https://github.com/ccwq/ioto#readme",
-  "license": "ISC",
-  "main": "src/index.ts",
-  "directories": {
-    "lib": "src",
-    "test": "__tests__"
-  },
-  "files": [
-    "dist",
-    "types",
-    "package.json",
-    "README.md",
-    "LICENSE"
-  ],
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/ccwq/ioto.git"
-  },
-  "peerDependencies": {
-    "@form-create/element-ui": "^3.1.15",
-    "element-plus": "^2.2.19",
-    "vue": "^3.2.0"
-  },
-  "devDependencies": {
-    "@types/node": "^18.8.4",
-    "@vitejs/plugin-vue": "^3.1.0",
-    "less": "^4.1.3",
-    "pug": "^3.0.2",
-    "typescript": "^4.6.4",
-    "vite": "^3.1.0",
-    "vite-plugin-dts": "^1.6.5",
-    "vue-tsc": "^0.40.4"
-  },
-  "scripts": {
-    "dev": "vite",
-    "build": "vite build",
-    "preview": "vite preview"
-  },
-  "bugs": {
-    "url": "https://github.com/ccwq/ioto/issues"
-  }
+    "name": "@ioto/el",
+    "version": "0.0.15",
+    "description": "awesome about element-plus",
+    "author": "ccwq <scwqd@qq.com>",
+    "homepage": "https://github.com/ccwq/ioto#readme",
+    "license": "ISC",
+    "main": "dist/index",
+    "types": "types/index.d.ts",
+    "directories": {
+        "lib": "src",
+        "test": "__tests__"
+    },
+    "files": [
+        "dist",
+        "types",
+        "package.json",
+        "README.md",
+        "LICENSE"
+    ],
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/ccwq/ioto.git"
+    },
+    "peerDependencies": {
+        "@form-create/element-ui": "^3.1.15",
+        "element-plus": "^2.0.0",
+        "vue": "^3.1.0"
+    },
+    "devDependencies": {
+        "@form-create/element-ui": "^3.1.15",
+        "@ioto/core": "link:..\\core",
+        "@types/lodash": "^4.14.189",
+        "@types/node": "^18.8.4",
+        "@vitejs/plugin-vue": "^3.1.0",
+        "element-plus": "^2.0.0",
+        "less": "^4.1.3",
+        "pug": "^3.0.2",
+        "typescript": "^4.6.4",
+        "vite": "^3.1.0",
+        "vite-plugin-dts": "^1.6.5",
+        "vue": "^3.1.0",
+        "vue-tsc": "^0.40.4"
+    },
+    "scripts": {
+        "dev": "vite",
+        "build": "vite build",
+        "preview": "vite preview"
+    },
+    "bugs": {
+        "url": "https://github.com/ccwq/ioto/issues"
+    },
+    "dependencies": {
+        "@sipec/vue3-tags-input": "^3.0.4",
+        "element-plus": "^2.2.22",
+        "lodash": "^4.17.21"
+    }
 }

@@ -1,5 +1,5 @@
 <template lang="pug">
-.ADateRange(ref="$index")
+.ADateRange
     span(v-if="label").pr10 {{label}}
 
     //- 日期范围
@@ -43,9 +43,11 @@
 </template>
 <script lang="ts" setup>
 import {computed, nextTick, onMounted, reactive, type Ref, ref, toRef, watch, watchEffect} from "vue";
-import {dayjs2} from "/@/utils/dayjs-settup";
-import {APopover, AButton} from "/@/components/common";
-type IDate = `${string}-${string}-${string}` | Date | number | null;
+import {dayjs2} from "@ioto/core";
+// import {APopover, AButton} from "../";
+import APopover from  "./APopover.vue";
+import AButton from  "./AButton.vue";
+type IDate = `${number}-${number}-${number}` | Date | number | null;
 
 const nowDate = new Date();
 const aWeekAgo = new Date(nowDate.getTime() - 7 * 24 * 60 * 60 * 1000);
@@ -55,7 +57,7 @@ const props = withDefaults(defineProps<{
     modelValue: [IDate, IDate] | null
 
     // 不设置表示时间戳,设置了表示字符串
-    outputFormat?: null|""|"YYYY-MM-DD"|"Y-M-D"|"Y-M"|"Y"|string
+    outputFormat?: null|string
 
     defaultMode?: "date" | "week" | "month" | "year"
 
@@ -63,7 +65,9 @@ const props = withDefaults(defineProps<{
 
     defaultValue?: [IDate, IDate] | null
 }>(),{
-    size:"",
+    size: "",
+
+    //"YYYY-MM-DD"|"Y-M-D"|"Y-M"|"Y"
     outputFormat:"",
     defaultMode:"date"
 })
@@ -80,12 +84,6 @@ const popover =reactive({
 
 const singleViewDatePickerRef = ref(null)
 
-const $index = ref<HTMLDivElement>()
-let popoverIds: string[] = [];
-onMounted(()=>{
-    const inputDoms = $index.value?.querySelectorAll(".index-input__inner[aria-controls]")||[]
-    popoverIds = [...inputDoms].map(dom => dom.getAttribute("aria-controls")) as string[];
-})
 
 // 日期范围选择框的形式，自定义，还是整周，整月，整季度，整年
 const mode = ref(props.defaultMode) as Ref<"date"|"week"|"month"|"year">
@@ -130,22 +128,6 @@ const handlerQuicklySetting = (type:string, value:number=1)=>{
     emitValue()
 }
 
-// 判断是否是在日期视图
-// 如果是月视图或者年视图，不要触发更改
-const isDateViewMode = async (type: "start" | "end" = "start") => {
-    let selector
-    if (type == "start") {
-        selector = popoverIds[0]
-    } else if (type == "end") {
-        selector = popoverIds[1]
-    }
-    if (!selector) {
-        console.warn("isDateViewMode selector not found");
-        return
-    }
-    const dateViewTable = document.getElementById(selector)?.querySelector("table.index-date-table")
-    return !!dateViewTable
-}
 
 
 const lastValues = [] as Date[];
@@ -241,7 +223,7 @@ const commonVbind = computed(()=>{
         clearable:false,
         size:props.size,
         type:mode.value,
-        "onVisible-change"(visible){
+        "onVisible-change"(visible:boolean){
             nextTick(()=>{
                 if (!visible) {
                     debugger

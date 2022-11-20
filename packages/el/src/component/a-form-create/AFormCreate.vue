@@ -13,10 +13,8 @@
 import {computed, nextTick, provide, ref, type Ref, toRefs, useAttrs, watchEffect} from "vue";
 import set from "lodash/set";
 import get from "lodash/get";
-import AButton from "/@/components/common/AButton.vue";
-import {aFormCreateKey, aMaker} from "/@/utils/form-create-setup";
-import type {OptionAttrs} from "@form-create/element-ui/types/config";
-import type {Rule} from "src/utils/form-create-setup";
+import AButton from "../AButton.vue";
+import type {Rule, OptionAttrs, FC} from "../a-form-create";
 
 const props = withDefaults(defineProps<{
     disabled?: boolean;
@@ -74,9 +72,6 @@ const emits = defineEmits<{
 
 const attrs = useAttrs()
 
-provide(aFormCreateKey, {
-    disabled: computed(()=>props.disabled),
-});
 
 
 // 在提交之前，此项会变更,
@@ -128,11 +123,12 @@ const disabled = computed(()=>{
 })
 
 
-let fc:FC = null;
+let fc:FC|null = null;
 
 const handlerSubmit = async (...addiRest:any[]) => {
     let beforeSubmitReturn
     beforeButmitSeed.value++;
+    if (!fc) return console.warn("fc is null");
 
     // 提交之前等待,给需要提交数据的子组件提交数留出时间
     await nextTick();
@@ -166,6 +162,7 @@ const handlerSubmit = async (...addiRest:any[]) => {
 }
 
 const handlerReset = (...addiRest:any[])=>{
+    if (!fc) return console.warn("fc is null");
     fc.resetFields()
     emits("reset", fc, ...addiRest);
 }
@@ -185,12 +182,12 @@ const vBind = computed(() => {
         ...attrs,
         rule,
         modelValue,
-        "onUpdate:modelValue"(value){
+        "onUpdate:modelValue"(value:Record<string, any>){
             emits("update:modelValue", value)
             mergedValue = {...mergedValue, ...value}
             emits("update:mergedValue", mergedValue)
         },
-        "onUpdate:api"(api){
+        "onUpdate:api"(api:FC){
             fc = api;
             emits("update:api", api);
             emits("ready", api);

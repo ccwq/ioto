@@ -1,32 +1,7 @@
 import {defineComponent, ref, watch} from "vue";
-import {ASelect} from "/@/components/common";
-import {depListAll} from "/@/api/apiDepartment";
+import {ASelect} from "./"
 import type {PropType} from "vue"
-import {
-    deListForSelector,
-    listForSelector,
-    projectDeListForSelector,
-    projectListForSelector,
-    cProjectList,
-    deGetOneProject, getOneProject, deListProjectAllIgnorePermission
-} from "/@/api/apiProject";
 import get from "lodash/get";
-import {deListProjectManager} from "/@/api/apiUser";
-import {deGetWXList} from "/@/api/wxkxx";
-
-// 固定的部门选择器
-export const DepartmentSelect = defineComponent({
-    components:{
-        ASelect,
-    },
-    setup(props, ctx){
-        ctx.attrs
-        return () => <ASelect
-            {...ctx.attrs}
-            options={depListAll().then(res=>res?.data)}
-        />
-    }
-})
 
 // 从api网络请求方法中获取数据
 export const SelectFromRequest = defineComponent({
@@ -75,7 +50,7 @@ export const SelectFromRequest = defineComponent({
  * @param labelField
  * @param valueField
  */
-const generateSelect = (api:(params?:any)=>Promise<any>, listPath:string="data.list", labelField="name", valueField="id")=>{
+export const generateSelect = (api:(params?:any)=>Promise<any>, listPath:string="data.list", labelField="name", valueField="id")=>{
     return defineComponent({
         components: {
             SelectFromRequest,
@@ -93,24 +68,6 @@ const generateSelect = (api:(params?:any)=>Promise<any>, listPath:string="data.l
     })
 }
 // 合同创建 项目选择器
-export const CProjectSelect = generateSelect(cProjectList, "data", "name", "id")
-
-// 项目选择器
-export const ProjectSelect = generateSelect(projectDeListForSelector, "data.[0].children")
-
-// 所有项目,对所有用户一致，无视权限区别
-export const ProjectSelectAll = generateSelect(deListProjectAllIgnorePermission, "data")
-
-// 人员选择器
-export const PMSelect = generateSelect(deListProjectManager, "data", "nickName", "id")
-
-// 外协单位选择器
-export const WXSelect = generateSelect(deGetWXList, "data", "dwmc", "dwmcId")
-
-// 根据单位名称的外协选择器
-export const WXSelectByProject = generateSelect(deGetOneProject, "data.outSourcings", "dwmc")
-
-
-
+//export const CProjectSelect = generateSelect(cProjectList, "data", "name", "id")
 
 

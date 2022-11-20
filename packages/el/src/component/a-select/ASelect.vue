@@ -47,7 +47,7 @@ const props = withDefaults(defineProps<{
 })
 
 const emits = defineEmits<{
-    (e:"update:modelValue", string):void
+    (e:"update:modelValue", value:string|number):void
     (e:"data-ready", hitItem:any, options?:any[]):void
 }>()
 
@@ -73,7 +73,7 @@ watch(() => props.options, async (propOptions) => {
         nameSetField: "label"
     });
 
-    let hitItem = optionsValue.find(index => index.value == props.modelValue);
+    let hitItem = optionsValue.find((index:any) => index.value == props.modelValue);
     emits("data-ready", hitItem, optionsValue)
 
     options.value = optionsValue
@@ -81,7 +81,7 @@ watch(() => props.options, async (propOptions) => {
 
 // 控件只支持字符串
 const optDicByValue = computed(()=>{
-    let dic = {}
+    let dic = {} as Record<string, any>
     options.value.forEach(item=>{
         dic[item.value + ""] = item;
     })
@@ -117,7 +117,7 @@ const vBind = computed(()=>{
         placeholder:props.placeholder,
         ...attrs,
         modelValue:props.modelValue + "",
-        "onUpdate:modelValue"(v){
+        "onUpdate:modelValue"(v:string|number){
             const item = optDicByValue.value[v]
             if (item) {
                 emits("update:modelValue", item.value)

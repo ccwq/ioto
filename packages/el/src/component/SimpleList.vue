@@ -19,11 +19,7 @@ const props = withDefaults(defineProps<{
     mode: "list",
     split: ",",
 });
-
-
-
 const emits = defineEmits<{}>()
-
 const list = computed(()=>{
     if (!props.modelValue) {
         return [];

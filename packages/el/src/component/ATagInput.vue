@@ -7,7 +7,6 @@ import {computed, inject, provide, toRefs, useAttrs, watchEffect} from "vue";
 //@ts-ignore
 import VueTagsInput from "@sipec/vue3-tags-input";
 import {AButton} from "../index";
-import {aFormCreateKey} from "/@/utils/form-create-setup";
 const attrs = useAttrs()
 
 // const props = withDefaults(defineProps<{}>(), {})
@@ -24,7 +23,7 @@ const props = withDefaults(defineProps<{
 })
 
 const emits = defineEmits<{
-    (e:"update:modelValue", string):void
+    (e:"update:modelValue", value:string):void
 }>()
 
 
@@ -44,8 +43,7 @@ const value = computed(() => {
     return list
     // props.modelValue ? props.modelValue?.split(",").map(text => ({text})) : [];
 });
-const aFromCreateInject = inject(aFormCreateKey)
-const disabled = computed(() => props.disabled || aFromCreateInject?.disabled.value);
+const disabled = computed(() => props.disabled );
 
 const vBind = computed(()=>{
     return {
@@ -55,9 +53,9 @@ const vBind = computed(()=>{
         modelValue:"",
         placeholder:props.placeholder,
         disabled:disabled.value,
-        "onUpdate:modelValue"(v){},
-        "onTags-changed"(v){
-            const value = v.map(item=>item.text).join(props.spliters[0])
+        //"onUpdate:modelValue"(v){},
+        "onTags-changed"(v:any[]){
+            const value = v.map(item=>item.text).join(props.spliters[0]+"")
             emits("update:modelValue", value)
         }
     }

@@ -8,9 +8,9 @@ ElButton.a-button(type="primary" v-bind="vBind" :class="{lite}")
     template(#tip): slot(name="tip")
 </template>
 <script lang="ts">
-import {computed, toRefs, useSlots} from "vue";
+import {computed, defineComponent, toRefs, useSlots} from "vue";
 
-export default {
+export default defineComponent({
     props:{
         label:{
             type:String,
@@ -40,7 +40,7 @@ export default {
 
         const slots = useSlots();
         const iconPrevClasses = computed(() => {
-            const ret = {};
+            const ret = {} as Record<string, any>;
             if (slots.default) {
                 ret["mr025"] = true;
             }
@@ -48,7 +48,7 @@ export default {
         });
 
         const iconSuffixClasses = computed(() => {
-            const ret = {};
+            const ret = {} as Record<string, any>;
             if (slots.default) {
                 ret["ml025"] = true;
             }
@@ -61,7 +61,7 @@ export default {
             vBind,
         }
     }
-}
+})
 </script>
 
 <style lang="less">

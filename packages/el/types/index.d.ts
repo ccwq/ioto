@@ -8,4 +8,4 @@ export { default as ADrawer } from './component/ADrawer.vue';
 export { default as APopover } from './component/APopover.vue';
 export { default as ADateRange } from './component/ADateRange.vue';
 export { ASelect, generateSelect, SelectFromRequest } from "./component/a-select";
-export {globalConfirm} from "./functions"
+export { globalConfirm } from "./functions";

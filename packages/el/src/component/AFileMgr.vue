@@ -14,8 +14,8 @@
     //- 上传控件
     index-upload(
         v-if="!readonly"
-        :headers="headers"
-        :action="actions.file"
+        :headers="props.headers"
+        :action="props.action"
         :limit="10"
         :on-exceed="handleExceed"
         v-bind="uploaderVBind"
@@ -43,10 +43,9 @@
 import {computed, reactive, ref, watch} from 'vue'
 import { ElMessage, ElMessageBox } from 'element-plus'
 import {type UploadUserFile, type UploadProps, type UploadRawFile} from "element-plus"
-import {baseURL} from "/@/utils/request";
-import {Session} from "/@/utils/storage";
-import {globalConfirm} from "/@/utils/element-setup";
-import {AButton} from "/@/components/common/index";
+
+import {globalConfirm} from "../functions"
+import AButton from "./AButton.vue";
 import {safeJsonParser} from "@ioto/core";
 
 type FileType = "image"|"file"|"all"
@@ -65,6 +64,11 @@ interface IAttachment {
 const props = withDefaults(defineProps<{
     label?:string
 
+    // 请求地址
+    action: string
+
+    // 请求头
+    headers:Record<string, any>
     // singleFile为true,为单个文件,false为文件列表
     modelValue: IAttachment[] | IAttachment | null
     readonly ?:boolean
@@ -106,7 +110,7 @@ const emits = defineEmits<{
     (e: 'update:modelValue', value: IAttachment[]|IAttachment|null): void;
 }>();
 
-const getAccept = (fileType:FileType|FileType[])=>{
+const getAccept:(fileType:FileType|FileType[])=>string = (fileType)=>{
     if(fileType === "all") return "*"
     if(fileType === "image") return "image/*"
     if(fileType === "file") return ".doc,.docx,.xls,.xlsx,.ppt,.pptx,.pdf,.txt,.zip,.rar,.7z"
@@ -117,18 +121,6 @@ const getAccept = (fileType:FileType|FileType[])=>{
 }
 const fileAccept = computed(()=>getAccept(props.fileType))
 const PreviewableFileType = ["pdf", "png", "jpg", "jpeg", "gif"];
-const headers = {
-    ['Authorization']: `${Session.get('token')}`
-};
-
-// 接口地址
-const actions = {
-    "image": baseURL + "/file/image/upload",
-    "file": baseURL + "/file/upload",
-    "ossImage": baseURL + "/file/oss/image/policy",
-    "ossFile": baseURL + "/file/oss/file/policy",
-};
-
 const isLoading = ref(false);
 
 const uploaderVBind = reactive({
@@ -225,7 +217,6 @@ const isImage = (file: IAttachment) => {
 
 </script>
 <style scoped lang="less">
-@import "src/theme/mixin.less";
 .AFileMgr{
     .file-list{
         cursor: default;
