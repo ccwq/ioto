@@ -28,7 +28,10 @@ export default defineConfig({
             fileName: 'index'
         },
         rollupOptions: {
-            external: ['vue'],
+            external: [
+                "@ioto/core",
+                'vue'
+            ],
             output: {
                 globals: {
                     vue: 'Vue'
