@@ -11,4 +11,10 @@ const app = createApp(App)
 app.use(createPinia())
 app.use(router)
 
+// import element-plus
+import ElementPlus from 'element-plus'
+import 'element-plus/dist/index.css'
+app.use(ElementPlus)
+
+
 app.mount('#app')
