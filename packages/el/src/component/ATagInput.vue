@@ -5,8 +5,7 @@ VueTagsInput.aVueTagsInput( v-bind="vBind" :class="{aDisabled:disabled}")
 import {computed, inject, provide, toRefs, useAttrs, watchEffect} from "vue";
 
 //@ts-ignore
-import VueTagsInput from "@sipec/vue3-tags-input";
-import {AButton} from "../index";
+import VueTagsInput from "@sipec/vue3-tags-input/vue-tags-input/vue-tags-input.vue";
 const attrs = useAttrs()
 
 // const props = withDefaults(defineProps<{}>(), {})
