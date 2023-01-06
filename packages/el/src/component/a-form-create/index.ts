@@ -335,7 +335,7 @@ namespace aMaker {
     }
 
     export const textarea = (field: string, title: string, option = {} as ExRule) => {
-        set(option, "porps.type", "textarea")
+        set(option, "props.type", "textarea")
         return input(field, title, option);
     }
 

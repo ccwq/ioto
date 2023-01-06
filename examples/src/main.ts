@@ -8,6 +8,11 @@ import './assets/main.css'
 
 const app = createApp(App)
 
+// install elements-plus
+import ElementPlus from 'element-plus'
+import 'element-plus/lib/theme-chalk/index.css'
+app.use(ElementPlus)
+
 app.use(createPinia())
 app.use(router)
 
