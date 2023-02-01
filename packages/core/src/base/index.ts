@@ -221,9 +221,9 @@ export const all2valueName = function(options:all2valueNameInput, settings?:All2
  * json转换
  * @param jsonString
  */
-export const safeJsonParser = function (jsonString: string | IObject, backupValue: {} | null = null): any {
-    // 如果本来就是对象，直接返回原始对象
-    if (isPlainObject(jsonString)) {
+export const safeJsonParser = function (jsonString: string | IObject | any[], backupValue: {} | null = null): any {
+    // 如果本来就是对象或者数组，直接返回本身
+    if (isPlainObject(jsonString) || Array.isArray(jsonString)) {
         return jsonString;
     } else if (typeof jsonString != "string") {
         console.warn("safeJsonParser error", jsonString);
