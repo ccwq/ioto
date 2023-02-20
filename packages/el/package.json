@@ -58,5 +58,6 @@
         "@sipec/vue3-tags-input": "^3.0.4",
         "element-plus": "^2.2.22",
         "lodash": "^4.17.21"
-    }
+    },
+    "gitHead": "e32407b501d6b98f499014e1ee04baa9837854af"
 }
