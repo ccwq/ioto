@@ -28,7 +28,8 @@ export {
     tryGet,
     travelTree,
     makeTreeDataHelper,
-    isPlainObject
+    isPlainObject,
+    flatTreeListToList,
 } from "./object"
 
 export {

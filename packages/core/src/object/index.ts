@@ -43,6 +43,27 @@ export {
 } from "./treeDataHelper"
 
 
+/**
+ * 拍平树形数据
+ * @param list
+ * @param {string} childKey - 子节点的key
+ * @return {*[]}
+ */
+export const flatTreeListToList = (list:any[], childKey="children")=>{
+    const result = [];
+    const stack = [...list];
+    while (stack.length) {
+        const item = stack.shift();
+        result.push(item);
+        const childs = item[childKey];
+        if (childs?.length) {
+            stack.unshift(...childs);
+        }
+    }
+    return result;
+}
+
+
 export type {
     INode,
     INodeList,
