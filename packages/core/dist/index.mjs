@@ -192,7 +192,7 @@ function ye(t, e, r) {
     n === "pre" ? he(t, e, s) : n === "post" ? de(t, e, s) : n === "bfs" && ve(t, e, s);
   }
 }
-var j = typeof globalThis < "u" ? globalThis : typeof window < "u" ? window : typeof global < "u" ? global : typeof self < "u" ? self : {};
+var G = typeof globalThis < "u" ? globalThis : typeof window < "u" ? window : typeof global < "u" ? global : typeof self < "u" ? self : {};
 function $e(t) {
   for (var e = -1, r = t == null ? 0 : t.length, n = 0, s = []; ++e < r; ) {
     var o = t[e];
@@ -200,7 +200,7 @@ function $e(t) {
   }
   return s;
 }
-var _e = $e, Me = Array.isArray, _t = Me, De = typeof j == "object" && j && j.Object === Object && j, be = De, we = be, Se = typeof self == "object" && self && self.Object === Object && self, Ce = we || Se || Function("return this")(), Mt = Ce, xe = Mt, Ie = xe.Symbol, Dt = Ie, wt = Dt, Kt = Object.prototype, Fe = Kt.hasOwnProperty, Te = Kt.toString, tt = wt ? wt.toStringTag : void 0;
+var _e = $e, Me = Array.isArray, _t = Me, De = typeof G == "object" && G && G.Object === Object && G, be = De, we = be, Se = typeof self == "object" && self && self.Object === Object && self, Ce = we || Se || Function("return this")(), Mt = Ce, xe = Mt, Ie = xe.Symbol, Dt = Ie, wt = Dt, Kt = Object.prototype, Fe = Kt.hasOwnProperty, Te = Kt.toString, tt = wt ? wt.toStringTag : void 0;
 function Ee(t) {
   var e = Fe.call(t, tt), r = t[tt];
   try {
@@ -215,11 +215,11 @@ var Ye = Ee, Ae = Object.prototype, ke = Ae.toString;
 function Ne(t) {
   return ke.call(t);
 }
-var Oe = Ne, St = Dt, Le = Ye, He = Oe, Pe = "[object Null]", Ge = "[object Undefined]", Ct = St ? St.toStringTag : void 0;
-function je(t) {
-  return t == null ? t === void 0 ? Ge : Pe : Ct && Ct in Object(t) ? Le(t) : He(t);
+var Oe = Ne, St = Dt, Le = Ye, He = Oe, Pe = "[object Null]", je = "[object Undefined]", Ct = St ? St.toStringTag : void 0;
+function Ge(t) {
+  return t == null ? t === void 0 ? je : Pe : Ct && Ct in Object(t) ? Le(t) : He(t);
 }
-var Zt = je;
+var Zt = Ge;
 function Be(t) {
   return t != null && typeof t == "object";
 }
@@ -294,10 +294,10 @@ function Pr(t) {
   var e = this.has(t) && delete this.__data__[t];
   return this.size -= e ? 1 : 0, e;
 }
-var Gr = Pr, jr = lt, Br = "__lodash_hash_undefined__", Rr = Object.prototype, Ur = Rr.hasOwnProperty;
+var jr = Pr, Gr = lt, Br = "__lodash_hash_undefined__", Rr = Object.prototype, Ur = Rr.hasOwnProperty;
 function qr(t) {
   var e = this.__data__;
-  if (jr) {
+  if (Gr) {
     var r = e[t];
     return r === Br ? void 0 : r;
   }
@@ -313,7 +313,7 @@ function tn(t, e) {
   var r = this.__data__;
   return this.size += this.has(t) ? 0 : 1, r[t] = Xr && e === void 0 ? Qr : e, this;
 }
-var en = tn, rn = Hr, nn = Gr, sn = zr, an = Zr, on = en;
+var en = tn, rn = Hr, nn = jr, sn = zr, an = Zr, on = en;
 function W(t) {
   var e = -1, r = t == null ? 0 : t.length;
   for (this.clear(); ++e < r; ) {
@@ -377,14 +377,14 @@ J.prototype.get = Tn;
 J.prototype.has = En;
 J.prototype.set = Yn;
 var An = J, kn = Qt, Nn = Mt, On = kn(Nn, "Map"), Ln = On, Ft = un, Hn = An, Pn = Ln;
-function Gn() {
+function jn() {
   this.size = 0, this.__data__ = {
     hash: new Ft(),
     map: new (Pn || Hn)(),
     string: new Ft()
   };
 }
-var jn = Gn;
+var Gn = jn;
 function Bn(t) {
   var e = typeof t;
   return e == "string" || e == "number" || e == "symbol" || e == "boolean" ? t !== "__proto__" : t === null;
@@ -412,7 +412,7 @@ function rs(t, e) {
   var r = es(this, t), n = r.size;
   return r.set(t, e), this.size += r.size == n ? 0 : 1, this;
 }
-var ns = rs, ss = jn, is = Jn, as = Zn, os = ts, us = ns;
+var ns = rs, ss = Gn, is = Jn, as = Zn, os = ts, us = ns;
 function V(t) {
   var e = -1, r = t == null ? 0 : t.length;
   for (this.clear(); ++e < r; ) {
@@ -483,9 +483,9 @@ function Ps(t) {
   var e = t + "";
   return e == "0" && 1 / t == -Hs ? "-0" : e;
 }
-var Gs = Ps, js = Os, Bs = Gs;
+var js = Ps, Gs = Os, Bs = js;
 function Rs(t, e) {
-  e = js(e, t);
+  e = Gs(e, t);
   for (var r = 0, n = e.length; t != null && r < n; )
     t = t[Bs(e[r++])];
   return r && r == n ? t : void 0;
@@ -805,7 +805,13 @@ class pa extends Promise {
     this.__reject(r);
   }
 }
-const ut = class {
+const ga = (t, e, r) => new Promise((n, s) => {
+  const o = t[Symbol.iterator](), c = (h) => {
+    const { value: f, done: d } = o.next();
+    d ? n(h) : e(h, f, t).then(c);
+  };
+  c(r);
+}), ut = class {
   static get fastGbk() {
     if (!this._fastGbk)
       throw new Error("\u8BF7\u5148\u8C03\u7528setFaskGbk\u65B9\u6CD5\u8BBE\u7F6EfastGbk::$GBK.setFaskGbk(require('fast-gbk'))");
@@ -839,7 +845,7 @@ const ut = class {
 let B = ut;
 T(B, "_fastGbk");
 const Nt = /* @__PURE__ */ new Map();
-function ga(t) {
+function va(t) {
   if (t === 0)
     return "0";
   if (t === !1)
@@ -851,7 +857,7 @@ function ga(t) {
   let [e, ...r] = t;
   return e.toUpperCase() + r.join("");
 }
-function va(t, e) {
+function ma(t, e) {
   if (!t || !e)
     return "";
   var r = 0, n = 0, s = "";
@@ -869,27 +875,27 @@ const ti = () => {
 function ei(t) {
   return B.decode(t);
 }
-function ma(t) {
+function ya(t) {
   return B.decode(t);
 }
-function ya(t, e = "utf-8", r = 16) {
+function $a(t, e = "utf-8", r = 16) {
   return e.toLowerCase() == "gbk" && r == 16 ? ei(t) : new TextDecoder(e).decode(
     new Uint8Array(
       t.map((n) => Number.isFinite(n) ? n : parseInt(n, r))
     )
   );
 }
-function $a(t, e = "string") {
+function _a(t, e = "string") {
   return e == "string" ? B.encode(t) : B.encode(t).split("%").splice(1);
 }
-function _a(t) {
+function Ma(t) {
   for (var e = 0, r = 0; r < t.length; r++) {
     var n = t.charCodeAt(r);
     n >= 1 && n <= 126 || 65376 <= n && n <= 65439 ? e++ : e += 2;
   }
   return e;
 }
-const Ma = (t, e = "") => ne(t) || Array.isArray(t) ? JSON.stringify(t) : typeof t == "string" ? t : (console.warn("safeStringify error(\u6682\u4E0D\u652F\u6301\u7684\u6570\u636E\u7C7B\u578B)", t), e), ri = /\:\:([-\d\.]+)$/, G = class {
+const Da = (t, e = "") => ne(t) || Array.isArray(t) ? JSON.stringify(t) : typeof t == "string" ? t : (console.warn("safeStringify error(\u6682\u4E0D\u652F\u6301\u7684\u6570\u636E\u7C7B\u578B)", t), e), ri = /\:\:([-\d\.]+)$/, j = class {
   constructor(e, r, n = !1, s = null) {
     T(this, "_name");
     T(this, "_code");
@@ -933,7 +939,7 @@ const Ma = (t, e = "") => ne(t) || Array.isArray(t) ? JSON.stringify(t) : typeof
     let s = Ot[n];
     if (!s) {
       let o, c;
-      ri.test(e) ? (o = RegExp.$1, c = e.replace(`::${o}`, "")) : (o = 0, c = e), s = new G(c, o, r), Ot[n] = s;
+      ri.test(e) ? (o = RegExp.$1, c = e.replace(`::${o}`, "")) : (o = 0, c = e), s = new j(c, o, r), Ot[n] = s;
     }
     return s;
   }
@@ -941,14 +947,14 @@ const Ma = (t, e = "") => ne(t) || Array.isArray(t) ? JSON.stringify(t) : typeof
     return this.fromObject(e, r);
   }
   static getErrorCode(e) {
-    return e ? e.constructor == G ? e._code : this.fromObject(e)._code : 0;
+    return e ? e.constructor == j ? e._code : this.fromObject(e)._code : 0;
   }
 };
-let it = G;
+let it = j;
 T(it, "nameFieldList", ["error", "message", "msg", "errMsg", "reason", "errorText"]), T(it, "fromObject", (e, r = !1) => {
-  const n = G;
+  const n = j;
   if (!e)
-    return new G("\u672A\u77E5\u9519\u8BEF", -9999);
+    return new j("\u672A\u77E5\u9519\u8BEF", -9999);
   let s;
   if (e instanceof Error)
     return n.fromErrorText(e.message, r);
@@ -962,7 +968,7 @@ T(it, "nameFieldList", ["error", "message", "msg", "errMsg", "reason", "errorTex
     else
       s = e;
   else
-    s = at(e, G.nameFieldList), r || (r = e.silence || e.silent);
+    s = at(e, j.nameFieldList), r || (r = e.silence || e.silent);
   return !s && e.data ? n.fromObject(e.data) : n.fromErrorText(s, r);
 });
 const Ot = {};
@@ -1029,9 +1035,9 @@ function Pi(t) {
   }
   return t === t ? t : 0;
 }
-var Gi = Pi, ji = Gi;
+var ji = Pi, Gi = ji;
 function Bi(t) {
-  var e = ji(t), r = e % 1;
+  var e = Gi(t), r = e % 1;
   return e === e ? r ? e - r : e : 0;
 }
 var Ri = Bi, Ui = si, qi = Mi, zi = Ri, Wi = Math.ceil, Ji = Math.max;
@@ -1045,7 +1051,7 @@ function Vi(t, e, r) {
   return c;
 }
 var se = Vi;
-class Gt {
+class jt {
   static strip(e, r = 12) {
     return +parseFloat(e.toPrecision(r));
   }
@@ -1081,16 +1087,16 @@ function ie(t, e) {
 function Zi(t, e = 12) {
   return typeof t != "number" && (t = 0), +parseFloat(t.toPrecision(e));
 }
-function Da(t, e = 2) {
+function ba(t, e = 2) {
   typeof t != "number" && (t = 0);
   const r = Zi(t).toFixed(e);
   return parseFloat(r);
 }
-const ba = function(t, e = Number.MAX_SAFE_INTEGER, r = 0) {
+const wa = function(t, e = Number.MAX_SAFE_INTEGER, r = 0) {
   const n = typeof t == "string";
-  let s = n ? Gt.toDEC(t) : t;
-  return typeof r == "number" && (s = Math.max(r, s)), typeof e == "number" && (s = Math.min(e, s)), n ? Gt.toHEX(s) : s;
-}, wa = (t, e = 0) => {
+  let s = n ? jt.toDEC(t) : t;
+  return typeof r == "number" && (s = Math.max(r, s)), typeof e == "number" && (s = Math.min(e, s)), n ? jt.toHEX(s) : s;
+}, Sa = (t, e = 0) => {
   if (typeof t == "number")
     return t;
   const s = ((t + "").includes(".") ? parseFloat : parseInt)(t);
@@ -1100,7 +1106,7 @@ var ae = { exports: {} };
 (function(t, e) {
   (function(r, n) {
     t.exports = n();
-  })(j, function() {
+  })(G, function() {
     var r = 1e3, n = 6e4, s = 36e5, o = "millisecond", c = "second", h = "minute", f = "hour", d = "day", g = "week", _ = "month", M = "quarter", D = "year", C = "date", E = "Invalid Date", O = /^(\d{4})[-/]?(\d{1,2})?[-/]?(\d{0,2})[Tt\s]*(\d{1,2})?:?(\d{1,2})?:?(\d{1,2})?[.:]?(\d+)?$/, R = /\[([^\]]+)]|Y{1,4}|M{1,4}|D{1,2}|d{1,4}|H{1,2}|h{1,2}|a|A|m{1,2}|s{1,2}|Z{1,2}|SSS/g, A = { name: "en", weekdays: "Sunday_Monday_Tuesday_Wednesday_Thursday_Friday_Saturday".split("_"), months: "January_February_March_April_May_June_July_August_September_October_November_December".split("_"), ordinal: function(m) {
       var l = ["th", "st", "nd", "rd"], i = m % 100;
       return "[" + m + (l[(i - 20) % 10] || l[i] || l[0]) + "]";
@@ -1309,7 +1315,7 @@ var oe = { exports: {} };
 (function(t, e) {
   (function(r, n) {
     t.exports = n();
-  })(j, function() {
+  })(G, function() {
     var r = { LTS: "h:mm:ss A", LT: "h:mm A", L: "MM/DD/YYYY", LL: "MMMM D, YYYY", LLL: "MMMM D, YYYY h:mm A", LLLL: "dddd, MMMM D, YYYY h:mm A" };
     return function(n, s, o) {
       var c = s.prototype, h = c.format;
@@ -1333,7 +1339,7 @@ var ue = { exports: {} };
 (function(t, e) {
   (function(r, n) {
     t.exports = n();
-  })(j, function() {
+  })(G, function() {
     var r = "week", n = "year";
     return function(s, o, c) {
       var h = o.prototype;
@@ -1394,20 +1400,20 @@ const rt = function(t) {
   } else
     return new Date();
 }, ce = rt;
-function Sa(t) {
+function Ca(t) {
   var e = "";
   if (typeof t == "string") {
     let r = t.split("-");
     r.length == 1 ? t = parseInt(t) : r.length == 2 ? e = t + "-01" : e = t;
     const n = ce(e);
-    return jt(n);
+    return Gt(n);
   } else if (typeof t == "number") {
     const r = new Date();
-    return r.setMonth(t - 1), jt(r);
+    return r.setMonth(t - 1), Gt(r);
   } else
     throw new Error("\u8BF7\u4F20\u5165\u6709\u6548\u7C7B\u578B");
 }
-function jt(t) {
+function Gt(t) {
   return t = new Date(ce(t).getTime()), t.add(1, "month"), t.setDate(0), t.getDate();
 }
 const ta = (t, e = !0) => {
@@ -1636,7 +1642,7 @@ class et extends Date {
     };
   }
 }
-const sa = (t) => t.replace(/[^\x00-\xff]/g, "**").length, Ca = (t, e) => (r, n) => r.trim().split(`
+const sa = (t) => t.replace(/[^\x00-\xff]/g, "**").length, xa = (t, e) => (r, n) => r.trim().split(`
 `).map((o) => {
   const c = o.trim();
   return c.startsWith("//") ? "" : c;
@@ -1675,17 +1681,18 @@ export {
   pa as BPromise,
   et as Date2,
   z as DateWeek,
-  Gt as Math2,
+  jt as Math2,
   rt as all2date,
   ca as all2valueName,
-  ya as byteArrayToString,
+  ga as asyncReduce,
+  $a as byteArrayToString,
   Y as dayjs2,
-  $a as encodeStringToGBK,
-  ga as firstLetterUppercase,
-  ma as fromGBKArrayToString,
-  _a as getByteLength,
-  jt as getDayLengthInMonth,
-  Sa as getDayMountByMonth,
+  _a as encodeStringToGBK,
+  va as firstLetterUppercase,
+  ya as fromGBKArrayToString,
+  Ma as getByteLength,
+  Gt as getDayLengthInMonth,
+  Ca as getDayMountByMonth,
   ha as getImageSize,
   ea as getWeekStartDateFromYYYYMMThInMonth,
   ra as getWeekThInMonth,
@@ -1698,16 +1705,16 @@ export {
   ti as randomString,
   Zs as safeBindToObject,
   fa as safeJsonParser,
-  wa as safeParseNumber,
-  Ma as safeStringify,
+  Sa as safeParseNumber,
+  Da as safeStringify,
   la as safeValueInList,
-  ba as safeValueInRange,
-  Da as stripAndFixNumber,
+  wa as safeValueInRange,
+  ba as stripAndFixNumber,
   Zi as stripNumber,
-  va as stripString,
+  ma as stripString,
   At as travelTree,
   ua as treeEach,
   oa as treeListToFlatList,
   at as tryGet,
-  Ca as viewuiColumnFactory
+  xa as viewuiColumnFactory
 };

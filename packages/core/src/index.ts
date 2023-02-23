@@ -11,6 +11,7 @@ export {
 export {
     BPromise,
     promiseMap,
+    asyncReduce,
 } from "./promise";
 
 export {

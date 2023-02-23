@@ -22,4 +22,14 @@ declare class BPromise<T> extends Promise<T> {
     _reject(error: any): void;
     constructor(executor?: PromoseExec | undefined);
 }
+interface AccFunction {
+    (acc: any, currentValue: any, list: any[]): any;
+}
+/**
+ * Array.prototype.reduct的异步版本,需要在第一个参数传入数组本身
+ * @param list 数组本身
+ * @param accFunction
+ * @param acc
+ */
+export declare const asyncReduce: (list: any[], accFunction: AccFunction, acc: any) => Promise<unknown>;
 export { BPromise, promiseMap, };
