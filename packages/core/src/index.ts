@@ -29,7 +29,7 @@ export {
     travelTree,
     makeTreeDataHelper,
     isPlainObject,
-    flatTreeListToList,
+    treeListToFlatList,
 } from "./object"
 
 export {

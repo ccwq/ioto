@@ -49,7 +49,7 @@ export {
  * @param {string} childKey - 子节点的key
  * @return {*[]}
  */
-export const flatTreeListToList = (list:any[], childKey="children")=>{
+export const treeListToFlatList = (list:any[], childKey="children")=>{
     const result = [];
     const stack = [...list];
     while (stack.length) {
