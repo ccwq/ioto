@@ -642,15 +642,15 @@ const aa = function(t, e = {}) {
     }
     return r;
   }
-}, ne = (t) => Object.prototype.toString.call(t) == "[object Object]", oa = (t, e = "children") => {
-  const r = [], n = [...t];
-  for (; n.length; ) {
-    const s = n.shift();
-    r.push(s);
-    const o = s[e];
-    o != null && o.length && n.unshift(...o);
+}, ne = (t) => Object.prototype.toString.call(t) == "[object Object]", oa = (t, e = "children", r = !1) => {
+  const n = [], s = [...t];
+  for (; s.length; ) {
+    const o = s.shift();
+    n.push(o);
+    const c = o[e];
+    c != null && c.length && (r && n.pop(), s.unshift(...c));
   }
-  return r;
+  return n;
 };
 function Ks(t) {
   return t === null;

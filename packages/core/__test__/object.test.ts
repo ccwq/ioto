@@ -1,5 +1,5 @@
-import {tryGet} from "../src/object";
-import {describe, expect, it} from "vitest";
+import {treeListToFlatList, tryGet} from "../src/object";
+import {describe, expect, it, test} from "vitest";
 
 
 describe("tryGet", ()=>{
@@ -41,5 +41,43 @@ describe("tryGet", ()=>{
                 ]
             )
         ).toBe("本科毕业");
+    })
+})
+
+describe("测试treeListToFlatList", async ()=>{
+    const testData = [
+        {
+            "value": "ss",
+            "label": "成员0-0",
+        },
+        {
+            "value": "zgdy",
+            "label": "成员1-0",
+            "children": [
+                {
+                    "value": "zgdy_children",
+                    "label": "成员1-1",
+                },
+                {
+                    "value": "zgybdy",
+                    "label": "成员1-2",
+                }
+            ]
+        },
+        {
+            "value": "gqty",
+            "label": "成员2-0",
+        },
+    ];
+
+    test("包含所有节点", async ()=>{
+        expect(
+            treeListToFlatList(testData).map(el => el.label)
+        ).toEqual(["成员0-0", "成员1-0", "成员1-1", "成员1-2", "成员2-0"]);
+    })
+    test("只包含叶子节点", async ()=>{
+        expect(
+            treeListToFlatList(testData, "children", true).map(el => el.label)
+        ).toEqual(["成员0-0", "成员1-1", "成员1-2", "成员2-0"]);
     })
 })

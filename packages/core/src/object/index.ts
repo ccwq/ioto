@@ -47,9 +47,10 @@ export {
  * 拍平树形数据
  * @param list
  * @param {string} childKey - 子节点的key
+ * @param {boolean} onlyLeafNode - 只保留叶子节点
  * @return {*[]}
  */
-export const treeListToFlatList = (list:any[], childKey="children")=>{
+export const treeListToFlatList = (list: any[], childKey = "children", onlyLeafNode: boolean = false) => {
     const result = [];
     const stack = [...list];
     while (stack.length) {
@@ -57,11 +58,14 @@ export const treeListToFlatList = (list:any[], childKey="children")=>{
         result.push(item);
         const childs = item[childKey];
         if (childs?.length) {
+            if (onlyLeafNode) {
+                result.pop();
+            }
             stack.unshift(...childs);
         }
     }
     return result;
-}
+};
 
 
 export type {

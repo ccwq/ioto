@@ -15,7 +15,8 @@ export { travelTree, makeTreeDataHelper } from "./treeDataHelper";
  * 拍平树形数据
  * @param list
  * @param {string} childKey - 子节点的key
+ * @param {boolean} onlyLeafNode - 只保留叶子节点
  * @return {*[]}
  */
-export declare const treeListToFlatList: (list: any[], childKey?: string) => any[];
+export declare const treeListToFlatList: (list: any[], childKey?: string, onlyLeafNode?: boolean) => any[];
 export type { INode, INodeList, INodeDic, IInputData, ITravelCallback, ITravelAllCallback, ITravelTreeCallback, IFilterFunction, } from "./treeDataHelper";
