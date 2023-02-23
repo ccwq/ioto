@@ -1,6 +1,6 @@
 var fe = Object.defineProperty;
 var le = (t, e, r) => e in t ? fe(t, e, { enumerable: !0, configurable: !0, writable: !0, value: r }) : t[e] = r;
-var E = (t, e, r) => (le(t, typeof e != "symbol" ? e + "" : e, r), r);
+var T = (t, e, r) => (le(t, typeof e != "symbol" ? e + "" : e, r), r);
 function Bt(t, e) {
   this.flags = t, this.cursor = e;
 }
@@ -200,18 +200,18 @@ function $e(t) {
   }
   return s;
 }
-var _e = $e, Me = Array.isArray, _t = Me, De = typeof j == "object" && j && j.Object === Object && j, be = De, we = be, Se = typeof self == "object" && self && self.Object === Object && self, Ce = we || Se || Function("return this")(), Mt = Ce, xe = Mt, Ie = xe.Symbol, Dt = Ie, wt = Dt, Kt = Object.prototype, Fe = Kt.hasOwnProperty, Ee = Kt.toString, tt = wt ? wt.toStringTag : void 0;
-function Te(t) {
+var _e = $e, Me = Array.isArray, _t = Me, De = typeof j == "object" && j && j.Object === Object && j, be = De, we = be, Se = typeof self == "object" && self && self.Object === Object && self, Ce = we || Se || Function("return this")(), Mt = Ce, xe = Mt, Ie = xe.Symbol, Dt = Ie, wt = Dt, Kt = Object.prototype, Fe = Kt.hasOwnProperty, Te = Kt.toString, tt = wt ? wt.toStringTag : void 0;
+function Ee(t) {
   var e = Fe.call(t, tt), r = t[tt];
   try {
     t[tt] = void 0;
     var n = !0;
   } catch {
   }
-  var s = Ee.call(t);
+  var s = Te.call(t);
   return n && (e ? t[tt] = r : delete t[tt]), s;
 }
-var Ye = Te, Ae = Object.prototype, ke = Ae.toString;
+var Ye = Ee, Ae = Object.prototype, ke = Ae.toString;
 function Ne(t) {
   return ke.call(t);
 }
@@ -277,10 +277,10 @@ function Ir(t) {
   return e.test(_r(t));
 }
 var Fr = Ir;
-function Er(t, e) {
+function Tr(t, e) {
   return t == null ? void 0 : t[e];
 }
-var Tr = Er, Yr = Fr, Ar = Tr;
+var Er = Tr, Yr = Fr, Ar = Er;
 function kr(t, e) {
   var r = Ar(t, e);
   return Yr(r) ? r : void 0;
@@ -363,7 +363,7 @@ function Cn(t, e) {
   var r = this.__data__, n = Sn(r, t);
   return n < 0 ? (++this.size, r.push([t, e])) : r[n][1] = e, this;
 }
-var xn = Cn, In = fn, Fn = yn, En = Mn, Tn = wn, Yn = xn;
+var xn = Cn, In = fn, Fn = yn, Tn = Mn, En = wn, Yn = xn;
 function J(t) {
   var e = -1, r = t == null ? 0 : t.length;
   for (this.clear(); ++e < r; ) {
@@ -373,8 +373,8 @@ function J(t) {
 }
 J.prototype.clear = In;
 J.prototype.delete = Fn;
-J.prototype.get = En;
-J.prototype.has = Tn;
+J.prototype.get = Tn;
+J.prototype.has = En;
 J.prototype.set = Yn;
 var An = J, kn = Qt, Nn = Mt, On = kn(Nn, "Map"), Ln = On, Ft = un, Hn = An, Pn = Ln;
 function Gn() {
@@ -457,7 +457,7 @@ function Ms(t, e) {
     s[r] = e(t[r], r, t);
   return s;
 }
-var Ds = Ms, Et = Dt, bs = Ds, ws = _t, Ss = ct, Cs = 1 / 0, Tt = Et ? Et.prototype : void 0, Yt = Tt ? Tt.toString : void 0;
+var Ds = Ms, Tt = Dt, bs = Ds, ws = _t, Ss = ct, Cs = 1 / 0, Et = Tt ? Tt.prototype : void 0, Yt = Et ? Et.toString : void 0;
 function re(t) {
   if (typeof t == "string")
     return t;
@@ -472,9 +472,9 @@ var xs = re, Is = xs;
 function Fs(t) {
   return t == null ? "" : Is(t);
 }
-var Es = Fs, Ts = _t, Ys = Qe, As = _s, ks = Es;
+var Ts = Fs, Es = _t, Ys = Qe, As = _s, ks = Ts;
 function Ns(t, e) {
-  return Ts(t) ? t : Ys(t, e) ? [t] : As(ks(t));
+  return Es(t) ? t : Ys(t, e) ? [t] : As(ks(t));
 }
 var Os = Ns, Ls = ct, Hs = 1 / 0;
 function Ps(t) {
@@ -522,10 +522,10 @@ const aa = function(t, e = {}) {
     });
   }, C = function(i) {
     return i[h] && i[h].length > 0 ? !i[h].map((a) => I(a[d])).find((a) => !a[f]) : !1;
-  }, T = function(i) {
+  }, E = function(i) {
     c(), Array.isArray(i) && D(i);
   };
-  T(t);
+  E(t);
   const O = function(i) {
     var u;
     return (u = I(i)) == null ? void 0 : u.parentIdList.map((a) => I(a));
@@ -604,7 +604,7 @@ const aa = function(t, e = {}) {
     getParents: O,
     getDeepth: P,
     getNode: I,
-    updateIndexes: T,
+    updateIndexes: E,
     setChecked: K,
     setProps: k,
     travelAllNode: function(i) {
@@ -642,14 +642,23 @@ const aa = function(t, e = {}) {
     }
     return r;
   }
-}, ne = (t) => Object.prototype.toString.call(t) == "[object Object]";
+}, ne = (t) => Object.prototype.toString.call(t) == "[object Object]", oa = (t, e = "children") => {
+  const r = [], n = [...t];
+  for (; n.length; ) {
+    const s = n.shift();
+    r.push(s);
+    const o = s[e];
+    o != null && o.length && n.unshift(...o);
+  }
+  return r;
+};
 function Ks(t) {
   return t === null;
 }
 var kt = Ks;
 const Zs = function(t, e, r, n = "_", s = 0) {
   t[e] ? s < 5 && Zs(t, n + e, r, n, s + 1) : t[e] = r;
-}, oa = function(t, e, r) {
+}, ua = function(t, e, r) {
   let n = !1;
   return Array.isArray(t) && (t = { [e]: t }, n = !0), ye(
     t,
@@ -660,7 +669,7 @@ const Zs = function(t, e, r, n = "_", s = 0) {
       }
     }
   ), n ? t[e] : t;
-}, ua = function(t, e) {
+}, ca = function(t, e) {
   const r = {
     valueGetField: "value",
     nameGetField: "name",
@@ -699,7 +708,7 @@ const Zs = function(t, e, r, n = "_", s = 0) {
       typeof d != "number" && typeof d != "string" && (console.warn("options\u4E2D\u5B58\u5728\u975E\u6CD5\u7684value,\u9700\u8981\u662Fnumber\u6216\u8005string", f), f[r.valueSetField] = f.value + "");
     }), o;
   }(n);
-}, ca = function(t, e = null) {
+}, fa = function(t, e = null) {
   if (ne(t) || Array.isArray(t))
     return t;
   if (typeof t != "string")
@@ -709,7 +718,7 @@ const Zs = function(t, e, r, n = "_", s = 0) {
   } catch {
     return console.log("json\u89E3\u6790\u5931\u8D25:", t), e;
   }
-}, fa = function(t, e, r = 0, n = void 0) {
+}, la = function(t, e, r = 0, n = void 0) {
   if (e.includes(t))
     return t;
   {
@@ -717,7 +726,7 @@ const Zs = function(t, e, r, n = "_", s = 0) {
     return s === void 0 && (s = n), s;
   }
 };
-function la(t) {
+function ha(t) {
   return new Promise(function(e, r) {
     var n = typeof t == "string" ? t : URL.createObjectURL(t);
     if (!n)
@@ -741,7 +750,7 @@ function Xs() {
   const n = t.indexOf("Edge/");
   return n > 0 ? parseInt(t.substring(n + 5, t.indexOf(".", n)), 10) : -1;
 }
-const ha = Xs() !== -1;
+const da = Xs() !== -1;
 function Qs(...t) {
   let e;
   Array.isArray(arguments[0]) ? e = arguments[0] : e = Array.prototype.slice.call(arguments);
@@ -767,14 +776,14 @@ function Qs(...t) {
     return r;
   });
 }
-class da extends Promise {
+class pa extends Promise {
   constructor(r = void 0) {
     let n, s;
     super((o, c) => {
       n = o, s = c, r && r(o, c);
     });
-    E(this, "__resolve");
-    E(this, "__reject");
+    T(this, "__resolve");
+    T(this, "__reject");
     this.__resolve = n, this.__reject = s;
   }
   static map(r) {
@@ -828,9 +837,9 @@ const ut = class {
   }
 };
 let B = ut;
-E(B, "_fastGbk");
+T(B, "_fastGbk");
 const Nt = /* @__PURE__ */ new Map();
-function pa(t) {
+function ga(t) {
   if (t === 0)
     return "0";
   if (t === !1)
@@ -842,7 +851,7 @@ function pa(t) {
   let [e, ...r] = t;
   return e.toUpperCase() + r.join("");
 }
-function ga(t, e) {
+function va(t, e) {
   if (!t || !e)
     return "";
   var r = 0, n = 0, s = "";
@@ -860,31 +869,31 @@ const ti = () => {
 function ei(t) {
   return B.decode(t);
 }
-function va(t) {
+function ma(t) {
   return B.decode(t);
 }
-function ma(t, e = "utf-8", r = 16) {
+function ya(t, e = "utf-8", r = 16) {
   return e.toLowerCase() == "gbk" && r == 16 ? ei(t) : new TextDecoder(e).decode(
     new Uint8Array(
       t.map((n) => Number.isFinite(n) ? n : parseInt(n, r))
     )
   );
 }
-function ya(t, e = "string") {
+function $a(t, e = "string") {
   return e == "string" ? B.encode(t) : B.encode(t).split("%").splice(1);
 }
-function $a(t) {
+function _a(t) {
   for (var e = 0, r = 0; r < t.length; r++) {
     var n = t.charCodeAt(r);
     n >= 1 && n <= 126 || 65376 <= n && n <= 65439 ? e++ : e += 2;
   }
   return e;
 }
-const _a = (t, e = "") => ne(t) || Array.isArray(t) ? JSON.stringify(t) : typeof t == "string" ? t : (console.warn("safeStringify error(\u6682\u4E0D\u652F\u6301\u7684\u6570\u636E\u7C7B\u578B)", t), e), ri = /\:\:([-\d\.]+)$/, G = class {
+const Ma = (t, e = "") => ne(t) || Array.isArray(t) ? JSON.stringify(t) : typeof t == "string" ? t : (console.warn("safeStringify error(\u6682\u4E0D\u652F\u6301\u7684\u6570\u636E\u7C7B\u578B)", t), e), ri = /\:\:([-\d\.]+)$/, G = class {
   constructor(e, r, n = !1, s = null) {
-    E(this, "_name");
-    E(this, "_code");
-    E(this, "_silent");
+    T(this, "_name");
+    T(this, "_code");
+    T(this, "_silent");
     const o = this;
     o._name = e, o._code = r, o._silent = n;
   }
@@ -936,7 +945,7 @@ const _a = (t, e = "") => ne(t) || Array.isArray(t) ? JSON.stringify(t) : typeof
   }
 };
 let it = G;
-E(it, "nameFieldList", ["error", "message", "msg", "errMsg", "reason", "errorText"]), E(it, "fromObject", (e, r = !1) => {
+T(it, "nameFieldList", ["error", "message", "msg", "errMsg", "reason", "errorText"]), T(it, "fromObject", (e, r = !1) => {
   const n = G;
   if (!e)
     return new G("\u672A\u77E5\u9519\u8BEF", -9999);
@@ -994,11 +1003,11 @@ var wi = bi, Si = wi, Ci = /^\s+/;
 function xi(t) {
   return t && t.slice(0, Si(t) + 1).replace(Ci, "");
 }
-var Ii = xi, Fi = Ii, Lt = ft, Ei = ct, Ht = 0 / 0, Ti = /^[-+]0x[0-9a-f]+$/i, Yi = /^0b[01]+$/i, Ai = /^0o[0-7]+$/i, ki = parseInt;
+var Ii = xi, Fi = Ii, Lt = ft, Ti = ct, Ht = 0 / 0, Ei = /^[-+]0x[0-9a-f]+$/i, Yi = /^0b[01]+$/i, Ai = /^0o[0-7]+$/i, ki = parseInt;
 function Ni(t) {
   if (typeof t == "number")
     return t;
-  if (Ei(t))
+  if (Ti(t))
     return Ht;
   if (Lt(t)) {
     var e = typeof t.valueOf == "function" ? t.valueOf() : t;
@@ -1008,7 +1017,7 @@ function Ni(t) {
     return t === 0 ? t : +t;
   t = Fi(t);
   var r = Yi.test(t);
-  return r || Ai.test(t) ? ki(t.slice(2), r ? 2 : 8) : Ti.test(t) ? Ht : +t;
+  return r || Ai.test(t) ? ki(t.slice(2), r ? 2 : 8) : Ei.test(t) ? Ht : +t;
 }
 var Oi = Ni, Li = Oi, Pt = 1 / 0, Hi = 17976931348623157e292;
 function Pi(t) {
@@ -1072,16 +1081,16 @@ function ie(t, e) {
 function Zi(t, e = 12) {
   return typeof t != "number" && (t = 0), +parseFloat(t.toPrecision(e));
 }
-function Ma(t, e = 2) {
+function Da(t, e = 2) {
   typeof t != "number" && (t = 0);
   const r = Zi(t).toFixed(e);
   return parseFloat(r);
 }
-const Da = function(t, e = Number.MAX_SAFE_INTEGER, r = 0) {
+const ba = function(t, e = Number.MAX_SAFE_INTEGER, r = 0) {
   const n = typeof t == "string";
   let s = n ? Gt.toDEC(t) : t;
   return typeof r == "number" && (s = Math.max(r, s)), typeof e == "number" && (s = Math.min(e, s)), n ? Gt.toHEX(s) : s;
-}, ba = (t, e = 0) => {
+}, wa = (t, e = 0) => {
   if (typeof t == "number")
     return t;
   const s = ((t + "").includes(".") ? parseFloat : parseInt)(t);
@@ -1092,7 +1101,7 @@ var ae = { exports: {} };
   (function(r, n) {
     t.exports = n();
   })(j, function() {
-    var r = 1e3, n = 6e4, s = 36e5, o = "millisecond", c = "second", h = "minute", f = "hour", d = "day", g = "week", _ = "month", M = "quarter", D = "year", C = "date", T = "Invalid Date", O = /^(\d{4})[-/]?(\d{1,2})?[-/]?(\d{0,2})[Tt\s]*(\d{1,2})?:?(\d{1,2})?:?(\d{1,2})?[.:]?(\d+)?$/, R = /\[([^\]]+)]|Y{1,4}|M{1,4}|D{1,2}|d{1,4}|H{1,2}|h{1,2}|a|A|m{1,2}|s{1,2}|Z{1,2}|SSS/g, A = { name: "en", weekdays: "Sunday_Monday_Tuesday_Wednesday_Thursday_Friday_Saturday".split("_"), months: "January_February_March_April_May_June_July_August_September_October_November_December".split("_"), ordinal: function(m) {
+    var r = 1e3, n = 6e4, s = 36e5, o = "millisecond", c = "second", h = "minute", f = "hour", d = "day", g = "week", _ = "month", M = "quarter", D = "year", C = "date", E = "Invalid Date", O = /^(\d{4})[-/]?(\d{1,2})?[-/]?(\d{0,2})[Tt\s]*(\d{1,2})?:?(\d{1,2})?:?(\d{1,2})?[.:]?(\d+)?$/, R = /\[([^\]]+)]|Y{1,4}|M{1,4}|D{1,2}|d{1,4}|H{1,2}|h{1,2}|a|A|m{1,2}|s{1,2}|Z{1,2}|SSS/g, A = { name: "en", weekdays: "Sunday_Monday_Tuesday_Wednesday_Thursday_Friday_Saturday".split("_"), months: "January_February_March_April_May_June_July_August_September_October_November_December".split("_"), ordinal: function(m) {
       var l = ["th", "st", "nd", "rd"], i = m % 100;
       return "[" + m + (l[(i - 20) % 10] || l[i] || l[0]) + "]";
     } }, I = function(m, l, i) {
@@ -1169,7 +1178,7 @@ var ae = { exports: {} };
       }, l.$utils = function() {
         return $;
       }, l.isValid = function() {
-        return this.$d.toString() !== T;
+        return this.$d.toString() !== E;
       }, l.isSame = function(i, u) {
         var a = b(i);
         return this.startOf(u) <= a && a <= this.endOf(u);
@@ -1246,7 +1255,7 @@ var ae = { exports: {} };
       }, l.format = function(i) {
         var u = this, a = this.$locale();
         if (!this.isValid())
-          return a.invalidDate || T;
+          return a.invalidDate || E;
         var p = i || "YYYY-MM-DDTHH:mm:ssZ", v = $.z(this), y = this.$H, S = this.$m, w = this.$M, x = a.weekdays, L = a.months, N = function(F, H, gt, st) {
           return F && (F[H] || F(u, p)) || gt[H].slice(0, st);
         }, X = function(F) {
@@ -1307,9 +1316,9 @@ var oe = { exports: {} };
       o.en.formats = r, c.format = function(f) {
         f === void 0 && (f = "YYYY-MM-DDTHH:mm:ssZ");
         var d = this.$locale().formats, g = function(_, M) {
-          return _.replace(/(\[[^\]]+])|(LTS?|l{1,4}|L{1,4})/g, function(D, C, T) {
-            var O = T && T.toUpperCase();
-            return C || M[T] || r[T] || M[O].replace(/(\[[^\]]+])|(MMMM|MM|DD|dddd)/g, function(R, A, I) {
+          return _.replace(/(\[[^\]]+])|(LTS?|l{1,4}|L{1,4})/g, function(D, C, E) {
+            var O = E && E.toUpperCase();
+            return C || M[E] || r[E] || M[O].replace(/(\[[^\]]+])|(MMMM|MM|DD|dddd)/g, function(R, A, I) {
               return A || I.slice(1);
             });
           });
@@ -1385,7 +1394,7 @@ const rt = function(t) {
   } else
     return new Date();
 }, ce = rt;
-function wa(t) {
+function Sa(t) {
   var e = "";
   if (typeof t == "string") {
     let r = t.split("-");
@@ -1424,10 +1433,10 @@ const ta = (t, e = !0) => {
 };
 class z {
   constructor(e) {
-    E(this, "_start");
-    E(this, "_end");
-    E(this, "_thInYear");
-    E(this, "_thInMonth");
+    T(this, "_start");
+    T(this, "_end");
+    T(this, "_thInYear");
+    T(this, "_thInMonth");
     const { start: r, end: n, thInYear: s } = ta(e);
     this._start = r, this._end = n, this._thInYear = s, this._thInMonth = ra(r);
   }
@@ -1497,7 +1506,7 @@ const na = {};
 class et extends Date {
   constructor(...r) {
     super(...r);
-    E(this, "__currentMonth", !1);
+    T(this, "__currentMonth", !1);
   }
   static fromYYYY_MM(r) {
     var n = r.replace(/_/g, "-") + "-01";
@@ -1613,8 +1622,8 @@ class et extends Date {
     r ? (c = 0, h = 6) : (c = 1, h = 7);
     let f = [], d = this.clone().setToMonthStart(), g = this.clone().setToMonthEnd();
     var _ = d.getDay(), M = g.getDay();
-    let D = d.clone().add(c - _ - 1, "day"), C = g.clone().add(h - M + 0, "day"), T = C.diff(D, "day"), O = 0, R = n.getMonth();
-    for (; O++ < T; ) {
+    let D = d.clone().add(c - _ - 1, "day"), C = g.clone().add(h - M + 0, "day"), E = C.diff(D, "day"), O = 0, R = n.getMonth();
+    for (; O++ < E; ) {
       let A = D.clone().add(O, "day");
       A.getMonth() == R && (A.__currentMonth = !0), f.push(A);
     }
@@ -1627,7 +1636,7 @@ class et extends Date {
     };
   }
 }
-const sa = (t) => t.replace(/[^\x00-\xff]/g, "**").length, Sa = (t, e) => (r, n) => r.trim().split(`
+const sa = (t) => t.replace(/[^\x00-\xff]/g, "**").length, Ca = (t, e) => (r, n) => r.trim().split(`
 `).map((o) => {
   const c = o.trim();
   return c.startsWith("//") ? "" : c;
@@ -1663,24 +1672,24 @@ const sa = (t) => t.replace(/[^\x00-\xff]/g, "**").length, Sa = (t, e) => (r, n)
 });
 export {
   it as AError,
-  da as BPromise,
+  pa as BPromise,
   et as Date2,
   z as DateWeek,
   Gt as Math2,
   rt as all2date,
-  ua as all2valueName,
-  ma as byteArrayToString,
+  ca as all2valueName,
+  ya as byteArrayToString,
   Y as dayjs2,
-  ya as encodeStringToGBK,
-  pa as firstLetterUppercase,
-  va as fromGBKArrayToString,
-  $a as getByteLength,
+  $a as encodeStringToGBK,
+  ga as firstLetterUppercase,
+  ma as fromGBKArrayToString,
+  _a as getByteLength,
   jt as getDayLengthInMonth,
-  wa as getDayMountByMonth,
-  la as getImageSize,
+  Sa as getDayMountByMonth,
+  ha as getImageSize,
   ea as getWeekStartDateFromYYYYMMThInMonth,
   ra as getWeekThInMonth,
-  ha as isIE,
+  da as isIE,
   ne as isPlainObject,
   aa as makeTreeDataHelper,
   ce as parse2date,
@@ -1688,16 +1697,17 @@ export {
   Qs as promiseMap,
   ti as randomString,
   Zs as safeBindToObject,
-  ca as safeJsonParser,
-  ba as safeParseNumber,
-  _a as safeStringify,
-  fa as safeValueInList,
-  Da as safeValueInRange,
-  Ma as stripAndFixNumber,
+  fa as safeJsonParser,
+  wa as safeParseNumber,
+  Ma as safeStringify,
+  la as safeValueInList,
+  ba as safeValueInRange,
+  Da as stripAndFixNumber,
   Zi as stripNumber,
-  ga as stripString,
+  va as stripString,
   At as travelTree,
-  oa as treeEach,
+  ua as treeEach,
+  oa as treeListToFlatList,
   at as tryGet,
-  Sa as viewuiColumnFactory
+  Ca as viewuiColumnFactory
 };
