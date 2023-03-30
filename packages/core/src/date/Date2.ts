@@ -12,7 +12,7 @@ class Date2 extends Date{
      */
     static fromYYYY_MM(YYYY_MM:`${string}${"-"|"_"}${string}`){
         var str = YYYY_MM.replace(/_/g,"-") + "-01";
-        return new Date(str);
+        return new Date2(str);
     }
 
     /**
