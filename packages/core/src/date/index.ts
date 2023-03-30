@@ -33,7 +33,7 @@ export const all2date:(input:any)=>Date|undefined = function(input:any){
         //年月
         }else if (str.length == 6) {
             now.setFullYear(_year);
-            now.setMonth(_month);
+            now.setMonth(_month - 1);
             return now;
 
         //年月日
@@ -61,11 +61,11 @@ export const all2date:(input:any)=>Date|undefined = function(input:any){
             const parts = input.split(/[-:\sTZ\+年月日时分秒]/);
             const [
                 y  = now.getFullYear(),
-                m  = now.getMonth() + 1,
-                d  = now.getDate(),
-                h  = now.getHours(),
-                mm = now.getMinutes(),
-                s  = now.getSeconds()
+                m  = 0 + 1,
+                d  = 1,
+                h  = 0,
+                mm = 0,
+                s  = 0
             ] = parts;
 
             const num = parseInt([
