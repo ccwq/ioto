@@ -5,7 +5,7 @@ declare class Date2 extends Date {
      * 从2022-06创建
      * @param YYYY_MM
      */
-    static fromYYYY_MM(YYYY_MM: `${string}${"-" | "_"}${string}`): Date;
+    static fromYYYY_MM(YYYY_MM: `${string}${"-" | "_"}${string}`): Date2;
     /**
      * 从Date类型床架
      * @param date
