@@ -25,6 +25,8 @@ export {
 export {default as usePageRequest} from './hooks/usePageRequest'
 export {default as useStepHelper} from './hooks/useStepHelper'
 
+export {default as TempVar} from "./components/TempVar"
+
 export {
     plugins,
     XButton,
