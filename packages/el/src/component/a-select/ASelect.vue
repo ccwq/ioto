@@ -15,16 +15,16 @@ ElSelect.aSelect(
     template(#prefix)
         p.label-content {{currentLabel}}
 span.aSelect.text-mode(
-    :class="{isEmpty, noMatched}"
-    v-else
-) {{currentTextLabel}}
+    :class="{isEmpty, noMatched, multipleValueMode}"
+    v-else v-html="currentTextLabel"
+)
 </template>
 <script lang="ts" setup>
 import {computed, inject, provide, ref, toRefs, useAttrs, watch, watchEffect} from "vue";
 import {all2valueName} from "@ioto/core";
 const attrs = useAttrs()
 const props = withDefaults(defineProps<{
-    modelValue?: string | number,
+    modelValue?: string | number | string[],
     disabled?: boolean;
     options: any,
     keyField?: string;
@@ -43,18 +43,25 @@ const props = withDefaults(defineProps<{
     justLabel: false,
     placeholder: "请选择",
     blankTextPlaceholder:"-"
-
 })
 
 const emits = defineEmits<{
     (e:"update:modelValue", value:string|number):void
     (e:"data-ready", hitItem:any, options?:any[]):void
+
+    // 在modalVlue和options改变时候派发
+    (e:"update:modelLabel", label:string|undefined):void
 }>()
 
 type Option = {
     value:string|number,
     label:string
     [key:string]:any
+}
+
+// 当 modalValue为数组的时候, just比如为true
+if(Array.isArray(props.modelValue) && !props.justLabel ){
+    throw new Error("modelValue must be string or number when justLabel is false");
 }
 
 const options = ref<Option[]>([])
@@ -73,11 +80,20 @@ watch(() => props.options, async (propOptions) => {
         nameSetField: "label"
     });
 
-    let hitItem = optionsValue.find((index:any) => index.value == props.modelValue);
+    let hitItem = optionsValue.find(el => el.value == props.modelValue);
     emits("data-ready", hitItem, optionsValue)
 
     options.value = optionsValue
 }, {immediate: true});
+
+// 派发label/update:modelLabel的逻辑
+watch(()=>[
+    options,
+    props.modelValue
+],async ([options, value]) => {
+    const option = options.value.find((el:any) => el.value == value)
+    emits("update:modelLabel", option?.label);
+})
 
 // 控件只支持字符串
 const optDicByValue = computed(()=>{
@@ -98,8 +114,28 @@ const currentLabel = computed(()=>{
     return currentItem.value?.label || props.placeholder
 })
 
+// 显示多值的情况
+const multipleValueMode = computed(()=>{
+    if(Array.isArray(props.modelValue)){
+        return props.modelValue.length > 1;
+    }else{
+        return false;
+    }
+})
+
 const currentTextLabel = computed(()=>{
-    return currentItem.value?.label || props.blankTextPlaceholder
+    const value = props.modelValue;
+    if (Array.isArray(value)) {
+        if (!value.length) {
+            return props.blankTextPlaceholder
+        }else{
+            return value.map(v=>{
+                return optDicByValue.value[v + ""]?.label || v
+            }).join("<br/>")
+        }
+    }else{
+        return currentItem.value?.label || props.blankTextPlaceholder
+    }
 })
 
 // 当前选择获取和传入的值没有在options对应到项目
@@ -133,25 +169,22 @@ const vBind = computed(()=>{
 .aSelect{
     .label-content{
         min-width: 5em;
-
     }
 
-    .index-input__inner{
+    .el-input__inner{
         display: none;
     }
 
-    &.isEmpty{
-
-    }
+    &.isEmpty{}
 
     &.isSelected{
         .label-content{
-            color: var(--index-input-text-color,var(--index-text-color-regular));
+            color: var(--el-input-text-color,var(--el-text-color-regular));
         }
     }
 
     &.disableAutoWidth{
-        .index-input__inner{
+        .el-input__inner{
             display: block;
         }
         .label-content{
@@ -161,6 +194,11 @@ const vBind = computed(()=>{
 
     &.noMatched{
         color: #BDBDBD;
+    }
+
+    &.multipleValueMode{
+        display: block;
+        line-height: 1.2em;
     }
 }
 </style>
