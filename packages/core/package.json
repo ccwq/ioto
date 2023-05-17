@@ -1,6 +1,6 @@
 {
   "name": "@ioto/core",
-  "version": "0.0.17",
+  "version": "0.0.25",
   "description": "base javascript functions",
   "author": "ccwq <scwqd@qq.com>",
   "homepage": "https://github.com/ccwq/ioto#readme",
@@ -52,5 +52,6 @@
   },
   "bugs": {
     "url": "https://github.com/ccwq/ioto/issues"
-  }
+  },
+  "gitHead": "6ed271117ac4f624eb8150fb476565bf6ab90989"
 }

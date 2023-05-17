@@ -167,11 +167,24 @@ export function getByteLength(string: string) {
 }
 
 export const safeStringify = (input: any, backupValue = "") => {
+
+    // 对象
     if (isPlainObject(input)) {
         return JSON.stringify(input)
-    } else if (typeof input == "string") {
+    }
+
+    // 数组
+    else if(Array.isArray(input)){
+        return JSON.stringify(input)
+    }
+
+    // 字符串
+    else if (typeof input == "string") {
         return input
-    } else {
+    }
+
+    // 其他
+    else {
         console.warn("safeStringify error(暂不支持的数据类型)", input);
         return backupValue
     }

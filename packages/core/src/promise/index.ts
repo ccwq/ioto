@@ -80,6 +80,35 @@ class BPromise<T> extends Promise<T>{
     // constructor(executor) { super(executor); }
 }
 
+
+
+interface AccFunction {
+    (acc:any, currentValue:any, list:any[]):any
+}
+
+
+/**
+ * Array.prototype.reduct的异步版本,需要在第一个参数传入数组本身
+ * @param list 数组本身
+ * @param accFunction
+ * @param acc
+ */
+export const asyncReduce = (list:any[], accFunction:AccFunction, acc:any)=>{
+    return new Promise((resolve, reject)=>{
+        const iterator = list[Symbol.iterator]();
+        const next = (result:any)=>{
+            const {value, done} = iterator.next();
+            if (done) {
+                resolve(result);
+            }
+            else{
+                accFunction(result, value, list).then(next);
+            }
+        };
+        next(acc);
+    });
+}
+
 export {
     BPromise,
     promiseMap,

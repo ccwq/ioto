@@ -1,7 +1,7 @@
 export { safeBindToObject, safeJsonParser, treeEach, all2valueName, safeValueInList, getImageSize, isIE, } from "./base";
-export { BPromise, promiseMap, } from "./promise";
+export { BPromise, promiseMap, asyncReduce, } from "./promise";
 export { stripString, randomString, firstLetterUppercase, fromGBKArrayToString, byteArrayToString, encodeStringToGBK, getByteLength, safeStringify, } from "./string";
-export { tryGet, travelTree, makeTreeDataHelper, isPlainObject } from "./object";
+export { tryGet, travelTree, makeTreeDataHelper, isPlainObject, treeListToFlatList, } from "./object";
 export { AError } from "./error";
 export { Math2, preppendZero, strip as stripNumber, stripAndFix as stripAndFixNumber, safeValueInRange, safeParseNumber, } from "./number";
 export { parse2date, all2date, getDayMountByMonth, getDayLengthInMonth, getWeekThInMonth, getWeekStartDateFromYYYYMMThInMonth, } from "./date";

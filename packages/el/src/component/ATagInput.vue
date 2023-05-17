@@ -6,7 +6,6 @@ import {computed, inject, provide, toRefs, useAttrs, watchEffect} from "vue";
 
 //@ts-ignore
 import VueTagsInput from "@sipec/vue3-tags-input";
-import {AButton} from "../index";
 const attrs = useAttrs()
 
 // const props = withDefaults(defineProps<{}>(), {})

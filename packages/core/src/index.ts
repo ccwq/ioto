@@ -11,6 +11,7 @@ export {
 export {
     BPromise,
     promiseMap,
+    asyncReduce,
 } from "./promise";
 
 export {
@@ -28,7 +29,8 @@ export {
     tryGet,
     travelTree,
     makeTreeDataHelper,
-    isPlainObject
+    isPlainObject,
+    treeListToFlatList,
 } from "./object"
 
 export {

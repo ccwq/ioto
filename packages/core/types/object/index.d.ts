@@ -11,4 +11,12 @@ import { ObjectPath } from "../types";
 export declare const tryGet: (object: any, keyLs: ObjectPath, defaultValue?: any, isUseNil?: boolean) => any;
 export declare const isPlainObject: (obj: any) => boolean;
 export { travelTree, makeTreeDataHelper } from "./treeDataHelper";
+/**
+ * 拍平树形数据
+ * @param list
+ * @param {string} childKey - 子节点的key
+ * @param {boolean} onlyLeafNode - 只保留叶子节点
+ * @return {*[]}
+ */
+export declare const treeListToFlatList: (list: any[], childKey?: string, onlyLeafNode?: boolean) => any[];
 export type { INode, INodeList, INodeDic, IInputData, ITravelCallback, ITravelAllCallback, ITravelTreeCallback, IFilterFunction, } from "./treeDataHelper";

@@ -45,7 +45,7 @@ export declare const all2valueName: (options: all2valueNameInput, settings?: All
  * json转换
  * @param jsonString
  */
-export declare const safeJsonParser: (jsonString: string | IObject, backupValue?: {} | null) => any;
+export declare const safeJsonParser: (jsonString: string | IObject | any[], backupValue?: {} | null) => any;
 /**
  * 判断并返回值是否属于某个集合安全值
  * @param value 要检测的值
