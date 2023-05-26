@@ -1,11 +1,3 @@
-# `@ioto/core`
+# `@ioto/electron`
 
-> TODO: description
-
-## Usage
-
-```
-const core = require('@ioto/core');
-
-// TODO: DEMONSTRATE API
-```
+> 一些electron的工具
