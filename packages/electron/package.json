@@ -1,0 +1,59 @@
+{
+    "name": "@ioto/electron",
+    "version": "0.0.25",
+    "description": "electron utils",
+    "author": "ccwq <scwqd@qq.com>",
+    "homepage": "https://github.com/ccwq/ioto#readme",
+    "license": "ISC",
+    "main": "dist/index",
+    "types": "types/index.d.ts",
+    "directories": {
+        "lib": "src",
+        "test": "__tests__"
+    },
+    "files": [
+        "dist",
+        "types",
+        "package.json",
+        "README.md",
+        "LICENSE"
+    ],
+    "publishConfig": {
+        "access": "public"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/ccwq/ioto.git"
+    },
+    "scripts": {
+        "dev": "vite",
+        "build": "vite build",
+        "preview": "vite preview",
+        "test": "vitest",
+        "test:ui": "vitest --ui",
+        "test:watch": "vitest --watch",
+        "test:coverage": "vitest --coverage",
+        "test:run": "vitest --run"
+    },
+    "dependencies": {
+        "dayjs": "^1.11.5",
+        "lodash": "^4.17.21"
+    },
+    "devDependencies": {
+        "@types/lodash": "^4.14.186",
+        "@types/node": "^18.8.4",
+        "@vitest/ui": "^0.24.1",
+        "typescript": "^4.6.4",
+        "vite": "^3.1.0",
+        "vite-plugin-dts": "^1.6.5",
+        "vitest": "^0.24.1",
+        "vue-tsc": "^0.40.4"
+    },
+    "peerDependencies": {
+        "electron": "^16.0.0"
+    },
+    "bugs": {
+        "url": "https://github.com/ccwq/ioto/issues"
+    },
+    "gitHead": "6ed271117ac4f624eb8150fb476565bf6ab90989"
+}
