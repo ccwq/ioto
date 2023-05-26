@@ -1,4 +1,5 @@
-import {computed, ref, watch} from 'vue';
+import {computed, reactive, Ref, ref, watch} from 'vue';
+import get from "lodash/get"
 
 
 interface UsePageRequestOptions<T> {
@@ -25,6 +26,12 @@ interface UsePageRequestOptions<T> {
     idKey?:string
 }
 
+interface IUserRequestPage {
+    pageNum: number
+    pageSize: number
+    total: number
+}
+
 export default <T=any>(options:UsePageRequestOptions<T>)=>{
     options = Object.assign({}, {
         pageKey: "pageNum",
@@ -43,10 +50,7 @@ export default <T=any>(options:UsePageRequestOptions<T>)=>{
 
     // 数据
     const list = ref([]) as Ref<T[]>
-
-    const aa = {} as T
-    list.value.push(aa)
-    const page = reactive<UserRequestPage>({
+    const page = reactive<IUserRequestPage>({
         pageNum: options.defaultPage! as number,
         pageSize: options.defaultSize! as number,
         total: 1
