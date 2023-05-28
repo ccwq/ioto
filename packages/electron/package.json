@@ -1,6 +1,6 @@
 {
     "name": "@ioto/electron",
-    "version": "0.0.26",
+    "version": "0.0.27",
     "description": "electron utils",
     "author": "ccwq <scwqd@qq.com>",
     "homepage": "https://github.com/ccwq/ioto#readme",
@@ -55,5 +55,5 @@
     "bugs": {
         "url": "https://github.com/ccwq/ioto/issues"
     },
-    "gitHead": "6ed271117ac4f624eb8150fb476565bf6ab90989"
+    "gitHead": "c94bc9679e307e0e518d1ce91c4685151972df5a"
 }
