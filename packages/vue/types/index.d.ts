@@ -15,4 +15,6 @@ export { default as F9Layout } from './components/F9Layout.vue';
 export { EChart, initEchart, } from './components/e-chart';
 export { default as usePageRequest } from './hooks/usePageRequest';
 export { default as useStepHelper } from './hooks/useStepHelper';
+export { default as TempVar } from "./components/TempVar";
+export { VReander } from "./js/vRender";
 export { plugins, XButton, useMouse, };

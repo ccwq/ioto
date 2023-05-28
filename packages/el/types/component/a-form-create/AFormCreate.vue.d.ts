@@ -1,4 +1,4 @@
-import { nextTick, provide, ref, type Ref, toRefs, useAttrs, watchEffect } from "vue";
+import { computed, nextTick, provide, ref, type Ref, toRefs, useAttrs, watchEffect } from "vue";
 import type { Rule, OptionAttrs, FC } from "../a-form-create";
 declare const _sfc_main: import("vue").DefineComponent<{
     disabled: {
@@ -73,7 +73,7 @@ declare const _sfc_main: import("vue").DefineComponent<{
     beforeButmitSeed: Ref<number>;
     option: import("vue").ComputedRef<OptionAttrs | Ref<OptionAttrs>>;
     disabled: import("vue").ComputedRef<any>;
-    fc: import("@form-create/element-ui").Api | null;
+    fc: null;
     handlerSubmit: (...addiRest: any[]) => Promise<void>;
     handlerReset: (...addiRest: any[]) => void;
     vBind: import("vue").ComputedRef<{
@@ -83,18 +83,19 @@ declare const _sfc_main: import("vue").DefineComponent<{
         "onUpdate:api"(api: FC): void;
     }>;
     disableSubmit: Ref<boolean>;
-    computed: typeof import("@vue/reactivity").computed;
+    computed: typeof computed;
     nextTick: typeof nextTick;
     provide: typeof provide;
     ref: typeof ref;
+    Ref: any;
     toRefs: typeof toRefs;
     useAttrs: typeof useAttrs;
     watchEffect: typeof watchEffect;
-    readonly set: {
+    set: {
         <T extends object>(object: T, path: import("lodash").PropertyPath, value: any): T;
         <TResult>(object: object, path: import("lodash").PropertyPath, value: any): TResult;
     };
-    readonly get: {
+    get: {
         <TObject extends object, TKey extends keyof TObject>(object: TObject, path: TKey | [TKey]): TObject[TKey];
         <TObject_1 extends object, TKey_1 extends keyof TObject_1>(object: TObject_1 | null | undefined, path: TKey_1 | [TKey_1]): TObject_1[TKey_1] | undefined;
         <TObject_2 extends object, TKey_2 extends keyof TObject_2, TDefault>(object: TObject_2 | null | undefined, path: TKey_2 | [TKey_2], defaultValue: TDefault): TDefault | Exclude<TObject_2[TKey_2], undefined>;
@@ -139,86 +140,50 @@ declare const _sfc_main: import("vue").DefineComponent<{
         vBind: import("vue").ComputedRef<{
             [x: string]: unknown;
         }>;
-    }, unknown, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, {}, string, import("vue").VNodeProps & import("vue").AllowedComponentProps & import("vue").ComponentCustomProps, Readonly<import("vue").ExtractPropTypes<{
-        label: {
-            type: StringConstructor;
-            default: string;
-        };
-        icon: {
-            type: StringConstructor;
-            default: string;
-        };
-        suffix: {
-            type: StringConstructor;
-            default: string;
-        };
-        lite: {
-            type: BooleanConstructor;
-            default: boolean;
-        };
-    }>>, {
+    }, unknown, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, Record<string, any>, string, import("vue").VNodeProps & import("vue").AllowedComponentProps & import("vue").ComponentCustomProps, Readonly<{
+        label?: unknown;
+        icon?: unknown;
+        suffix?: unknown;
+        lite?: unknown;
+    } & {
+        label: string;
+        icon: string;
+        suffix: string;
+        lite: boolean;
+    } & {}>, {
         label: string;
         icon: string;
         suffix: string;
         lite: boolean;
     }>;
-}, unknown, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, ("update:modelValue" | "update:api" | "ready" | "submit" | "reset" | "update:mergedValue")[], "update:modelValue" | "update:api" | "ready" | "submit" | "reset" | "update:mergedValue", import("vue").VNodeProps & import("vue").AllowedComponentProps & import("vue").ComponentCustomProps, Readonly<import("vue").ExtractPropTypes<{
-    disabled: {
-        type: BooleanConstructor;
-        required: false;
-        default: boolean;
-    };
-    labelWidth: {
-        type: StringConstructor;
-        required: false;
-    };
-    noSubmitBtn: {
-        type: BooleanConstructor;
-        required: false;
-        default: boolean;
-    };
-    option: {
-        type: null;
-        required: false;
-    };
-    autoValidate: {
-        type: BooleanConstructor;
-        required: false;
-        default: boolean;
-    };
-    modelValue: {
-        type: null;
-        required: false;
-        default: any;
-    };
-    mergedValue: {
-        type: null;
-        required: false;
-        default: any;
-    };
-    compact: {
-        type: StringConstructor;
-        required: false;
-        default: string;
-    };
-    rule: {
-        type: ArrayConstructor;
-        required: false;
-    };
-    rules: {
-        type: ArrayConstructor;
-        required: false;
-    };
-    noFooter: {
-        type: BooleanConstructor;
-        required: false;
-        default: boolean;
-    };
-    beforeSubmit: {
-        type: FunctionConstructor;
-        required: false;
-    };
-}>> & {
+}, unknown, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, ("update:modelValue" | "update:api" | "ready" | "submit" | "reset" | "update:mergedValue")[], "update:modelValue" | "update:api" | "ready" | "submit" | "reset" | "update:mergedValue", import("vue").VNodeProps & import("vue").AllowedComponentProps & import("vue").ComponentCustomProps, Readonly<{
+    disabled?: unknown;
+    labelWidth?: unknown;
+    noSubmitBtn?: unknown;
+    option?: unknown;
+    autoValidate?: unknown;
+    modelValue?: unknown;
+    mergedValue?: unknown;
+    compact?: unknown;
+    rule?: unknown;
+    rules?: unknown;
+    noFooter?: unknown;
+    beforeSubmit?: unknown;
+} & {
+    disabled: boolean;
+    noSubmitBtn: boolean;
+    autoValidate: boolean;
+    compact: string;
+    noFooter: boolean;
+} & {
+    modelValue?: any;
+    option?: any;
+    labelWidth?: string | undefined;
+    mergedValue?: any;
+    rule?: unknown[] | undefined;
+    rules?: unknown[] | undefined;
+    beforeSubmit?: Function | undefined;
+}> & {
     "onUpdate:modelValue"?: ((...args: any[]) => any) | undefined;
     "onUpdate:api"?: ((...args: any[]) => any) | undefined;
     onReady?: ((...args: any[]) => any) | undefined;

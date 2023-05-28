@@ -15,23 +15,17 @@ export declare const SelectFromRequest: import("vue").DefineComponent<{
         type: StringConstructor;
         default: string;
     };
-}, () => JSX.Element, unknown, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, {}, string, import("vue").VNodeProps & import("vue").AllowedComponentProps & import("vue").ComponentCustomProps, Readonly<import("vue").ExtractPropTypes<{
-    apiParams: {
-        default: string;
-    };
-    requestWhenApiParamsBlank: {
-        type: BooleanConstructor;
-        default: boolean;
-    };
-    api: {
-        required: true;
-        type: PropType<(params: any) => Promise<any>>;
-    };
-    listPath: {
-        type: StringConstructor;
-        default: string;
-    };
-}>>, {
+}, () => JSX.Element, unknown, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, Record<string, any>, string, import("vue").VNodeProps & import("vue").AllowedComponentProps & import("vue").ComponentCustomProps, Readonly<{
+    apiParams?: unknown;
+    requestWhenApiParamsBlank?: unknown;
+    api?: unknown;
+    listPath?: unknown;
+} & {
+    apiParams: string;
+    requestWhenApiParamsBlank: boolean;
+    api: (params: any) => Promise<any>;
+    listPath: string;
+} & {}>, {
     apiParams: string;
     requestWhenApiParamsBlank: boolean;
     listPath: string;
@@ -43,4 +37,4 @@ export declare const SelectFromRequest: import("vue").DefineComponent<{
  * @param labelField
  * @param valueField
  */
-export declare const generateSelect: (api: (params?: any) => Promise<any>, listPath?: string, labelField?: string, valueField?: string) => import("vue").DefineComponent<{}, () => JSX.Element, {}, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, {}, string, import("vue").VNodeProps & import("vue").AllowedComponentProps & import("vue").ComponentCustomProps, Readonly<import("vue").ExtractPropTypes<{}>>, {}>;
+export declare const generateSelect: (api: (params?: any) => Promise<any>, listPath?: string, labelField?: string, valueField?: string) => import("vue").DefineComponent<{}, () => JSX.Element, {}, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, import("vue").EmitsOptions, string, import("vue").VNodeProps & import("vue").AllowedComponentProps & import("vue").ComponentCustomProps, Readonly<{} & {} & {}>, {}>;

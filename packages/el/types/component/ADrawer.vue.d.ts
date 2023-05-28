@@ -1,4 +1,4 @@
-import { ref, useAttrs, watch } from "vue";
+import { computed, ref, useAttrs, watch } from "vue";
 declare const _sfc_main: import("vue").DefineComponent<{
     positionAbs: {
         type: BooleanConstructor;
@@ -15,17 +15,16 @@ declare const _sfc_main: import("vue").DefineComponent<{
     }>;
     helperClass: string;
     drawerEl: import("vue").Ref<any>;
-    computed: typeof import("@vue/reactivity").computed;
+    computed: typeof computed;
     onMounted: (hook: () => any, target?: import("vue").ComponentInternalInstance | null | undefined) => false | Function | undefined;
     ref: typeof ref;
     useAttrs: typeof useAttrs;
     watch: typeof watch;
-}, unknown, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, {}, string, import("vue").VNodeProps & import("vue").AllowedComponentProps & import("vue").ComponentCustomProps, Readonly<import("vue").ExtractPropTypes<{
-    positionAbs: {
-        type: BooleanConstructor;
-        required: false;
-    };
-}>>, {
+}, unknown, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, Record<string, any>, string, import("vue").VNodeProps & import("vue").AllowedComponentProps & import("vue").ComponentCustomProps, Readonly<{
+    positionAbs?: unknown;
+} & {
+    positionAbs: boolean;
+} & {}>, {
     positionAbs: boolean;
 }>;
 export default _sfc_main;

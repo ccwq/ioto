@@ -25,20 +25,15 @@ declare const _sfc_main: import("vue").DefineComponent<{
         background: boolean;
         layout: string;
     }>;
-}, unknown, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, {}, string, import("vue").VNodeProps & import("vue").AllowedComponentProps & import("vue").ComponentCustomProps, Readonly<import("vue").ExtractPropTypes<{
-    total: {
-        type: NumberConstructor;
-        default: number;
-    };
-    pageSize: {
-        type: NumberConstructor;
-        default: number;
-    };
-    currentPage: {
-        type: NumberConstructor;
-        default: number;
-    };
-}>>, {
+}, unknown, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, Record<string, any>, string, import("vue").VNodeProps & import("vue").AllowedComponentProps & import("vue").ComponentCustomProps, Readonly<{
+    total?: unknown;
+    pageSize?: unknown;
+    currentPage?: unknown;
+} & {
+    total: number;
+    pageSize: number;
+    currentPage: number;
+} & {}>, {
     total: number;
     pageSize: number;
     currentPage: number;

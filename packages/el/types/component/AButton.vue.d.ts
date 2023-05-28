@@ -21,24 +21,17 @@ declare const _sfc_main: import("vue").DefineComponent<{
     vBind: import("vue").ComputedRef<{
         [x: string]: unknown;
     }>;
-}, unknown, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, {}, string, import("vue").VNodeProps & import("vue").AllowedComponentProps & import("vue").ComponentCustomProps, Readonly<import("vue").ExtractPropTypes<{
-    label: {
-        type: StringConstructor;
-        default: string;
-    };
-    icon: {
-        type: StringConstructor;
-        default: string;
-    };
-    suffix: {
-        type: StringConstructor;
-        default: string;
-    };
-    lite: {
-        type: BooleanConstructor;
-        default: boolean;
-    };
-}>>, {
+}, unknown, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, Record<string, any>, string, import("vue").VNodeProps & import("vue").AllowedComponentProps & import("vue").ComponentCustomProps, Readonly<{
+    label?: unknown;
+    icon?: unknown;
+    suffix?: unknown;
+    lite?: unknown;
+} & {
+    label: string;
+    icon: string;
+    suffix: string;
+    lite: boolean;
+} & {}>, {
     label: string;
     icon: string;
     suffix: string;

@@ -1,3 +1,4 @@
+import { Ref } from 'vue';
 interface UsePageRequestOptions<T> {
     pageKey?: string;
     sizeKey?: string;
@@ -12,25 +13,29 @@ interface UsePageRequestOptions<T> {
     idKey?: string;
 }
 declare const _default: <T = any>(options: UsePageRequestOptions<T>) => {
-    getRow: (row: string | T) => any;
+    getRow: (row: string | T) => T | undefined;
     addRow: (row: T) => void;
     editRow: (row: T) => void;
     deleteRow: (row: string | T) => void;
     deleteByIndex: (index: number) => void;
     elPageVBind: import("vue").ComputedRef<{
-        pageSize: any;
+        pageSize: number;
         "onUpdate:pageSize": (size: number) => number;
-        currentPage: any;
+        currentPage: number;
         "onUpdate:currentPage": (pageNum: number) => number;
-        total: any;
+        total: number;
     }>;
-    isError: import("vue").Ref<boolean>;
+    isError: Ref<boolean>;
     loadStatus: import("vue").ComputedRef<"error" | "loading" | "success" | "empty">;
     reload: (newPage?: number) => Promise<void>;
     setTotal: (total: number) => void;
     isEof: import("vue").ComputedRef<boolean>;
     isBof: import("vue").ComputedRef<boolean>;
     list: Ref<T[]>;
-    page: any;
+    page: {
+        pageNum: number;
+        pageSize: number;
+        total: number;
+    };
 };
 export default _default;
