@@ -229,3 +229,92 @@ export const simpleEncryptString = (str:string)=>{
 export const simpleDecryptString = (str:string)=>{
     return str.split("").map(c=>String.fromCharCode(parseInt(c, 13))).join("")
 }
+
+
+
+
+
+/**
+ * 截取html字符串，保留长度
+ * @param html
+ * @param num
+ */
+export function truncateHTML(html:string, num:number, endfix="...") {
+    // 创建一个 div 元素，用于解析和过滤 HTML
+    var div = document.createElement('div');
+    div.innerHTML = html;
+
+    // 过滤 HTML 内容，确保安全性
+    var filteredHTML = sanitizeHTML(div);
+
+    // 获取解析后的文本内容
+    var text = filteredHTML.textContent || filteredHTML.innerText || '';
+
+
+    // 遍历文本，计算字符长度
+    var truncatedText = '';
+    var length = 0;
+    for (var i = 0; i < text.length; i++) {
+        var char = text[i];
+        // 判断字符是否为中文
+        if (/[\u4e00-\u9fa5]/.test(char)) {
+            length += 2;
+        } else {
+            length += 1;
+        }
+        // 如果字符长度超过限制，则停止遍历
+        if (length > num * 2) {
+            break;
+        }
+        truncatedText += char;
+    }
+
+    // 如果文本长度超过限制，则添加省略号
+    if (text.length <= truncatedText.length) {
+        return text;
+    }else{
+        return truncatedText + endfix;
+    }
+}
+
+// XSS 过滤函数
+function sanitizeHTML(htmlNode:Element){
+    var newNode = htmlNode.cloneNode(true);
+
+    //@ts-ignore
+    var scripts = newNode.getElementsByTagName('script');
+    var i = scripts.length;
+    while (i--) {
+        scripts[i].parentNode.removeChild(scripts[i]);
+    }
+    return newNode;
+}
+
+
+// 截取文本
+function truncateTEXT(text:string, lagnth:number, endfix="..."){
+    // 遍历文本，计算字符长度
+    var truncatedText = '';
+    var length = 0;
+    for (var i = 0; i < text.length; i++) {
+        var char = text[i];
+        // 判断字符是否为中文
+        if (/[\u4e00-\u9fa5]/.test(char)) {
+            length += 2;
+        } else {
+            length += 1;
+        }
+        // 如果字符长度超过限制，则停止遍历
+        if (length > lagnth * 2) {
+            break;
+        }
+        truncatedText += char;
+    }
+
+    // 如果文本长度超过限制，则添加省略号
+    if (text.length <= truncatedText.length) {
+        return text;
+    }else{
+        return truncatedText + endfix;
+    }
+}
