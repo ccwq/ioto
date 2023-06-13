@@ -248,7 +248,11 @@ export function truncateHTML(html:string, num:number, endfix="...") {
     var filteredHTML = sanitizeHTML(div);
 
     // 获取解析后的文本内容
-    var text = filteredHTML.textContent || filteredHTML.innerText || '';
+    var text = filteredHTML.textContent ||
+        //@ts-ignore
+        filteredHTML.innerText ||
+        ''
+    ;
 
 
     // 遍历文本，计算字符长度

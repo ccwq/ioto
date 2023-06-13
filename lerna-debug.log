@@ -1,6 +1,6 @@
 15 error Error: Command failed with exit code 1: git remote update
 15 error kex_exchange_identification: Connection closed by remote host
-15 error Connection closed by 192.30.255.113 port 22
+15 error Connection closed by 192.30.255.112 port 22
 15 error fatal: Could not read from remote repository.
 15 error
 15 error Please make sure you have the correct access rights
