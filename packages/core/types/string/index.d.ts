@@ -60,3 +60,9 @@ export declare const camel2dash: (str: string) => string;
 export declare const dash2camel: (str: string) => string;
 export declare const simpleEncryptString: (str: string) => string;
 export declare const simpleDecryptString: (str: string) => string;
+/**
+ * 截取html字符串，保留长度
+ * @param html
+ * @param num
+ */
+export declare function truncateHTML(html: string, num: number, endfix?: string): any;
