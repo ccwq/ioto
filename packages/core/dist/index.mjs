@@ -740,6 +740,8 @@ function ha(t) {
   });
 }
 function Xs() {
+  if (typeof window > "u")
+    return -1;
   const t = window.navigator.userAgent, e = t.indexOf("MSIE ");
   if (e > 0)
     return parseInt(t.substring(e + 5, t.indexOf(".", e)), 10);
