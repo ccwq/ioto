@@ -4,6 +4,7 @@ import {tryGet} from "../object";
 import {IObject, stringNumber, treeData} from "../types";
 import {isPlainObject} from "../object";
 import isNull from "lodash/isNull";
+import {unescape} from "lodash";
 
 /**
  * 给对象上赋值,如果键已经存在,则在前面加上prefix
@@ -290,7 +291,8 @@ export function getImageSize (image:string|Blob) {
 }
 
 //用来判断是否ie
-function getInternetExplorerVersion () {
+function getInternetExplorerVersion(): number {
+    if (typeof window == "undefined") return -1;
     const ua = window.navigator.userAgent
 
     const msie = ua.indexOf('MSIE ')
