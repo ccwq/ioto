@@ -325,28 +325,39 @@ const travelTree = function (
     childKey = "children",
     idKey = "id",
     parents:INodeList = [],
-    breakFlag = {flag: false}
+    breakFlag = {flag: false},
 ) {
     if (treeData instanceof Array) {
-        travelTree({[childKey]: treeData}, callback, childKey, idKey, parents)
-        return;
+        return  travelTree({[childKey]: treeData}, callback, childKey, idKey, parents)
     }
+    const nodeList = [] as INodeList;
+
     const list:INodeList = (treeData?.[childKey]) || [];
     for (let i = 0; i < list.length; i++) {
         const item:INode = list[i];
-        const ret = callback(item, parents, childKey, idKey);
-        if (!ret) {
-            breakFlag.flag = true;
-            break;
+
+        if (callback) {
+            const ret = callback(item, parents, childKey, idKey);
+
+            // 返回false中断遍历
+            if (ret===false) {
+                breakFlag.flag = true;
+                break;
+            }
         }
+
+        nodeList.push(item);
+
         if (item[childKey] instanceof Array) {
-            travelTree(item[childKey], callback, childKey, idKey, [item, ...parents], breakFlag);
+            const retList = travelTree(item[childKey], callback, childKey, idKey, [item, ...parents], breakFlag);
+            nodeList.push(...retList);
         }
 
         if (breakFlag.flag) {
             break;
         }
     }
+    return nodeList;
 };
 
 export {
