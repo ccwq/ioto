@@ -60,6 +60,6 @@ declare const makeTreeDataHelper: (treeData: IInputData, options?: Options) => {
  */
 declare const travelTree: (treeData: IInputData, callback: ITravelTreeCallback, childKey?: string, idKey?: string, parents?: INodeList, breakFlag?: {
     flag: boolean;
-}) => void;
+}) => any;
 export { travelTree, makeTreeDataHelper };
 export type { INode, INodeList, INodeDic, IInputData, ITravelCallback, ITravelAllCallback, ITravelTreeCallback, IFilterFunction, };
