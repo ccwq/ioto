@@ -2,7 +2,7 @@
     "name": "@ioto/monorepo",
     "private": true,
     "scripts": {
-        "publish": "lerna publish",
+        "publish": "lerna publish --no-git-checks",
         "build:all": "lerna exec pnpm build"
     },
     "workspaces": [

@@ -1,13 +1,9 @@
-15 error Error: Command failed with exit code 1: git remote update
-15 error kex_exchange_identification: Connection closed by remote host
-15 error Connection closed by 20.205.243.166 port 22
-15 error fatal: Could not read from remote repository.
-15 error
-15 error Please make sure you have the correct access rights
-15 error and the repository exists.
-15 error     at makeError (E:\project\ioto\node_modules\.pnpm\registry.npmmirror.com+execa@5.1.1\node_modules\execa\lib\error.js:60:11)
-15 error     at Function.module.exports.sync (E:\project\ioto\node_modules\.pnpm\registry.npmmirror.com+execa@5.1.1\node_modules\execa\index.js:194:17)
-15 error     at Object.execSync (E:\project\ioto\node_modules\.pnpm\registry.npmmirror.com+@lerna+child-process@5.6.2\node_modules\@lerna\child-process\index.js:39:16)
-15 error     at updateRemote (E:\project\ioto\node_modules\.pnpm\registry.npmmirror.com+@lerna+version@5.6.2_nx@14.8.3_typescript@4.6.4\node_modules\@lerna\version\lib\is-behind-upstream.js:34:16)
-15 error     at isBehindUpstream (E:\project\ioto\node_modules\.pnpm\registry.npmmirror.com+@lerna+version@5.6.2_nx@14.8.3_typescript@4.6.4\node_modules\@lerna\version\lib\is-behind-upstream.js:16:3)
-15 error     at VersionCommand.initialize (E:\project\ioto\node_modules\.pnpm\registry.npmmirror.com+@lerna+version@5.6.2_nx@14.8.3_typescript@4.6.4\node_modules\@lerna\version\index.js:156:9)
+62 error Error: Command failed with exit code 128: git push --follow-tags --no-verify --atomic origin master
+62 error kex_exchange_identification: Connection closed by remote host
+62 error Connection closed by 198.18.0.110 port 22
+62 error fatal: Could not read from remote repository.
+62 error
+62 error Please make sure you have the correct access rights
+62 error and the repository exists.
+62 error     at makeError (E:\project\ioto\node_modules\.pnpm\registry.npmmirror.com+execa@5.1.1\node_modules\execa\lib\error.js:60:11)
+62 error     at handlePromise (E:\project\ioto\node_modules\.pnpm\registry.npmmirror.com+execa@5.1.1\node_modules\execa\index.js:118:26)
