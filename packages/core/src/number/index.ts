@@ -87,6 +87,52 @@ export const safeParseNumber = (input: any, backupValue: number = 0) => {
 }
 
 
+/**
+ * 将给定的值分割成指定数量的随机段，满足约束条件。
+ *
+ * @param {number} value - 要分割的值。
+ * @param {number} n - 分割成的段数。
+ * @param {number} minValue - 每个返回值的最小值。
+ * @returns {Array} - 返回一个整数数组，满足约束条件，如果无法满足条件，返回空数组。
+ */
+export function randomSegmentation(value:number, n:number, minValue:number) {
+    function getRandomInt(min:number, max:number) {
+        return Math.floor(Math.random() * (max - min + 1)) + min;
+    }
+
+    function generateRandomArray() {
+        const result = [];
+        let remainingValue = value;
+
+        for (let i = 0; i < n - 1; i++) {
+            const randomValue = getRandomInt(minValue, remainingValue - (minValue * (n - 1 - i)));
+            result.push(randomValue);
+            remainingValue -= randomValue;
+        }
+
+        result.push(remainingValue);
+
+        return result;
+    }
+
+    let attempts = 0;
+    while (attempts < 5) {
+        const randomArray = generateRandomArray();
+
+        if (randomArray.every(num => num >= minValue)) {
+            return randomArray;
+        }
+
+        attempts++;
+    }
+
+    // 如果无法满足条件，返回空数组或者其他你认为合适的值
+    return [];
+}
+
 export {
     default as Math2
 } from "./Math2"
+
+
+

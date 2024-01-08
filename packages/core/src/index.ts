@@ -44,6 +44,7 @@ export {
     stripAndFix as stripAndFixNumber,
     safeValueInRange,
     safeParseNumber,
+    randomSegmentation,
 } from "./number"
 
 // date
