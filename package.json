@@ -1,6 +1,6 @@
 {
     "name": "@ioto/monorepo",
-    "version": "0.0.31",
+    "version": "0.0.32",
     "private": true,
     "scripts": {
         "publish": "lerna publish",
