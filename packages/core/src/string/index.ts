@@ -322,3 +322,66 @@ function truncateTEXT(text:string, lagnth:number, endfix="..."){
         return truncatedText + endfix;
     }
 }
+
+
+/**
+ * 获取 URL 的 dirname。
+ * @description 获取 URL 的 dirname
+ * @param {string} url URL 字符串
+ * @returns {string} dirname
+ * 用例:
+ *     https://vscode.dev/, https://vscode.dev
+ *     https://vscode.dev/a.html, https://vscode.dev
+ *     https://vscode.dev/a.html/#, https://vscode.dev
+ *     https://vscode.dev/a.html#, https://vscode.dev
+ *     https://vscode.dev/foo/a.html, https://vscode.dev/foo
+ *     https://vscode.dev/foo/a.html/#, https://vscode.dev/foo
+ */
+export function getURLDirname(url) {
+    let rawUrl = url.split(/#|\?/)[0]
+    const array = rawUrl.split("/")
+    let uhost, upathArray
+    // 包含host
+    if(array[1]===""){
+        uhost = array.slice(0,3).join("/")
+        upathArray = array.slice(3)
+    }else{
+        uhost=""
+        upathArray = array
+    }
+    let lastItem = upathArray[upathArray.length-1]
+
+    let upathStr
+    // 最后一个字符是/表示可能是目录,除非名称包含扩展名
+    if(lastItem===""){
+        upathArray = upathArray.slice(0,-1)
+        if(upathArray.length){
+            lastItem = upathArray[upathArray.length-1]
+        }
+
+        // 目录是根
+        if(!lastItem){
+            upathStr=""
+        }
+
+        // 目录名包含.
+        else if(lastItem.includes(".")){
+            upathStr=upathArray.slice(0,-1).join("/")
+        }
+
+        // 常规目录
+        else{
+            upathStr=upathArray.join("/")
+        }
+    }
+    // 是文件
+    else {
+        upathStr = upathArray.slice(0,-1).join("/")
+    }
+
+    // 删除第一个/
+    upathStr = upathStr.replace(/^\//, "");
+
+    // 合并
+    return [uhost, upathStr].join("/").replace(/\/$/, "")
+}
