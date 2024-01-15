@@ -34,4 +34,13 @@ export declare const safeValueInRange: (value: number | string, max?: number, mi
  * @param backupValue
  */
 export declare const safeParseNumber: (input: any, backupValue?: number) => number;
+/**
+ * 将给定的值分割成指定数量的随机段，满足约束条件。
+ *
+ * @param {number} value - 要分割的值。
+ * @param {number} n - 分割成的段数。
+ * @param {number} minValue - 每个返回值的最小值。
+ * @returns {Array} - 返回一个整数数组，满足约束条件，如果无法满足条件，返回空数组。
+ */
+export declare function randomSegmentation(value: number, n: number, minValue: number): number[];
 export { default as Math2 } from "./Math2";

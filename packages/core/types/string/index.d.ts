@@ -66,3 +66,17 @@ export declare const simpleDecryptString: (str: string) => string;
  * @param num
  */
 export declare function truncateHTML(html: string, num: number, endfix?: string): any;
+/**
+ * 获取 URL 的 dirname。
+ * @description 获取 URL 的 dirname
+ * @param {string} url URL 字符串
+ * @returns {string} dirname
+ * 用例:
+ *     https://vscode.dev/, https://vscode.dev
+ *     https://vscode.dev/a.html, https://vscode.dev
+ *     https://vscode.dev/a.html/#, https://vscode.dev
+ *     https://vscode.dev/a.html#, https://vscode.dev
+ *     https://vscode.dev/foo/a.html, https://vscode.dev/foo
+ *     https://vscode.dev/foo/a.html/#, https://vscode.dev/foo
+ */
+export declare function getURLDirname(url: any): string;

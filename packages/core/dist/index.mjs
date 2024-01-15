@@ -96,9 +96,9 @@ function $t(t) {
   return t && t.length !== 0;
 }
 function he(t, e, r) {
-  for (var n = yt(), s = qt(), o = mt(n, s), c = ot(t), h = Object.assign({}, t); !c.isEmpty(); ) {
-    var f = c.pop();
-    if (f === h) {
+  for (var n = yt(), s = qt(), o = mt(n, s), u = ot(t), l = Object.assign({}, t); !u.isEmpty(); ) {
+    var f = u.pop();
+    if (f === l) {
       s.moveUp();
       continue;
     }
@@ -106,22 +106,22 @@ function he(t, e, r) {
       break;
     if (!n.remove && (s.moveNext(), !n.skip)) {
       n.replace && (f = n.replace);
-      var d = r(f);
-      $t(d) && (c.push(h), c.pushArrayReverse(d), s.moveDown(f));
+      var h = r(f);
+      $t(h) && (u.push(l), u.pushArrayReverse(h), s.moveDown(f));
     }
   }
 }
 function de(t, e, r) {
-  for (var n = yt(), s = qt(), o = mt(n, s), c = ot(t), h = ot(null); !c.isEmpty(); ) {
-    var f = c.peek(), d = h.peek(), p = r(f);
-    if (n.reset(), f === d || !$t(p)) {
-      if (f === d && (h.pop(), s.moveUp()), c.pop(), e(f, o), n.break)
+  for (var n = yt(), s = qt(), o = mt(n, s), u = ot(t), l = ot(null); !u.isEmpty(); ) {
+    var f = u.peek(), h = l.peek(), p = r(f);
+    if (n.reset(), f === h || !$t(p)) {
+      if (f === h && (l.pop(), s.moveUp()), u.pop(), e(f, o), n.break)
         break;
       if (n.remove)
         continue;
       s.moveNext();
     } else
-      h.push(f), s.moveDown(f), c.pushArrayReverse(p);
+      l.push(f), s.moveDown(f), u.pushArrayReverse(p);
   }
 }
 var pe = 32768;
@@ -171,13 +171,13 @@ function ge() {
   return new Vt();
 }
 function ve(t, e, r) {
-  for (var n = yt(), s = ge(), o = mt(n, s), c = Jt(t); !c.isEmpty(); ) {
-    var h = c.dequeue();
-    if (n.reset(), e(h, o), n.break)
+  for (var n = yt(), s = ge(), o = mt(n, s), u = Jt(t); !u.isEmpty(); ) {
+    var l = u.dequeue();
+    if (n.reset(), e(l, o), n.break)
       break;
-    if (!n.remove && (s.moveNext(), n.replace && (h = n.replace), !n.skip)) {
-      var f = r(h);
-      $t(f) && (c.enqueueMultiple(f), s.store(h, f.length));
+    if (!n.remove && (s.moveNext(), n.replace && (l = n.replace), !n.skip)) {
+      var f = r(l);
+      $t(f) && (u.enqueueMultiple(f), s.store(l, f.length));
     }
     s.moveForward();
   }
@@ -433,8 +433,8 @@ function bt(t, e) {
     var n = arguments, s = e ? e.apply(this, n) : n[0], o = r.cache;
     if (o.has(s))
       return o.get(s);
-    var c = t.apply(this, n);
-    return r.cache = o.set(s, c) || o, c;
+    var u = t.apply(this, n);
+    return r.cache = o.set(s, u) || o, u;
   };
   return r.cache = new (bt.Cache || ee)(), r;
 }
@@ -502,81 +502,81 @@ function Js(t) {
 var Vs = Js;
 const aa = function(t, e = {}) {
   let r = {}, n = [], s = [], o = {};
-  const c = function() {
+  const u = function() {
     r = {}, n = [], s = [], o = {};
   };
-  c();
+  u();
   let {
-    childrenKey: h = "children",
+    childrenKey: l = "children",
     checkedKey: f = "checked",
-    idKey: d = "id"
+    idKey: h = "id"
   } = e, p = 0, _ = 0;
   const M = function(i = {}) {
-    h = i.childrenKey || h, f = i.checkedKey || f, d = i.idKey || d;
-  }, D = function(i, u) {
+    l = i.childrenKey || l, f = i.checkedKey || f, h = i.idKey || h;
+  }, D = function(i, c) {
     i.forEach(function(a) {
-      const g = a[d];
-      r[g] = a, a = { ...a }, s.push(a), a.parent = u, a.index = p++;
-      const v = u ? u.deepth + 1 : 0;
-      a.deepth = v, _ = Math.max(_, v), a.path = u ? u.path + "." + a[d] : "0", a.parentIdList = u ? [...u.parentIdList, u[d]] : [], o[g] = a, a[h] && a[h].length > 0 && D(a[h], a);
+      const g = a[h];
+      r[g] = a, a = { ...a }, s.push(a), a.parent = c, a.index = p++;
+      const v = c ? c.deepth + 1 : 0;
+      a.deepth = v, _ = Math.max(_, v), a.path = c ? c.path + "." + a[h] : "0", a.parentIdList = c ? [...c.parentIdList, c[h]] : [], o[g] = a, a[l] && a[l].length > 0 && D(a[l], a);
     });
   }, C = function(i) {
-    return i[h] && i[h].length > 0 ? !i[h].map((a) => I(a[d])).find((a) => !a[f]) : !1;
+    return i[l] && i[l].length > 0 ? !i[l].map((a) => I(a[h])).find((a) => !a[f]) : !1;
   }, E = function(i) {
-    c(), Array.isArray(i) && D(i);
+    u(), Array.isArray(i) && D(i);
   };
   E(t);
   const O = function(i) {
-    var u;
-    return (u = I(i)) == null ? void 0 : u.parentIdList.map((a) => I(a));
+    var c;
+    return (c = I(i)) == null ? void 0 : c.parentIdList.map((a) => I(a));
   }, R = function(i) {
-    const u = I(i);
+    const c = I(i);
     return s.filter(function(a) {
-      return a.parent === (u == null ? void 0 : u.parent);
+      return a.parent === (c == null ? void 0 : c.parent);
     });
   }, A = function(i) {
-    let u;
+    let c;
     if (!i)
       return console.warn("id\u4E0D\u80FD\u4E3A\u7A7A"), null;
     if (i instanceof Object)
-      u = i[d];
+      c = i[h];
     else if (typeof i == "string" || typeof i == "number")
-      u = i;
+      c = i;
     else
       return console.warn("id\u7C7B\u578B\u975E\u6CD5:", i), null;
-    return u;
+    return c;
   }, I = function(i) {
-    const u = A(i);
-    return u ? o[u] : null;
+    const c = A(i);
+    return c ? o[c] : null;
   }, nt = function(i) {
-    const u = A(i);
-    return u ? r[u] : null;
+    const c = A(i);
+    return c ? r[c] : null;
   }, P = function(i) {
-    const u = I(i);
-    return u == null ? void 0 : u.deepth;
-  }, k = function(i, u) {
+    const c = I(i);
+    return c == null ? void 0 : c.deepth;
+  }, k = function(i, c) {
     const a = I(i);
-    a && Object.assign(a, u);
-  }, Z = function(i, u, a = !1) {
+    a && Object.assign(a, c);
+  }, Z = function(i, c, a = !1) {
     const g = I(i);
-    g && (g[f] = u, a && (g.parentIdList.forEach((v) => {
+    g && (g[f] = c, a && (g.parentIdList.forEach((v) => {
       const y = o[v];
       y[f] = C(y);
     }), b(g, function(v) {
-      v[f] = u;
+      v[f] = c;
     })));
   }, U = function(i) {
-    const u = {};
+    const c = {};
     i && i.forEach((a) => {
-      u[a] = !0;
+      c[a] = !0;
     }), s.forEach((a) => {
-      a[f] = u[a[d]] || !1;
+      a[f] = c[a[h]] || !1;
     });
-  }, b = function(i, u) {
+  }, b = function(i, c) {
     const a = I(i);
     if (a)
-      u(a), a[h] && a[h].length > 0 && a[h].forEach(function(g) {
-        b(g, u);
+      c(a), a[l] && a[l].length > 0 && a[l].forEach(function(g) {
+        b(g, c);
       });
     else
       throw new Error("\u8282\u70B9\u4E0D\u5B58\u5728:" + i);
@@ -585,16 +585,16 @@ const aa = function(t, e = {}) {
     travelNode: b,
     getNodeList: (i = !0) => i ? [...s] : [...n],
     getNodeDescendantList: (i) => {
-      const u = [];
+      const c = [];
       return b(i, function(a) {
-        u.push(a);
-      }), u;
+        c.push(a);
+      }), c;
     },
     getNodeListByFilter: (i) => s.filter(i),
     getMinDeepth: function() {
       let i = _;
-      for (const u in s) {
-        const a = s[u];
+      for (const c in s) {
+        const a = s[c];
         if (a.checked && (i = Math.min(i, a.deepth)), i === 0)
           return 0;
       }
@@ -608,8 +608,8 @@ const aa = function(t, e = {}) {
     setChecked: Z,
     setProps: k,
     travelAllNode: function(i) {
-      for (const u in s) {
-        const a = s[u], g = nt(a[d]);
+      for (const c in s) {
+        const a = s[c], g = nt(a[h]);
         if (i(a, g) === !1)
           break;
       }
@@ -621,27 +621,27 @@ const aa = function(t, e = {}) {
 }, At = function(t, e, r = "children", n = "id", s = [], o = { flag: !1 }) {
   if (t instanceof Array)
     return At({ [r]: t }, e, r, n, s);
-  const c = [], h = (t == null ? void 0 : t[r]) || [];
-  for (let f = 0; f < h.length; f++) {
-    const d = h[f];
-    if (e && e(d, s, r, n) === !1) {
+  const u = [], l = (t == null ? void 0 : t[r]) || [];
+  for (let f = 0; f < l.length; f++) {
+    const h = l[f];
+    if (e && e(h, s, r, n) === !1) {
       o.flag = !0;
       break;
     }
-    if (c.push(d), d[r] instanceof Array) {
-      const p = At(d[r], e, r, n, [d, ...s], o);
-      c.push(...p);
+    if (u.push(h), h[r] instanceof Array) {
+      const p = At(h[r], e, r, n, [h, ...s], o);
+      u.push(...p);
     }
     if (o.flag)
       break;
   }
-  return c;
+  return u;
 }, at = function(t, e, r = null, n = !1) {
   if (typeof e == "string" && (e = e.split(",")), !!Array.isArray(e)) {
     for (let s = 0; s < e.length; s++) {
-      const o = e[s], c = Ws(t, o);
-      if (n ? Vs(c) : !!c)
-        return c;
+      const o = e[s], u = Ws(t, o);
+      if (n ? Vs(u) : !!u)
+        return u;
     }
     return r;
   }
@@ -650,8 +650,8 @@ const aa = function(t, e = {}) {
   for (; s.length; ) {
     const o = s.shift();
     n.push(o);
-    const c = o[e];
-    c != null && c.length && (r && n.pop(), s.unshift(...c));
+    const u = o[e];
+    u != null && u.length && (r && n.pop(), s.unshift(...u));
   }
   return n;
 };
@@ -688,27 +688,27 @@ const Zs = function(t, e, r, n = "_", s = 0) {
     name: "\u8BF7\u901A\u8FC7optionLs\u4F20\u5165\u6570\u7EC4\u6216\u8005\u51FD\u6570",
     value: -1
   }], function(o) {
-    const c = r.elFormatter;
-    c && (o = o.map((f) => {
-      let [d, p] = c(f, r, at);
-      return { value: d, name: p };
+    const u = r.elFormatter;
+    u && (o = o.map((f) => {
+      let [h, p] = u(f, r, at);
+      return { value: h, name: p };
     }));
-    let h = _e(o);
-    return h.length != o.length && console.warn("options\u4E2D\u5B58\u5728\u7A7A\u9009\u9879", o), o = h, o = o.map((f) => {
+    let l = _e(o);
+    return l.length != o.length && console.warn("options\u4E2D\u5B58\u5728\u7A7A\u9009\u9879", o), o = l, o = o.map((f) => {
       typeof f == "string" ? f = (f + "").split(r.spliterItemValue).map((_) => _.trim()) : typeof f == "number" && (f = [f, f]);
-      let d, p;
+      let h, p;
       if (Array.isArray(f)) {
-        if ([d, p] = f, p === void 0 ? p = d : d === void 0 && (d = p), kt(d) || kt(p))
+        if ([h, p] = f, p === void 0 ? p = h : h === void 0 && (h = p), kt(h) || kt(p))
           throw "value\u548Cname\u4E0D\u80FD\u540C\u65F6\u4E3A\u7A7A";
       } else
-        f ? (d = at(f, r.valueGetField), p = at(f, r.nameGetField)) : (p = "\u65E0\u6548options", d = "-");
+        f ? (h = at(f, r.valueGetField), p = at(f, r.nameGetField)) : (p = "\u65E0\u6548options", h = "-");
       return {
-        [r.valueSetField]: d,
+        [r.valueSetField]: h,
         [r.nameSetField]: p
       };
     }), o.forEach((f) => {
-      const d = f[r.valueSetField];
-      typeof d != "number" && typeof d != "string" && (console.warn("options\u4E2D\u5B58\u5728\u975E\u6CD5\u7684value,\u9700\u8981\u662Fnumber\u6216\u8005string", f), f[r.valueSetField] = f.value + "");
+      const h = f[r.valueSetField];
+      typeof h != "number" && typeof h != "string" && (console.warn("options\u4E2D\u5B58\u5728\u975E\u6CD5\u7684value,\u9700\u8981\u662Fnumber\u6216\u8005string", f), f[r.valueSetField] = f.value + "");
     }), o;
   }(n);
 }, fa = function(t, e = null) {
@@ -761,18 +761,18 @@ function Qs(...t) {
   Array.isArray(arguments[0]) ? e = arguments[0] : e = Array.prototype.slice.call(arguments);
   let r = [];
   return e.reduce(
-    function(n, s, o, c) {
+    function(n, s, o, u) {
       return n.then(function() {
         if (typeof s == "function")
           try {
             s = s();
-          } catch (h) {
-            return c.splice(1), Promise.reject(h);
+          } catch (l) {
+            return u.splice(1), Promise.reject(l);
           }
         else
           console.warn("map element:" + o + " not function");
-        return s.then((h) => {
-          r[o] = h;
+        return s.then((l) => {
+          r[o] = l;
         });
       });
     },
@@ -784,8 +784,8 @@ function Qs(...t) {
 class pa extends Promise {
   constructor(r = void 0) {
     let n, s;
-    super((o, c) => {
-      n = o, s = c, r && r(o, c);
+    super((o, u) => {
+      n = o, s = u, r && r(o, u);
     });
     T(this, "__resolve");
     T(this, "__reject");
@@ -811,11 +811,11 @@ class pa extends Promise {
   }
 }
 const ga = (t, e, r) => new Promise((n, s) => {
-  const o = t[Symbol.iterator](), c = (h) => {
-    const { value: f, done: d } = o.next();
-    d ? n(h) : e(h, f, t).then(c);
+  const o = t[Symbol.iterator](), u = (l) => {
+    const { value: f, done: h } = o.next();
+    h ? n(l) : e(l, f, t).then(u);
   };
-  c(r);
+  u(r);
 }), ut = class {
   static get fastGbk() {
     if (!this._fastGbk)
@@ -943,8 +943,8 @@ const Da = (t, e = "") => ne(t) || Array.isArray(t) ? JSON.stringify(t) : typeof
     const n = `${e}-${r ? "0" : "1"}`;
     let s = Ot[n];
     if (!s) {
-      let o, c;
-      ri.test(e) ? (o = RegExp.$1, c = e.replace(`::${o}`, "")) : (o = 0, c = e), s = new j(c, o, r), Ot[n] = s;
+      let o, u;
+      ri.test(e) ? (o = RegExp.$1, u = e.replace(`::${o}`, "")) : (o = 0, u = e), s = new j(u, o, r), Ot[n] = s;
     }
     return s;
   }
@@ -1051,9 +1051,9 @@ function Vi(t, e, r) {
   var n = t == null ? 0 : t.length;
   if (!n || e < 1)
     return [];
-  for (var s = 0, o = 0, c = Array(Wi(n / e)); s < n; )
-    c[o++] = Ui(t, s, s += e);
-  return c;
+  for (var s = 0, o = 0, u = Array(Wi(n / e)); s < n; )
+    u[o++] = Ui(t, s, s += e);
+  return u;
 }
 var se = Vi;
 class jt {
@@ -1107,64 +1107,86 @@ const wa = function(t, e = Number.MAX_SAFE_INTEGER, r = 0) {
   const s = ((t + "").includes(".") ? parseFloat : parseInt)(t);
   return isNaN(s) ? e : s;
 };
+function Ca(t, e, r) {
+  function n(u, l) {
+    return Math.floor(Math.random() * (l - u + 1)) + u;
+  }
+  function s() {
+    const u = [];
+    let l = t;
+    for (let f = 0; f < e - 1; f++) {
+      const h = n(r, l - r * (e - 1 - f));
+      u.push(h), l -= h;
+    }
+    return u.push(l), u;
+  }
+  let o = 0;
+  for (; o < 5; ) {
+    const u = s();
+    if (u.every((l) => l >= r))
+      return u;
+    o++;
+  }
+  return [];
+}
 var ae = { exports: {} };
 (function(t, e) {
   (function(r, n) {
     t.exports = n();
   })(G, function() {
-    var r = 1e3, n = 6e4, s = 36e5, o = "millisecond", c = "second", h = "minute", f = "hour", d = "day", p = "week", _ = "month", M = "quarter", D = "year", C = "date", E = "Invalid Date", O = /^(\d{4})[-/]?(\d{1,2})?[-/]?(\d{0,2})[Tt\s]*(\d{1,2})?:?(\d{1,2})?:?(\d{1,2})?[.:]?(\d+)?$/, R = /\[([^\]]+)]|Y{1,4}|M{1,4}|D{1,2}|d{1,4}|H{1,2}|h{1,2}|a|A|m{1,2}|s{1,2}|Z{1,2}|SSS/g, A = { name: "en", weekdays: "Sunday_Monday_Tuesday_Wednesday_Thursday_Friday_Saturday".split("_"), months: "January_February_March_April_May_June_July_August_September_October_November_December".split("_") }, I = function(m, l, i) {
-      var u = String(m);
-      return !u || u.length >= l ? m : "" + Array(l + 1 - u.length).join(i) + m;
+    var r = 1e3, n = 6e4, s = 36e5, o = "millisecond", u = "second", l = "minute", f = "hour", h = "day", p = "week", _ = "month", M = "quarter", D = "year", C = "date", E = "Invalid Date", O = /^(\d{4})[-/]?(\d{1,2})?[-/]?(\d{0,2})[Tt\s]*(\d{1,2})?:?(\d{1,2})?:?(\d{1,2})?[.:]?(\d+)?$/, R = /\[([^\]]+)]|Y{1,4}|M{1,4}|D{1,2}|d{1,4}|H{1,2}|h{1,2}|a|A|m{1,2}|s{1,2}|Z{1,2}|SSS/g, A = { name: "en", weekdays: "Sunday_Monday_Tuesday_Wednesday_Thursday_Friday_Saturday".split("_"), months: "January_February_March_April_May_June_July_August_September_October_November_December".split("_") }, I = function(m, d, i) {
+      var c = String(m);
+      return !c || c.length >= d ? m : "" + Array(d + 1 - c.length).join(i) + m;
     }, nt = { s: I, z: function(m) {
-      var l = -m.utcOffset(), i = Math.abs(l), u = Math.floor(i / 60), a = i % 60;
-      return (l <= 0 ? "+" : "-") + I(u, 2, "0") + ":" + I(a, 2, "0");
-    }, m: function m(l, i) {
-      if (l.date() < i.date())
-        return -m(i, l);
-      var u = 12 * (i.year() - l.year()) + (i.month() - l.month()), a = l.clone().add(u, _), g = i - a < 0, v = l.clone().add(u + (g ? -1 : 1), _);
-      return +(-(u + (i - a) / (g ? a - v : v - a)) || 0);
+      var d = -m.utcOffset(), i = Math.abs(d), c = Math.floor(i / 60), a = i % 60;
+      return (d <= 0 ? "+" : "-") + I(c, 2, "0") + ":" + I(a, 2, "0");
+    }, m: function m(d, i) {
+      if (d.date() < i.date())
+        return -m(i, d);
+      var c = 12 * (i.year() - d.year()) + (i.month() - d.month()), a = d.clone().add(c, _), g = i - a < 0, v = d.clone().add(c + (g ? -1 : 1), _);
+      return +(-(c + (i - a) / (g ? a - v : v - a)) || 0);
     }, a: function(m) {
       return m < 0 ? Math.ceil(m) || 0 : Math.floor(m);
     }, p: function(m) {
-      return { M: _, y: D, w: p, d, D: C, h: f, m: h, s: c, ms: o, Q: M }[m] || String(m || "").toLowerCase().replace(/s$/, "");
+      return { M: _, y: D, w: p, d: h, D: C, h: f, m: l, s: u, ms: o, Q: M }[m] || String(m || "").toLowerCase().replace(/s$/, "");
     }, u: function(m) {
       return m === void 0;
     } }, P = "en", k = {};
     k[P] = A;
     var Z = function(m) {
       return m instanceof X;
-    }, U = function m(l, i, u) {
+    }, U = function m(d, i, c) {
       var a;
-      if (!l)
+      if (!d)
         return P;
-      if (typeof l == "string") {
-        var g = l.toLowerCase();
+      if (typeof d == "string") {
+        var g = d.toLowerCase();
         k[g] && (a = g), i && (k[g] = i, a = g);
-        var v = l.split("-");
+        var v = d.split("-");
         if (!a && v.length > 1)
           return m(v[0]);
       } else {
-        var y = l.name;
-        k[y] = l, a = y;
+        var y = d.name;
+        k[y] = d, a = y;
       }
-      return !u && a && (P = a), a || !u && P;
-    }, b = function(m, l) {
+      return !c && a && (P = a), a || !c && P;
+    }, b = function(m, d) {
       if (Z(m))
         return m.clone();
-      var i = typeof l == "object" ? l : {};
+      var i = typeof d == "object" ? d : {};
       return i.date = m, i.args = arguments, new X(i);
     }, $ = nt;
-    $.l = U, $.i = Z, $.w = function(m, l) {
-      return b(m, { locale: l.$L, utc: l.$u, x: l.$x, $offset: l.$offset });
+    $.l = U, $.i = Z, $.w = function(m, d) {
+      return b(m, { locale: d.$L, utc: d.$u, x: d.$x, $offset: d.$offset });
     };
     var X = function() {
       function m(i) {
         this.$L = U(i.locale, null, !0), this.parse(i);
       }
-      var l = m.prototype;
-      return l.parse = function(i) {
-        this.$d = function(u) {
-          var a = u.date, g = u.utc;
+      var d = m.prototype;
+      return d.parse = function(i) {
+        this.$d = function(c) {
+          var a = c.date, g = c.utc;
           if (a === null)
             return new Date(NaN);
           if ($.u(a))
@@ -1180,30 +1202,30 @@ var ae = { exports: {} };
           }
           return new Date(a);
         }(i), this.$x = i.x || {}, this.init();
-      }, l.init = function() {
+      }, d.init = function() {
         var i = this.$d;
         this.$y = i.getFullYear(), this.$M = i.getMonth(), this.$D = i.getDate(), this.$W = i.getDay(), this.$H = i.getHours(), this.$m = i.getMinutes(), this.$s = i.getSeconds(), this.$ms = i.getMilliseconds();
-      }, l.$utils = function() {
+      }, d.$utils = function() {
         return $;
-      }, l.isValid = function() {
+      }, d.isValid = function() {
         return this.$d.toString() !== E;
-      }, l.isSame = function(i, u) {
+      }, d.isSame = function(i, c) {
         var a = b(i);
-        return this.startOf(u) <= a && a <= this.endOf(u);
-      }, l.isAfter = function(i, u) {
-        return b(i) < this.startOf(u);
-      }, l.isBefore = function(i, u) {
-        return this.endOf(u) < b(i);
-      }, l.$g = function(i, u, a) {
-        return $.u(i) ? this[u] : this.set(a, i);
-      }, l.unix = function() {
+        return this.startOf(c) <= a && a <= this.endOf(c);
+      }, d.isAfter = function(i, c) {
+        return b(i) < this.startOf(c);
+      }, d.isBefore = function(i, c) {
+        return this.endOf(c) < b(i);
+      }, d.$g = function(i, c, a) {
+        return $.u(i) ? this[c] : this.set(a, i);
+      }, d.unix = function() {
         return Math.floor(this.valueOf() / 1e3);
-      }, l.valueOf = function() {
+      }, d.valueOf = function() {
         return this.$d.getTime();
-      }, l.startOf = function(i, u) {
-        var a = this, g = !!$.u(u) || u, v = $.p(i), y = function(q, F) {
+      }, d.startOf = function(i, c) {
+        var a = this, g = !!$.u(c) || c, v = $.p(i), y = function(q, F) {
           var H = $.w(a.$u ? Date.UTC(a.$y, F, q) : new Date(a.$y, F, q), a);
-          return g ? H : H.endOf(d);
+          return g ? H : H.endOf(h);
         }, S = function(q, F) {
           return $.w(a.toDate()[q].apply(a.toDate("s"), (g ? [0, 0, 0, 0] : [23, 59, 59, 999]).slice(F)), a);
         }, w = this.$W, x = this.$M, L = this.$D, N = "set" + (this.$u ? "UTC" : "");
@@ -1215,36 +1237,36 @@ var ae = { exports: {} };
           case p:
             var Q = this.$locale().weekStart || 0, tt = (w < Q ? w + 7 : w) - Q;
             return y(g ? L - tt : L + (6 - tt), x);
-          case d:
+          case h:
           case C:
             return S(N + "Hours", 0);
           case f:
             return S(N + "Minutes", 1);
-          case h:
+          case l:
             return S(N + "Seconds", 2);
-          case c:
+          case u:
             return S(N + "Milliseconds", 3);
           default:
             return this.clone();
         }
-      }, l.endOf = function(i) {
+      }, d.endOf = function(i) {
         return this.startOf(i, !1);
-      }, l.$set = function(i, u) {
-        var a, g = $.p(i), v = "set" + (this.$u ? "UTC" : ""), y = (a = {}, a[d] = v + "Date", a[C] = v + "Date", a[_] = v + "Month", a[D] = v + "FullYear", a[f] = v + "Hours", a[h] = v + "Minutes", a[c] = v + "Seconds", a[o] = v + "Milliseconds", a)[g], S = g === d ? this.$D + (u - this.$W) : u;
+      }, d.$set = function(i, c) {
+        var a, g = $.p(i), v = "set" + (this.$u ? "UTC" : ""), y = (a = {}, a[h] = v + "Date", a[C] = v + "Date", a[_] = v + "Month", a[D] = v + "FullYear", a[f] = v + "Hours", a[l] = v + "Minutes", a[u] = v + "Seconds", a[o] = v + "Milliseconds", a)[g], S = g === h ? this.$D + (c - this.$W) : c;
         if (g === _ || g === D) {
           var w = this.clone().set(C, 1);
           w.$d[y](S), w.init(), this.$d = w.set(C, Math.min(this.$D, w.daysInMonth())).$d;
         } else
           y && this.$d[y](S);
         return this.init(), this;
-      }, l.set = function(i, u) {
-        return this.clone().$set(i, u);
-      }, l.get = function(i) {
+      }, d.set = function(i, c) {
+        return this.clone().$set(i, c);
+      }, d.get = function(i) {
         return this[$.p(i)]();
-      }, l.add = function(i, u) {
+      }, d.add = function(i, c) {
         var a, g = this;
         i = Number(i);
-        var v = $.p(u), y = function(x) {
+        var v = $.p(c), y = function(x) {
           var L = b(g);
           return $.w(L.date(L.date() + Math.round(x * i)), g);
         };
@@ -1252,20 +1274,20 @@ var ae = { exports: {} };
           return this.set(_, this.$M + i);
         if (v === D)
           return this.set(D, this.$y + i);
-        if (v === d)
+        if (v === h)
           return y(1);
         if (v === p)
           return y(7);
-        var S = (a = {}, a[h] = n, a[f] = s, a[c] = r, a)[v] || 1, w = this.$d.getTime() + i * S;
+        var S = (a = {}, a[l] = n, a[f] = s, a[u] = r, a)[v] || 1, w = this.$d.getTime() + i * S;
         return $.w(w, this);
-      }, l.subtract = function(i, u) {
-        return this.add(-1 * i, u);
-      }, l.format = function(i) {
-        var u = this, a = this.$locale();
+      }, d.subtract = function(i, c) {
+        return this.add(-1 * i, c);
+      }, d.format = function(i) {
+        var c = this, a = this.$locale();
         if (!this.isValid())
           return a.invalidDate || E;
         var g = i || "YYYY-MM-DDTHH:mm:ssZ", v = $.z(this), y = this.$H, S = this.$m, w = this.$M, x = a.weekdays, L = a.months, N = function(F, H, gt, st) {
-          return F && (F[H] || F(u, g)) || gt[H].slice(0, st);
+          return F && (F[H] || F(c, g)) || gt[H].slice(0, st);
         }, Q = function(F) {
           return $.s(y % 12 || 12, F, "0");
         }, tt = a.meridiem || function(F, H, gt) {
@@ -1275,38 +1297,38 @@ var ae = { exports: {} };
         return g.replace(R, function(F, H) {
           return H || q[F] || v.replace(":", "");
         });
-      }, l.utcOffset = function() {
+      }, d.utcOffset = function() {
         return 15 * -Math.round(this.$d.getTimezoneOffset() / 15);
-      }, l.diff = function(i, u, a) {
-        var g, v = $.p(u), y = b(i), S = (y.utcOffset() - this.utcOffset()) * n, w = this - y, x = $.m(this, y);
-        return x = (g = {}, g[D] = x / 12, g[_] = x, g[M] = x / 3, g[p] = (w - S) / 6048e5, g[d] = (w - S) / 864e5, g[f] = w / s, g[h] = w / n, g[c] = w / r, g)[v] || w, a ? x : $.a(x);
-      }, l.daysInMonth = function() {
+      }, d.diff = function(i, c, a) {
+        var g, v = $.p(c), y = b(i), S = (y.utcOffset() - this.utcOffset()) * n, w = this - y, x = $.m(this, y);
+        return x = (g = {}, g[D] = x / 12, g[_] = x, g[M] = x / 3, g[p] = (w - S) / 6048e5, g[h] = (w - S) / 864e5, g[f] = w / s, g[l] = w / n, g[u] = w / r, g)[v] || w, a ? x : $.a(x);
+      }, d.daysInMonth = function() {
         return this.endOf(_).$D;
-      }, l.$locale = function() {
+      }, d.$locale = function() {
         return k[this.$L];
-      }, l.locale = function(i, u) {
+      }, d.locale = function(i, c) {
         if (!i)
           return this.$L;
-        var a = this.clone(), g = U(i, u, !0);
+        var a = this.clone(), g = U(i, c, !0);
         return g && (a.$L = g), a;
-      }, l.clone = function() {
+      }, d.clone = function() {
         return $.w(this.$d, this);
-      }, l.toDate = function() {
+      }, d.toDate = function() {
         return new Date(this.valueOf());
-      }, l.toJSON = function() {
+      }, d.toJSON = function() {
         return this.isValid() ? this.toISOString() : null;
-      }, l.toISOString = function() {
+      }, d.toISOString = function() {
         return this.$d.toISOString();
-      }, l.toString = function() {
+      }, d.toString = function() {
         return this.$d.toUTCString();
       }, m;
     }(), pt = X.prototype;
-    return b.prototype = pt, [["$ms", o], ["$s", c], ["$m", h], ["$H", f], ["$W", d], ["$M", _], ["$y", D], ["$D", C]].forEach(function(m) {
-      pt[m[1]] = function(l) {
-        return this.$g(l, m[0], m[1]);
+    return b.prototype = pt, [["$ms", o], ["$s", u], ["$m", l], ["$H", f], ["$W", h], ["$M", _], ["$y", D], ["$D", C]].forEach(function(m) {
+      pt[m[1]] = function(d) {
+        return this.$g(d, m[0], m[1]);
       };
-    }), b.extend = function(m, l) {
-      return m.$i || (m(l, X, b), m.$i = !0), b;
+    }), b.extend = function(m, d) {
+      return m.$i || (m(d, X, b), m.$i = !0), b;
     }, b.locale = U, b.isDayjs = Z, b.unix = function(m) {
       return b(1e3 * m);
     }, b.en = k[P], b.Ls = k, b.p = {}, b;
@@ -1320,18 +1342,18 @@ var oe = { exports: {} };
   })(G, function() {
     var r = { LTS: "h:mm:ss A", LT: "h:mm A", L: "MM/DD/YYYY", LL: "MMMM D, YYYY", LLL: "MMMM D, YYYY h:mm A", LLLL: "dddd, MMMM D, YYYY h:mm A" };
     return function(n, s, o) {
-      var c = s.prototype, h = c.format;
-      o.en.formats = r, c.format = function(f) {
+      var u = s.prototype, l = u.format;
+      o.en.formats = r, u.format = function(f) {
         f === void 0 && (f = "YYYY-MM-DDTHH:mm:ssZ");
-        var d = this.$locale().formats, p = function(_, M) {
+        var h = this.$locale().formats, p = function(_, M) {
           return _.replace(/(\[[^\]]+])|(LTS?|l{1,4}|L{1,4})/g, function(D, C, E) {
             var O = E && E.toUpperCase();
             return C || M[E] || r[E] || M[O].replace(/(\[[^\]]+])|(MMMM|MM|DD|dddd)/g, function(R, A, I) {
               return A || I.slice(1);
             });
           });
-        }(f, d === void 0 ? {} : d);
-        return h.call(this, p);
+        }(f, h === void 0 ? {} : h);
+        return l.call(this, p);
       };
     };
   });
@@ -1343,20 +1365,20 @@ var ue = { exports: {} };
     t.exports = n();
   })(G, function() {
     var r = "week", n = "year";
-    return function(s, o, c) {
-      var h = o.prototype;
-      h.week = function(f) {
+    return function(s, o, u) {
+      var l = o.prototype;
+      l.week = function(f) {
         if (f === void 0 && (f = null), f !== null)
           return this.add(7 * (f - this.week()), "day");
-        var d = this.$locale().yearStart || 1;
+        var h = this.$locale().yearStart || 1;
         if (this.month() === 11 && this.date() > 25) {
-          var p = c(this).startOf(n).add(1, n).date(d), _ = c(this).endOf(r);
+          var p = u(this).startOf(n).add(1, n).date(h), _ = u(this).endOf(r);
           if (p.isBefore(_))
             return 1;
         }
-        var M = c(this).startOf(n).date(d).startOf(r).subtract(1, "millisecond"), D = this.diff(M, r, !0);
-        return D < 0 ? c(this).startOf("week").week() : Math.ceil(D);
-      }, h.weeks = function(f) {
+        var M = u(this).startOf(n).date(h).startOf(r).subtract(1, "millisecond"), D = this.diff(M, r, !0);
+        return D < 0 ? u(this).startOf("week").week() : Math.ceil(D);
+      }, l.weeks = function(f) {
         return f === void 0 && (f = null), this.week(f);
       };
     };
@@ -1371,8 +1393,8 @@ const rt = function(t) {
     if (t instanceof Date)
       return t;
     if (typeof t == "number") {
-      const r = t + "", n = r.split(""), s = parseInt(n.splice(0, 4).join("")), o = parseInt(n.splice(0, 2).join("")) - 1, c = parseInt(n.splice(0, 2).join(""));
-      return r.length == 4 ? (e.setFullYear(s), e) : r.length == 6 ? (e.setFullYear(s), e.setMonth(o - 1), e) : r.length == 8 ? (e.setFullYear(s), e.setMonth(o), e.setDate(c), e) : new Date(t);
+      const r = t + "", n = r.split(""), s = parseInt(n.splice(0, 4).join("")), o = parseInt(n.splice(0, 2).join("")) - 1, u = parseInt(n.splice(0, 2).join(""));
+      return r.length == 4 ? (e.setFullYear(s), e) : r.length == 6 ? (e.setFullYear(s), e.setMonth(o - 1), e) : r.length == 8 ? (e.setFullYear(s), e.setMonth(o), e.setDate(u), e) : new Date(t);
     } else if (typeof t == "string") {
       if (t = t.trim(), /^\d+$/.test(t))
         return rt(parseInt(t));
@@ -1381,28 +1403,28 @@ const rt = function(t) {
           n = e.getFullYear(),
           s = 0 + 1,
           o = 1,
-          c = 0,
-          h = 0,
+          u = 0,
+          l = 0,
           f = 0
-        ] = r, d = parseInt([
+        ] = r, h = parseInt([
           n,
           (s + "").padStart(2, "0"),
           (o + "").padStart(2, "0")
         ].join(""));
         if (r.length <= 3)
-          return rt(d);
+          return rt(h);
         {
-          const p = rt(d);
+          const p = rt(h);
           if (!p)
             throw new Error("\u65E0\u6CD5\u89E3\u6790\u7684\u65E5\u671F\u683C\u5F0F");
-          return p.setHours(c, h, f), p;
+          return p.setHours(u, l, f), p;
         }
       }
     }
   } else
     return new Date();
 }, ce = rt;
-function Ca(t) {
+function xa(t) {
   var e = "";
   if (typeof t == "string") {
     let r = t.split("-");
@@ -1424,16 +1446,16 @@ const ta = (t, e = !0) => {
   n.setDate(t.getDate() - r), n.setHours(0, 0, 0, 0);
   const s = new Date(n);
   s.setDate(n.getDate() + 6), s.setHours(23, 59, 59, 999);
-  const o = Y(t).week(), c = Y(n).format("YYYY-MM-DD");
+  const o = Y(t).week(), u = Y(n).format("YYYY-MM-DD");
   return e && (n.setDate(n.getDate() + 1), s.setDate(s.getDate() + 1)), {
-    startYYYYMMDD: c,
+    startYYYYMMDD: u,
     start: n,
     end: s,
     thInYear: o
   };
 }, ea = (t, e, r, n = !0) => {
-  const o = new Date(t, e - 1, 1).getDay(), c = 1 + (r - 1) * 7 - o, h = n ? c + 1 : c;
-  return new Date(t, e - 1, h);
+  const o = new Date(t, e - 1, 1).getDay(), u = 1 + (r - 1) * 7 - o, l = n ? u + 1 : u;
+  return new Date(t, e - 1, l);
 }, ra = (t) => {
   typeof t == "string" && (t = Y(t).toDate());
   const e = t.getDate(), r = t.getDay();
@@ -1473,7 +1495,7 @@ class z {
     return `${this.start.getFullYear()}-${this.start.getMonth() + 1}/\u7B2C${this.thInMonth}\u5468`;
   }
   static fromYYYYMMThStr(e) {
-    const [r, n, s] = e.split(/[^\d]+/).filter((c) => c), o = ea(parseInt(r), parseInt(n), parseInt(s));
+    const [r, n, s] = e.split(/[^\d]+/).filter((u) => u), o = ea(parseInt(r), parseInt(n), parseInt(s));
     return new z(o);
   }
   get YYYYMM() {
@@ -1626,33 +1648,33 @@ class W extends Date {
     var s = na, o = this.getFullYear() + "-" + (this.getMonth() + 1) + "-" + (r ? "0" : "1");
     if (s[o])
       return s[o];
-    let c, h;
-    r ? (c = 0, h = 6) : (c = 1, h = 7);
-    let f = [], d = this.clone().setToMonthStart(), p = this.clone().setToMonthEnd();
-    var _ = d.getDay(), M = p.getDay();
-    let D = d.clone().add(c - _ - 1, "day"), C = p.clone().add(h - M + 0, "day"), E = C.diff(D, "day"), O = 0, R = n.getMonth();
+    let u, l;
+    r ? (u = 0, l = 6) : (u = 1, l = 7);
+    let f = [], h = this.clone().setToMonthStart(), p = this.clone().setToMonthEnd();
+    var _ = h.getDay(), M = p.getDay();
+    let D = h.clone().add(u - _ - 1, "day"), C = p.clone().add(l - M + 0, "day"), E = C.diff(D, "day"), O = 0, R = n.getMonth();
     for (; O++ < E; ) {
       let A = D.clone().add(O, "day");
       A.getMonth() == R && (A.__currentMonth = !0), f.push(A);
     }
     return s[o] = {
       list: f,
-      firstDateInMonth: d,
+      firstDateInMonth: h,
       lastDateInMonth: p,
       firstDateInView: D,
       lastDateInView: C
     };
   }
 }
-const sa = (t) => t.replace(/[^\x00-\xff]/g, "**").length, xa = (t, e) => (r, n) => r.trim().split(`
+const sa = (t) => t.replace(/[^\x00-\xff]/g, "**").length, Ia = (t, e) => (r, n) => r.trim().split(`
 `).map((o) => {
-  const c = o.trim();
-  return c.startsWith("//") ? "" : c;
+  const u = o.trim();
+  return u.startsWith("//") ? "" : u;
 }).filter((o) => !!o).map((o) => {
-  const [c, h, ...f] = o.split(/\s+/), p = {
-    minWidth: sa(h) * 7 + 45,
-    key: c,
-    title: h,
+  const [u, l, ...f] = o.split(/\s+/), p = {
+    minWidth: sa(l) * 7 + 45,
+    key: u,
+    title: l,
     visible: !1,
     sum: !1
   };
@@ -1673,7 +1695,7 @@ const sa = (t) => t.replace(/[^\x00-\xff]/g, "**").length, xa = (t, e) => (r, n)
       D ? p.render = D : console.warn("\u672A\u5B9A\u4E49\u7684render:", M);
     }
   });
-  const _ = t[c];
+  const _ = t[u];
   return _ && Object.assign(p, _), p.getValue = function(M) {
     return p.render ? p.render(null, { row: M, column: p }, !0) : M[p.key];
   }, n ? n(p, o) : p;
@@ -1694,7 +1716,7 @@ export {
   ya as fromGBKArrayToString,
   Ma as getByteLength,
   Gt as getDayLengthInMonth,
-  Ca as getDayMountByMonth,
+  xa as getDayMountByMonth,
   ha as getImageSize,
   ea as getWeekStartDateFromYYYYMMThInMonth,
   ra as getWeekThInMonth,
@@ -1704,6 +1726,7 @@ export {
   ce as parse2date,
   ie as preppendZero,
   Qs as promiseMap,
+  Ca as randomSegmentation,
   ti as randomString,
   Zs as safeBindToObject,
   fa as safeJsonParser,
@@ -1718,5 +1741,5 @@ export {
   ua as treeEach,
   oa as treeListToFlatList,
   at as tryGet,
-  xa as viewuiColumnFactory
+  Ia as viewuiColumnFactory
 };
