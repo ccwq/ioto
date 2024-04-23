@@ -1,6 +1,6 @@
 {
     "name": "@ioto/electron",
-    "version": "0.1.0",
+    "version": "0.1.1",
     "description": "electron utils",
     "author": "ccwq <scwqd@qq.com>",
     "homepage": "https://github.com/ccwq/ioto#readme",
