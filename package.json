@@ -4,6 +4,7 @@
     "private": true,
     "scripts": {
         "publish": "lerna publish",
+        "pub@win": "cmd.exe /c \"set /p otp=请输入opt & cross-env NPM_CONFIG_OTP=%otp% lerna publish --force-publish\"",
         "build:all": "lerna exec pnpm build"
     },
     "workspaces": [
