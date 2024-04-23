@@ -1,6 +1,7 @@
 import path from "path";
 import {readFile, existsSync} from "fs";
 import {app, protocol} from "electron";
+import type {BrowserWindow, Protocol} from "electron";
 
 /**
  * 创建一个自定义协议
@@ -8,7 +9,7 @@ import {app, protocol} from "electron";
  * @param scheme {string} ["app"] - 协议名称
  * @param customProtocol {Protocol} [protocol] - 协议对象
  */
-export const createProtocol = (rootDir = 'dist', scheme = 'app', customProtocol?) => {
+export const createProtocol = (rootDir = 'dist', scheme = 'app', customProtocol?:Protocol) => {
     app.whenReady().then(() => {
         const _protocol = customProtocol || protocol
         _protocol.registerBufferProtocol(scheme, (request, respond) => {
@@ -48,27 +49,29 @@ export const createProtocol = (rootDir = 'dist', scheme = 'app', customProtocol?
                 } else if (extension === '.wasm') {
                     mimeType = 'application/wasm'
                 }
-                respond({ mimeType, data })
+                respond({mimeType, data})
             })
         })
-    })
+    });
     const _protocol = customProtocol || protocol
     _protocol.registerSchemesAsPrivileged([
         {scheme, privileges: {standard: true, supportFetchAPI: true, secure: true}},
     ])
 
-
-    let fakeHost
+    /**
+     * 模拟的域名, 比如trgis.map
+     */
+    let fakeHost:string
 
     /**
      * 开始加载
-     * @param win 要加载的窗口
+     * @param window 要加载的窗口
      * @param filePath 文件的路径 "路径要相对于rootDir"
-     * @param _fakeHost 为协议后面增加由一个虚拟的域名,有助于资源的查找
+     * @param _fakeHost 为协议后面增加由一个虚拟的域名,模拟带host的http请求环境
      */
-    const loadByProtocol = (win, filePath, _fakeHost=".")=>{
+    const loadByProtocol = (window:BrowserWindow, filePath:string, _fakeHost=".")=>{
         fakeHost = _fakeHost
-        win.loadURL(`${scheme}://${fakeHost}/${filePath}`);
+        window.loadURL(`${scheme}://${fakeHost}/${filePath}`);
     }
 
     return {
