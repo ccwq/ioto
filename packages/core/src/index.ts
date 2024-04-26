@@ -66,6 +66,12 @@ export {
     columnParseFactory as viewuiColumnFactory,
 } from "./etc"
 
+
+// dom
+export {
+    drawRotatedImage
+} from "./dom/canvas";
+
 // export type {
 //     All2ValueNameOption,
 //     elFormatter,
