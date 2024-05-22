@@ -9,3 +9,4 @@ export { default as DateWeek } from "./date/DateWeek";
 export { default as Date2 } from "./date/Date2";
 export { dayjs2 } from "./date/dayjs-setup";
 export { columnParseFactory as viewuiColumnFactory, } from "./etc";
+export { drawRotatedImage } from "./dom/canvas";

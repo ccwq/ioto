@@ -33,3 +33,15 @@ export {
     XButton,
     useMouse,
 }
+
+
+export {
+    type IDataWrapper,
+    type IDWOptions,
+    useDataWrapper,
+    DWStatusEnum,
+    DataWrapper,
+    useDataWrapperWithPage,
+    dataWrapperWithPageLoadFunSetter,
+    type IDWWithPageOptions,
+} from "./components/data-wrapper"
