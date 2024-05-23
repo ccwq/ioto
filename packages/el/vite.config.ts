@@ -1,7 +1,7 @@
 import {defineConfig} from 'vite'
 import vue from '@vitejs/plugin-vue'
 import {resolve, join} from "path";
-// import vueJsx from '@vitejs/plugin-vue-jsx'
+import vueJsx from '@vitejs/plugin-vue-jsx'
 
 //@ts-ignore
 import dts from 'vite-plugin-dts'
@@ -13,7 +13,7 @@ export default defineConfig({
         ],
     },
     plugins: [
-        // vueJsx(),
+        vueJsx(),
         vue(),
         dts({
             entryRoot: resolve(__dirname, 'src'),
@@ -31,10 +31,12 @@ export default defineConfig({
         rollupOptions: {
             external: [
                 'vue',
+                'lodash',
                 "@ioto/core",
                 "@ioto/vue",
                 'element-plus',
                 "@form-create/element-ui",
+                "@sipec/vue3-tags-input"
             ],
             output: {
                 globals: {

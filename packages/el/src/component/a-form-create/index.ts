@@ -196,8 +196,6 @@ const useFC = (option?: FormOption2) => {
         fc.mergeRules(rules)
     }
 
-
-
     return {
         updateRule,
         mergeRule,
