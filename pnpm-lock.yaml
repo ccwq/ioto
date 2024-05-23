@@ -8,9 +8,6 @@ importers:
 
   .:
     devDependencies:
-      cross-env:
-        specifier: ^7.0.3
-        version: 7.0.3
       lerna:
         specifier: ^5.6.2
         version: registry.npmmirror.com/lerna@5.6.2
@@ -146,13 +143,16 @@ importers:
 
   packages/vue:
     dependencies:
-      vue:
-        specifier: ^3.2.26
-        version: 3.2.26
-    devDependencies:
       '@ioto/core':
         specifier: workspace:*
         version: link:../core
+      vue:
+        specifier: ^3.2.26
+        version: 3.2.26
+      vue-router:
+        specifier: ^4.0.13
+        version: 4.3.2(vue@3.2.26)
+    devDependencies:
       '@types/lodash':
         specifier: ^4.14.186
         version: 4.14.189
@@ -661,6 +661,10 @@ packages:
       '@vue/shared': 3.3.4
     dev: true
 
+  /@vue/devtools-api@6.6.1:
+    resolution: {integrity: sha512-LgPscpE3Vs0x96PzSSB4IGVSZXZBZHpfxs+ZA1d+VEPwHdOXowy/Y2CsvCAIFrf+ssVU1pD1jidj505EpUnfbA==}
+    dev: false
+
   /@vue/reactivity-transform@3.2.26:
     resolution: {integrity: sha512-XKMyuCmzNA7nvFlYhdKwD78rcnmPb7q46uoR00zkX6yZrUmcCQ5OikiwUEVbvNhL5hBJuvbSO95jB5zkUon+eQ==}
     dependencies:
@@ -1079,14 +1083,6 @@ packages:
 
   /core-util-is@1.0.3:
     resolution: {integrity: sha512-ZQBvi1DcpJ4GDqanjucZ2Hj3wEO5pZDS89BWbkcrvdxksJorwUDDZamX9ldFkp9aw2lmBDLgkObEA4DWNJ9FYQ==}
-
-  /cross-env@7.0.3:
-    resolution: {integrity: sha512-+/HKd6EgcQCJGh2PSjZuUitQBQynKor4wrFbRg4DtAgS1aWO+gU52xpH7M9ScGgXSYmAVS9bIJ8EzuaGw0oNAw==}
-    engines: {node: '>=10.14', npm: '>=6', yarn: '>=1'}
-    hasBin: true
-    dependencies:
-      cross-spawn: 7.0.3
-    dev: true
 
   /cross-spawn@7.0.3:
     resolution: {integrity: sha512-iRDPJKUPVEND7dHPO8rkbOnPpyDygcDFtWjpeWNCgy8WP2rXcxXL8TskReQl6OrB2G7+UJrags1q15Fudc7G6w==}
@@ -3106,6 +3102,15 @@ packages:
       '@vue/composition-api':
         optional: true
     dependencies:
+      vue: 3.2.26
+    dev: false
+
+  /vue-router@4.3.2(vue@3.2.26):
+    resolution: {integrity: sha512-hKQJ1vDAZ5LVkKEnHhmm1f9pMiWIBNGF5AwU67PdH7TyXCj/a4hTccuUuYCAMgJK6rO/NVYtQIEN3yL8CECa7Q==}
+    peerDependencies:
+      vue: ^3.2.0
+    dependencies:
+      '@vue/devtools-api': 6.6.1
       vue: 3.2.26
     dev: false
 

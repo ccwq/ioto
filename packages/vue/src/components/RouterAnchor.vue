@@ -1,3 +1,8 @@
+<!--
+ * @Creator: Albus
+ * @Date: 2024/10/144 10:02:26
+ * @Description: 允许一个router-link 在其他路由处于激活状态
+ -->
 <template lang="pug">
 RouterLink.RouterAnchor(:class="classes"): slot
 
@@ -26,8 +31,6 @@ const emits = defineEmits<{}>()
 const attrs = useAttrs()
 const route = useRoute()
 const classes = computed(()=>{
-    const params = route.params?.type
-    const path = route.path;
     const ret = {} as any
     if (props?.activeFunc?.(route)) {
         const key = attrs.activeClass as string || "router-link-active";
@@ -35,11 +38,4 @@ const classes = computed(()=>{
     }
     return ret;
 })
-
-
 </script>
-<style scoped lang="less">
-.RouterAnchor{
-
-}
-</style>

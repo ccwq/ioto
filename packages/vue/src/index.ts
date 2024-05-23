@@ -35,6 +35,9 @@ export {
 }
 
 
+export {default as RouterAnchor} from "./components/RouterAnchor.vue"
+
+
 export {
     type IDataWrapper,
     type IDWOptions,
