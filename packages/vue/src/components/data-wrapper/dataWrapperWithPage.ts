@@ -186,5 +186,10 @@ export const useDataWrapperWithPage = <T>(options: IDWWithPageOptions<T>): UseDa
         )
     )
 
+    // 在配置改时重新加载
+    watch(options.reqOptions, config=>{
+        dw.load(config);
+    })
+
     return [dw as IDataWrapper<T>, options.reqOptions, pageVBind];
 };
