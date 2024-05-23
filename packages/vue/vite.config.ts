@@ -32,8 +32,7 @@ export default defineConfig({
                 "@ioto/core",
                 'lodash',
                 'vue-router',
-                'vue',
-                '4.0.13'
+                'vue'
             ],
             output: {
                 globals: {
