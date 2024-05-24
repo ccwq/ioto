@@ -218,18 +218,21 @@ const makeTreeDataHelper = function(treeData:IInputData, options:Options = {}) {
     }
 
     // 遍历一个节点以及所有子节点
-    const travelNode = function(id:KeyID|INode, callback:ITravelCallback) {
+    const travelNode = function(id:KeyID|INode, callback:ITravelCallback, collection=[]) {
         const node = getNode(id)
         if (node) {
             callback(node)
+            collection.push(node)
             if (node[childrenKey] && node[childrenKey].length > 0) {
                 node[childrenKey].forEach(function(item:INode) {
-                    travelNode(item, callback)
+                    travelNode(item, callback, collection);
                 })
             }
         }else{
             throw new Error("节点不存在:" + id)
         }
+
+        return collection as INode[];
     }
 
     // 获取所有节点中最浅的深度
