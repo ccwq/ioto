@@ -258,7 +258,17 @@ function sanitizeHTML(htmlNode:Element){
 }
 
 
-// 截取文本
+/**
+ * 截取字符串并添加省略号。
+ *
+ * 此函数用于将给定的字符串截断到指定的长度，并在末尾添加省略号，以确保字符串的总长度不超过指定的长度。
+ * 特别地，该函数考虑了中文字符的长度，每个中文字符计为2个字符长度。
+ *
+ * @param text 要截断的原始字符串。
+ * @param length 指定的字符串长度限制。
+ * @param endfix 可选参数，指定要添加的省略号字符串，默认为"..."。
+ * @returns 返回截断后的字符串，如果原始字符串长度不超过指定长度，则返回原始字符串。
+ */
 export function stripString(text:string, lagnth:number, endfix="..."){
     // 遍历文本，计算字符长度
     var truncatedText = '';
