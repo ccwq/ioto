@@ -1,6 +1,6 @@
 {
     "name": "@ioto/vue",
-    "version": "0.1.16",
+    "version": "0.1.17",
     "description": "vue tookit",
     "author": "ccwq <scwqd@qq.com>",
     "homepage": "",
@@ -28,6 +28,7 @@
     },
     "peerDependencies": {
         "@ioto/core": "workspace:*",
+        "@vueuse/core": "^10.0.0",
         "lodash": "^4.17.21",
         "vue": "^3.2.26",
         "vue-router": "^4.0.13"
