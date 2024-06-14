@@ -1,17 +1,22 @@
-import {nextTick, reactive, Ref, watch} from "vue";
+import {nextTick, reactive, Ref, shallowRef, watch} from "vue";
 import _merge from "lodash/merge";
+import {until} from "@vueuse/core";
 
 /**
  * 状态的枚举
  */
 export enum DWStatusEnum {
+
+    /**
+     * 初始化之后为ready, 胫骨加载之后变为loading, 加载完成之后变为success|empty, 加载失败之后变为error
+     * 其他状态无法转换为ready
+     */
     READY = "READY",
     SUCCESS = "SUCCESS",
     LOADING = "LOADING",
     ERROR = "ERROR",
     EMPTY = "EMPTY",
 }
-
 
 /**
  * 数据容器的实体
@@ -95,7 +100,7 @@ export interface IDWOptions<T> {
 
 /**
  * 一个数据容器
- * @param options
+ * @param options.watchReqOption - [true] 是否监听请求参数的变化
  */
 
 export const useDataWrapper = <T=any>(optionsParams:IDWOptions<T>):IDataWrapper=>{
@@ -118,6 +123,10 @@ export const useDataWrapper = <T=any>(optionsParams:IDWOptions<T>):IDataWrapper=
         return isEmpty
     }
 
+    /**
+     * 请求计数器, 在不同参数请求,响应速率差异过大导致结果无法正确对应的问题
+     */
+    const requestSeqNo = shallowRef(0);
 
     const options = {
         watchReqOption: true,
@@ -176,9 +185,14 @@ export const useDataWrapper = <T=any>(optionsParams:IDWOptions<T>):IDataWrapper=
      */
     const load = async (config?:Record<string, any>)=>{
 
-        if (hasInitValue) {
-            await nextTick()
+        // 包含初值或者在ready状态load需要等待一个tick
+        // 解决2个问题
+        // - 初始值附带加载值
+        // - ready状态load需要等待一个tick, 以等待请求参数赋值正确, 并且被监控到
+        if (hasInitValue || dwInst.status === DWStatusEnum.READY) {
+            await nextTick();
         }
+
         dwInst.status = DWStatusEnum.LOADING;
         // 合并请求参数
         const axiosOptions = {}
@@ -190,16 +204,28 @@ export const useDataWrapper = <T=any>(optionsParams:IDWOptions<T>):IDataWrapper=
             _merge(axiosOptions, config);
         }
 
-        return Promise.resolve(options.load!(dwInst, axiosOptions))
-            .then(resp => {
-                setValue(null, resp);
-                return [null, resp];
-            })
-            .catch(err => {
-                setValue(err);
-                // return Promise.reject(err);
-                return [err]
-            })
+        requestSeqNo.value++;
+
+        return Promise.all([
+            Promise.resolve(options.load!(dwInst, axiosOptions))
+                .then(resp=>([null, resp]))
+                .catch(err=>([err]))
+            ,
+            requestSeqNo.value
+        ])
+            .then(
+                ([[err,resp], seqNo]) => {
+                    if(seqNo != requestSeqNo.value) return
+                    if(err){
+                        setValue(err);
+                        return [err]
+                    }
+                    else{
+                        setValue(null, resp);
+                        return [null, resp];
+                    }
+                },
+            )
         ;
     }
 
@@ -225,10 +251,21 @@ export const useDataWrapper = <T=any>(optionsParams:IDWOptions<T>):IDataWrapper=
     }
 
     // 监控params的变化
-    if (options.watchReqOption && options.reqOptions?.value) {
-        watch(() => options.reqOptions!.value, (newParams, oldParams) => {
-            load(newParams);
-        }, {immediate: false})
+    if (options.watchReqOption) {
+
+        // 等待dw ready状态改变, 或者理解成至少进行了一次加载
+        until(() => dwInst.status).toMatch(v => v !== DWStatusEnum.READY)
+            .then(resp=>{
+
+                // 开始监控请求参数的改变
+                watch(() => options.reqOptions!.value, (newParams, oldParams) => {
+                    if (newParams) {
+                        load(newParams);
+                    }else{
+                        console.warn("reqOptions is null");
+                    }
+                })
+            })
     }
 
 

@@ -3,6 +3,10 @@ import { Ref } from "vue";
  * 状态的枚举
  */
 export declare enum DWStatusEnum {
+    /**
+     * 初始化之后为ready, 胫骨加载之后变为loading, 加载完成之后变为success|empty, 加载失败之后变为error
+     * 其他状态无法转换为ready
+     */
     READY = "READY",
     SUCCESS = "SUCCESS",
     LOADING = "LOADING",
@@ -65,6 +69,6 @@ export interface IDWOptions<T> {
 }
 /**
  * 一个数据容器
- * @param options
+ * @param options.watchReqOption - [true] 是否监听请求参数的变化
  */
 export declare const useDataWrapper: <T = any>(optionsParams: IDWOptions<T>) => IDataWrapper;

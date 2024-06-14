@@ -25,6 +25,10 @@ lerna publish --force-publish
 # 为workspace安装依赖, 例如
 ```shell
 pnpm add -D cross-env --workspace-root
+
+# 为所有package执行 pnpm i, 其他命令类似
+pnpm lerna exec -- pnpm i 
+
 ```
 
 

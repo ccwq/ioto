@@ -7,7 +7,7 @@ const VReander = defineComponent({
         }
     },
     setup({render, data}){
-        return ()=> render(h, data)
+        return ()=> render!(h, data)
     }
 })
 

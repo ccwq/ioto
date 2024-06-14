@@ -1,9 +1,9 @@
 import {useDataWrapper, IDataWrapper, IDWOptions} from "./";
-import {computed, ref, Ref, watch} from "vue";
+import {computed, ref, Ref, watch, unref} from "vue";
 import _ from "lodash";
 
 
-export type IDWWithPageOptions<T=any> = Omit<IDWOptions<T>, "reqOptions"> & {
+type IDWOptions2<T=any> = Omit<IDWOptions<T>, "reqOptions"> & {
 
     /**
      * axios请求信息
@@ -64,7 +64,7 @@ export const dataWrapperWithPageLoadFunSetter = new class {
      * @param dw
      * @param config
      */
-    exec(dw:IDWWithPageOptions, config:Record<string, any>){
+    exec(dw:IDWOptions2, config:Record<string, any>){
         if(this._functions){
             return this._functions(dw, config);
         }else{
@@ -75,7 +75,7 @@ export const dataWrapperWithPageLoadFunSetter = new class {
 
 /**
  * 数据包装器帮助函数
- * @param options {IDWWithPageOptions}
+ * @param options {IDWOptions2}
  * @returns {UseDataWrapperHelperReturn}
  * @example
  *
@@ -97,7 +97,7 @@ export const dataWrapperWithPageLoadFunSetter = new class {
  * });
  *
  */
-export const useDataWrapperWithPage = <T>(options: IDWWithPageOptions<T>): UseDataWrapperHelperReturn<T> => {
+export const useDataWrapperWithPage = <T>(options: IDWOptions2<T>): UseDataWrapperHelperReturn<T> => {
 
     const responseType = options.responseType || "object";
     const withPage = options.responseType === "page-list";
@@ -114,7 +114,7 @@ export const useDataWrapperWithPage = <T>(options: IDWWithPageOptions<T>): UseDa
 
     const pageVBind = ref<IPageVBind>({
         pageSize: options.pageSize || 10,
-        total: 1000,
+        total: 0,
         currentPage: 1,
         "onUpdate:currentPage": handlerPageUpdate,
         "onUpdate:page-size": handlerPageSizeUpdate
@@ -125,7 +125,7 @@ export const useDataWrapperWithPage = <T>(options: IDWWithPageOptions<T>): UseDa
 
     const setReqOptionRef = () => {
         const opt = {} as any
-        const reqOpt = options.reqOptions?.value;
+        const reqOpt = unref(options.reqOptions);
         if (reqOpt) {
             Object.assign(opt, reqOpt);
         }
@@ -146,7 +146,11 @@ export const useDataWrapperWithPage = <T>(options: IDWWithPageOptions<T>): UseDa
             pageVBind.value.currentPage,
         ], setReqOptionRef);
     }
-    setReqOptionRef();
+
+    // 同步外部reqOption和内部reqOption
+    watch(()=>unref(options.reqOptions), ()=>{
+        setReqOptionRef();
+    }, {deep: true, immediate: true})
 
     delete options.pageSize;
 
@@ -185,11 +189,6 @@ export const useDataWrapperWithPage = <T>(options: IDWWithPageOptions<T>): UseDa
             }
         )
     )
-
-    // 在配置改时重新加载
-    watch(options.reqOptions, config=>{
-        dw.load(config);
-    })
 
     return [dw as IDataWrapper<T>, options.reqOptions, pageVBind];
 };

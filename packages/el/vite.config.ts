@@ -33,7 +33,7 @@ export default defineConfig({
                 'vue',
                 'lodash',
                 "@ioto/core",
-                "@ioto/vue",
+                // "@ioto/vue",
                 'element-plus',
                 "@form-create/element-ui",
                 "@sipec/vue3-tags-input"

@@ -30,6 +30,7 @@ export default defineConfig({
         rollupOptions: {
             external: [
                 "@ioto/core",
+                "@vueuse/core",
                 'lodash',
                 'vue-router',
                 'vue'

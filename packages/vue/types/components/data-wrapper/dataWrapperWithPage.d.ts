@@ -1,6 +1,6 @@
 import { IDataWrapper, IDWOptions } from "./";
 import { Ref } from "vue";
-export declare type IDWWithPageOptions<T = any> = Omit<IDWOptions<T>, "reqOptions"> & {
+declare type IDWOptions2<T = any> = Omit<IDWOptions<T>, "reqOptions"> & {
     /**
      * axios请求信息
      */
@@ -46,11 +46,11 @@ export declare const dataWrapperWithPageLoadFunSetter: {
      * @param dw
      * @param config
      */
-    exec(dw: IDWWithPageOptions, config: Record<string, any>): any;
+    exec(dw: IDWOptions2, config: Record<string, any>): any;
 };
 /**
  * 数据包装器帮助函数
- * @param options {IDWWithPageOptions}
+ * @param options {IDWOptions2}
  * @returns {UseDataWrapperHelperReturn}
  * @example
  *
@@ -72,5 +72,5 @@ export declare const dataWrapperWithPageLoadFunSetter: {
  * });
  *
  */
-export declare const useDataWrapperWithPage: <T>(options: IDWWithPageOptions<T>) => UseDataWrapperHelperReturn<T>;
+export declare const useDataWrapperWithPage: <T>(options: IDWOptions2<T>) => UseDataWrapperHelperReturn<T>;
 export {};

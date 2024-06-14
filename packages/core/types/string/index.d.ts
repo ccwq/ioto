@@ -5,13 +5,6 @@
  */
 export declare function firstLetterUppercase(string: any): string;
 /**
- * 字数限制
- * @param string
- * @param length
- * @returns {string|*}
- */
-export declare function stripString(string: string, length: number): string;
-/**
  * 产生一个不重复的字符串
  * @returns {string}
  */
@@ -66,6 +59,18 @@ export declare const simpleDecryptString: (str: string) => string;
  * @param num
  */
 export declare function truncateHTML(html: string, num: number, endfix?: string): any;
+/**
+ * 截取字符串并添加省略号。
+ *
+ * 此函数用于将给定的字符串截断到指定的长度，并在末尾添加省略号，以确保字符串的总长度不超过指定的长度。
+ * 特别地，该函数考虑了中文字符的长度，每个中文字符计为2个字符长度。
+ *
+ * @param text 要截断的原始字符串。
+ * @param length 指定的字符串长度限制。
+ * @param endfix 可选参数，指定要添加的省略号字符串，默认为"..."。
+ * @returns 返回截断后的字符串，如果原始字符串长度不超过指定长度，则返回原始字符串。
+ */
+export declare function stripString(text: string, lagnth: number, endfix?: string): string;
 /**
  * 获取 URL 的 dirname。
  * @description 获取 URL 的 dirname
