@@ -1,6 +1,6 @@
 {
     "name": "@ioto/el",
-    "version": "0.1.18",
+    "version": "0.1.19",
     "description": "awesome about element-plus",
     "author": "ccwq <scwqd@qq.com>",
     "homepage": "https://github.com/ccwq/ioto#readme",
@@ -31,6 +31,7 @@
         "vue": "^3.2.25"
     },
     "devDependencies": {
+        "@ioto/vue": "workspace:../vue",
         "@types/lodash": "^4.14.189",
         "@types/node": "^18.8.4",
         "@vitejs/plugin-vue": "^3.1.0",
@@ -53,7 +54,6 @@
     },
     "dependencies": {
         "@ioto/core": "workspace:../core",
-        "@ioto/vue": "workspace:../vue",
         "@sipec/vue3-tags-input": "^3.0.4",
         "element-plus": "^2.2.22",
         "lodash": "^4.17.21"
