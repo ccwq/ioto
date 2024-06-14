@@ -31,7 +31,6 @@
         "vue": "^3.2.25"
     },
     "devDependencies": {
-        "@ioto/vue": "workspace:../vue",
         "@types/lodash": "^4.14.189",
         "@types/node": "^18.8.4",
         "@vitejs/plugin-vue": "^3.1.0",
@@ -53,7 +52,8 @@
         "url": "https://github.com/ccwq/ioto/issues"
     },
     "dependencies": {
-        "@ioto/core": "workspace:../core",
+        "@ioto/vue": "workspace:*",
+        "@ioto/core": "workspace:*",
         "@sipec/vue3-tags-input": "^3.0.4",
         "element-plus": "^2.2.22",
         "lodash": "^4.17.21"

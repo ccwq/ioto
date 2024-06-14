@@ -44,3 +44,7 @@ lerna exec -- pnpm build
 在进行lerna publish时，可能会遇到以下问题, npm账号必须开启2fa,并且在publish时候提供opt,才能发布成功, 
 
 如果关闭2fa,无法发布, 原因是npm的安全策略, 为了安全,必须开启2fa, 但是这样会导致发布时候需要输入otp, 为了解决这个问题, 可以使用以下方法
+
+
+-- @ioto/el 一个无法被pnpm 安装的库, 问题目前无法解决
+
