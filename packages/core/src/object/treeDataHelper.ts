@@ -267,14 +267,24 @@ const makeTreeDataHelper = function(treeData:IInputData, options:Options = {}) {
     /**
      * 获取某个节点的后代节点列表
      * @param id
+     * @param justLeaf 是否只返回叶子节点
+     * @param withSelf 是否包含自己
      */
-    const getNodeDescendantList = (id:KeyID|INode)=> {
-        const list:INode[] = [];
-        travelNode(id, function(node:INode) {
-            list.push(node)
+    const getNodeDescendantList = (id: KeyID | INode, justLeaf: boolean = false, withSelf: boolean = false) => {
+        const list: INode[] = [];
+        if(withSelf)
+            list.push(getNode(id)!);
+
+        travelNode(id, function (node: INode) {
+            if (justLeaf) {
+                if (!node[childrenKey]?.length) {
+                    list.push(node);
+                }
+            } else
+                list.push(node);
         })
         return list;
-    }
+    };
 
 
     /**
