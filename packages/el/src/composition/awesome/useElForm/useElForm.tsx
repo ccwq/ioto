@@ -41,6 +41,11 @@ export interface FormRuleItem<T = any> {
     selectOptions?: { label: string, value: string | number }[];
 
     /**
+     * 自定义表单元素
+     */
+    component?: Component,
+
+    /**
      * 传递给内部组件的附加属性
      */
     componentProps?: Record<any, any>
@@ -277,7 +282,7 @@ const generateUFItem = <IModel = any>(model: Ref<IModel>, formItemList: Ref<Form
                     defaultComponent = CustomElSelect;
                 }
                 let returns;
-                const RenderEl:Component = itemComponent ?? defaultComponent;
+                const RenderEl: Component = itemComponent ?? formItemConf.value.component ?? defaultComponent;
 
                 returns = [
                     <ElFormItem prop={prop} {...formItemBind.value}>

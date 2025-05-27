@@ -1,8 +1,15 @@
 <template lang="pug">
-ElForm.UseElFormExample(v-bind="formBind" ref="formRef" label-width="5em")
-    UFItem(prop="nickName" v-slot="{bind}")
-    UFItem(prop="introduction" :itemComponentOptions="{type:'textarea', rows: 5}")
-    UFItem(prop="sex")
+ElForm.UseElFormExample(v-bind="formBind" ref="formRef" label-width="6em")
+    el-row
+        el-col(:span="12")
+            UFItem(prop="nickName" v-slot="{bind}")
+        el-col(:span="12")
+            UFItem(prop="sex")
+    UFItem(prop="introduction" :itemComponentOptions="{type:'textarea', rows: 2}")
+    el-row
+        el-col(:span="9"): UFItem(prop="allow")
+        el-col(:span="9"): UFItem(prop="public")
+        el-col(:span="6"): UFItem(prop="haireColor" :itemComponent="ElColorPicker")
     UFItem(prop="interest")
     UFItem(prop="age" v-slot="{bind}"): ElSlider(v-bind="bind")
     ElDivider 操作
@@ -20,6 +27,7 @@ const props = defineProps()
 const emits = defineEmits()
 onErrorCaptured((err)=>console.error("组件UseElFormExample内部错误:", err))
 import {type IUFItem} from "@/composition/useElForm/useElFormHelper";
+import {ElSwitch, ElColorPicker} from "element-plus";
 const fromItemDef = ref<FormRuleItem<IUser>[]>([
     {
         prop: "nickName",
@@ -32,6 +40,26 @@ const fromItemDef = ref<FormRuleItem<IUser>[]>([
     {
         prop: "introduction",
         label: "个人简介",
+    },
+    {
+        prop: "public",
+        label: "公开信息",
+        component: ElSwitch,
+        componentProps:{
+
+        }
+    },
+    {
+        prop: "allow",
+        label: "允许加好友",
+        component: <ElSwitch  active-text="允许" inactive-text="拒绝"/>,
+    },
+    {
+        prop: "haireColor",
+        label: "头发颜色",
+        componentProps:{
+            size:"small"
+        }
     },
     {
         prop: "sex",
@@ -74,6 +102,10 @@ const handlerAddItem = async ()=>{
             prop: "interest",
             label: "兴趣爱好",
             value:"看书写字打游戏,骑马唱歌开飞机",
+            componentProps: {
+                type:"textarea",
+                rows:3
+            }
         },
         {
             prop: "age",
@@ -87,31 +119,12 @@ const handlerAddItem = async ()=>{
         }
     ] as FormRuleItem<IUser>[]
 }
-
-watch(formBind, fv=>{
-    console.log(fv, 77)
-}, {immediate: true})
-
-
-const Uider = defineComponent({
-    setup(){
-        const instance = getCurrentInstance()
-        return ()=>{
-
-            console.log("又一次渲染了")
-            return <span {...{
-                "v-memo": [],
-            }}>{instance.uid}</span>
-        }
-    }
-})
-
 </script>
 <style scoped lang="less">
 .UseElFormExample{
     padding: 1em;
     margin: auto;
-    max-width: 600px;
+    max-width: 680px;
     pre{
         line-height: 1.2;
     }
