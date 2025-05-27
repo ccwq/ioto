@@ -222,6 +222,7 @@ const makeTreeDataHelper = function(treeData:IInputData, options:Options = {}) {
         const node = getNode(id)
         if (node) {
             callback(node)
+            //@ts-ignore
             collection.push(node)
             if (node[childrenKey] && node[childrenKey].length > 0) {
                 node[childrenKey].forEach(function(item:INode) {
