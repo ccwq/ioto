@@ -9,37 +9,72 @@ template(v-if="status ===DWStatusEnum.READY")
     slot(name="ready")
 template(v-else-if="status === DWStatusEnum.LOADING")
     slot(name="loading")
-        div 加载中...
+        LoadingEl
 template(v-else-if="status === DWStatusEnum.EMPTY")
     slot(name="empty")
-        div 数据为空
+        EmptyEl
 template(v-else-if="status === DWStatusEnum.ERROR")
     slot(name="error" :error="modelValue.error")
         div(:class="attrs.class") {{modelValue.error}}
 template(v-else-if="status === DWStatusEnum.SUCCESS")
     slot(:attrs="attrs" :data="data")
 template(v-else)
-    div(:class="attrs.class") 其他状态
+    div(:class="attrs.class") 其他状态:{{status}}
 </template>
 <script lang="ts" setup>
-import {computed} from "vue"
+import {computed, h, unref} from "vue"
 import {DWStatusEnum, type IDataWrapper} from "./dataWrapper"
+import {dataWrapperEmptyRenderRef, dataWrapperLoadingRenderRef} from "./dataWrapperVueHelper";
 
-export type ILoadingStatus = "ready" | 'success' | 'loading' | 'error' | 'empty'
-
+export type ILoadingStatus = "ready" | 'success' | 'loading' | 'error' | 'empty';
 
 const props = withDefaults(defineProps<{
 
     // DataWrapper实例
-    modelValue: IDataWrapper
+    modelValue: IDataWrapper;
 
     // 当存在数据不为空时,不显示loading
     // 场景1:在图表中,希望图表数据切换的时候不要出现图表闪烁
-    justLoadingWhenEmpty?: boolean
+    justLoadingWhenEmpty?: boolean;
 
 }>(), {
     justLoadingWhenEmpty: false
-})
+});
+
+
+if (!props.modelValue.load) {
+    throw new Error("需要传入useDataWrappers实例");
+}
+
+const EmptyEl = (props)=>{
+    if (dataWrapperEmptyRenderRef.value) {
+        return h(unref(dataWrapperEmptyRenderRef), {
+            ...props,
+        });
+    } else {
+        return h("div", {
+            class: "status-empty",
+            ...props,
+        }, "数据为空");
+    }
+}
+
+
+const LoadingEl = (props)=>{
+    if (dataWrapperLoadingRenderRef.value) {
+        return h(unref(dataWrapperLoadingRenderRef), {
+            ...props,
+        });
+    } else {
+        return h("div", {
+            class: "status-loading",
+            ...props,
+        }, "数据加载中");
+    }
+
+}
+
+
 
 const attrs = {}
 
@@ -70,10 +105,11 @@ const status = computed<DWStatusEnum>(() => {
         }else{
             return du.status
         }
-    }else
+    }else{
         return props.modelValue?.status;
-})
+    }
 
+})
 
 /**
  * 数据

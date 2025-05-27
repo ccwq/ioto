@@ -16,3 +16,9 @@ export {
     dataWrapperWithPageLoadFunSetter,
     type IDWWithPageOptions,
 } from "./dataWrapperWithPage";
+
+
+export {
+    setDefaultEmptyRender,
+    setDefaultLoadingRender,
+} from "./dataWrapperVueHelper"

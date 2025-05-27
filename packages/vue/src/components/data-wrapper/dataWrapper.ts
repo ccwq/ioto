@@ -146,7 +146,6 @@ export const useDataWrapper = <T=any>(optionsParams:IDWOptions<T>):IDataWrapper=
      * @param error - 用来设置错误信息
      */
     const setValue = async (error:any=null, value?:any)=>{
-
         // 包含错误
         if (error) {
             dwInst.status = DWStatusEnum.ERROR;
