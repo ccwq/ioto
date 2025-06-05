@@ -315,7 +315,6 @@ const makeTreeDataHelper = function(treeData:IInputData, options:Options = {}) {
         setChecked,
         setProps,
         travelAllNode,
-
         setOptions,
         resetCheckStatus,
         getOriginNode,
