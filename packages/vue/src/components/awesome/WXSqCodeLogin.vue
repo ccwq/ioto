@@ -1,3 +1,8 @@
+<!--
+ * @Author: ccwq
+ * @Date: 2025/6/7 23:03:00
+ * @Description: 微信扫码登录的实现
+ -->
 <template lang="pug">
 .WXSqCodeLogin
 	.sqcode._pc.img(:id="id")
