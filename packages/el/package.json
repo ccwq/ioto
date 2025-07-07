@@ -1,6 +1,6 @@
 {
     "name": "@ioto/el",
-    "version": "0.1.24",
+    "version": "0.1.26",
     "description": "awesome about element-plus",
     "author": "ccwq <scwqd@qq.com>",
     "homepage": "https://github.com/ccwq/ioto#readme",
@@ -26,9 +26,9 @@
         "url": "git+https://github.com/ccwq/ioto.git"
     },
     "peerDependencies": {
+        "@form-create/element-ui": "^3.1.15",
         "@ioto/core": "workspace:*",
         "@ioto/vue": "workspace:*",
-        "@form-create/element-ui": "^3.1.15",
         "element-plus": "^2.0.0",
         "vue": "^3.2.25"
     },
