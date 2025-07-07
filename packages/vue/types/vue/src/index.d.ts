@@ -8,7 +8,6 @@ declare const plugins: {
      */
     install(VueApp: any, options?: {}): void;
 };
-export { default as YButton } from './components/YButton.vue';
 export { default as SizeMonitor } from './components/SizeMonitor.vue';
 export { default as VBox } from './components/VBox.vue';
 export { default as F9Layout } from './components/F9Layout.vue';

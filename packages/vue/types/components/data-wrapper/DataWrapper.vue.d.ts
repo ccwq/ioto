@@ -1,4 +1,4 @@
-import { computed } from "vue";
+import { computed, h, unref } from "vue";
 import { DWStatusEnum } from "./dataWrapper";
 export declare type ILoadingStatus = "ready" | 'success' | 'loading' | 'error' | 'empty';
 declare const _sfc_main: import("vue").DefineComponent<{
@@ -13,14 +13,24 @@ declare const _sfc_main: import("vue").DefineComponent<{
     };
 }, {
     props: any;
+    EmptyEl: (props: any) => import("vue").VNode<import("vue").RendererNode, import("vue").RendererElement, {
+        [key: string]: any;
+    }>;
+    LoadingEl: (props: any) => import("vue").VNode<import("vue").RendererNode, import("vue").RendererElement, {
+        [key: string]: any;
+    }>;
     attrs: {};
     isEmptyFunc: (data: any) => boolean;
     status: import("vue").ComputedRef<DWStatusEnum>;
     data: import("vue").ComputedRef<any>;
     emits: {};
     computed: typeof computed;
+    h: typeof h;
+    unref: typeof unref;
     DWStatusEnum: typeof DWStatusEnum;
     IDataWrapper: any;
+    dataWrapperEmptyRenderRef: any;
+    dataWrapperLoadingRenderRef: any;
 }, unknown, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, Record<string, any>, string, import("vue").VNodeProps & import("vue").AllowedComponentProps & import("vue").ComponentCustomProps, Readonly<{
     modelValue?: unknown;
     justLoadingWhenEmpty?: unknown;
