@@ -3,8 +3,8 @@
     "version": "0.0.32",
     "private": true,
     "scripts": {
-        "version": "lerna version -y",
-        "publish": "lerna publish",
+        "version": "lerna version patch",
+        "publish": "node ./scripts/publish-packages.js",
         "pub@win": "cmd.exe /c force-publish.bat",
         "build:all": "lerna exec pnpm build"
     },
