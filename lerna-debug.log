@@ -1,0 +1,12 @@
+15 error Error: Command failed with exit code 1: git remote update
+15 error Connection closed by 198.18.0.104 port 22
+15 error fatal: Could not read from remote repository.
+15 error
+15 error Please make sure you have the correct access rights
+15 error and the repository exists.
+15 error     at makeError (E:\project\ioto\node_modules\.pnpm\execa@https+++registry.npmmirror.com+execa+-+execa-5.1.1.tgz\node_modules\execa\lib\error.js:60:11)
+15 error     at module.exports.sync (E:\project\ioto\node_modules\.pnpm\execa@https+++registry.npmmirror.com+execa+-+execa-5.1.1.tgz\node_modules\execa\index.js:194:17)
+15 error     at Object.execSync (E:\project\ioto\node_modules\.pnpm\@lerna+child-process@https+++registry.npmmirror.com+@lerna+child-process+-+child-process-5.6.2.tgz\node_modules\@lerna\child-process\index.js:39:16)
+15 error     at updateRemote (E:\project\ioto\node_modules\.pnpm\@lerna+version@https+++registry.npmmirror.com+@lerna+version+-+version-5.6.2.tgz_encoding@0.1_6amrysmesfkwxbiznug6opht5y\node_modules\@lerna\version\lib\is-behind-upstream.js:34:16)
+15 error     at isBehindUpstream (E:\project\ioto\node_modules\.pnpm\@lerna+version@https+++registry.npmmirror.com+@lerna+version+-+version-5.6.2.tgz_encoding@0.1_6amrysmesfkwxbiznug6opht5y\node_modules\@lerna\version\lib\is-behind-upstream.js:16:3)
+15 error     at VersionCommand.initialize (E:\project\ioto\node_modules\.pnpm\@lerna+version@https+++registry.npmmirror.com+@lerna+version+-+version-5.6.2.tgz_encoding@0.1_6amrysmesfkwxbiznug6opht5y\node_modules\@lerna\version\index.js:156:9)
