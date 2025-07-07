@@ -22,6 +22,12 @@
 lerna publish --force-publish
 ```
 
+根据调查, lerna publish 会执行很多无关操作, 导致无法publish, 需要手动进入每个package中进行npm publish才可以提交到npm
+
+![img.png](readme-assets/img.png)
+
+
+
 # 为workspace安装依赖, 例如
 ```shell
 pnpm add -D cross-env --workspace-root

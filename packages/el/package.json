@@ -1,6 +1,6 @@
 {
     "name": "@ioto/el",
-    "version": "0.1.23",
+    "version": "0.1.24",
     "description": "awesome about element-plus",
     "author": "ccwq <scwqd@qq.com>",
     "homepage": "https://github.com/ccwq/ioto#readme",
@@ -26,6 +26,8 @@
         "url": "git+https://github.com/ccwq/ioto.git"
     },
     "peerDependencies": {
+        "@ioto/core": "workspace:*",
+        "@ioto/vue": "workspace:*",
         "@form-create/element-ui": "^3.1.15",
         "element-plus": "^2.0.0",
         "vue": "^3.2.25"
@@ -52,8 +54,6 @@
         "url": "https://github.com/ccwq/ioto/issues"
     },
     "dependencies": {
-        "@ioto/core": "workspace:*",
-        "@ioto/vue": "workspace:*",
         "@sipec/vue3-tags-input": "^3.0.4",
         "element-plus": "^2.2.22",
         "lodash": "^4.17.21"
