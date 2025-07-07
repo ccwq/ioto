@@ -33,7 +33,7 @@ interface ITravelTreeCallback {
 declare const makeTreeDataHelper: (treeData: IInputData, options?: Options) => {
     travelNode: (id: KeyID | INode, callback: ITravelCallback, collection?: never[]) => INode[];
     getNodeList: (isMirror?: boolean) => INode[];
-    getNodeDescendantList: (id: KeyID | INode) => INode[];
+    getNodeDescendantList: (id: KeyID | INode, justLeaf?: boolean, withSelf?: boolean) => INode[];
     getNodeListByFilter: (filter: IFilterFunction) => INode[];
     getMinDeepth: () => number;
     getSublings: (id: KeyID) => INode[];
