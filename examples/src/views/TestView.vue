@@ -14,7 +14,6 @@ import {stripAndFixNumber} from "@ioto/core"
 
 console.log(stripAndFixNumber(1.234564546, 2))
 
-import {YButton} from "@ioto/vue"
 import {ref, watchEffect} from "vue";
 const props = withDefaults(defineProps<{modelValue:any}>(),{})
 const emits = defineEmits<{}>()

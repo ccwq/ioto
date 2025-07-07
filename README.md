@@ -37,6 +37,9 @@ pnpm lerna exec -- pnpm i
 lerna exec -- pnpm build
 ```
 
+# 提升版本
+lerna version patch
+
 
 
 # 问题
