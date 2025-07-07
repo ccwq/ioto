@@ -55,10 +55,10 @@ importers:
         specifier: ^3.1.15
         version: 3.1.15(vue@3.2.26)
       '@ioto/core':
-        specifier: workspace:../core
+        specifier: workspace:*
         version: link:../core
       '@ioto/vue':
-        specifier: workspace:../vue
+        specifier: workspace:*
         version: link:../vue
       '@sipec/vue3-tags-input':
         specifier: ^3.0.4
@@ -147,7 +147,7 @@ importers:
   packages/vue:
     dependencies:
       '@ioto/core':
-        specifier: workspace:../core
+        specifier: workspace:*
         version: link:../core
       '@vueuse/core':
         specifier: ^10.0.0
