@@ -29,14 +29,13 @@
  -->
 <template lang="pug">
 el-popover(
-  :width
   :hide-after=9999999
   :visible="true"
   v-if="modelValue"
   :virtualRef
   popper-class="APopover"
 )
-  .content(v-click-outside="e=>handleClose(e, 'outclick')" )
+  .content(v-click-outside="e=>handleClose(e, 'outclick')"  ref="contentRef")
     slot(name="header"): .APopover-header {{title}}
     slot
       span some content in APopover
@@ -45,19 +44,16 @@ el-popover(
         el-button(type="primary" @click="handlerConfirm()") 确定
         el-button(type="default" @click="handleClose('button')") 取消
 
+
 </template>
 <script setup>
 import { ClickOutside as vClickOutside, ElPopover } from 'element-plus'
-import { onErrorCaptured, ref, toRef, watchEffect } from 'vue'
+import { onErrorCaptured, onMounted, ref, toRef, watch, watchEffect } from 'vue'
 
 const props = defineProps({
   title: {
     type: String,
     default: '窗口标题'
-  },
-  width: {
-    type: String,
-    default: '200px'
   },
   modelValue: {
     type: Boolean,
@@ -71,17 +67,19 @@ const props = defineProps({
   beforeClose: {
     type: Function,
     default: null
+  },
+
+  /**
+   * 在显示后,自动获取焦点
+   */
+  autoFocusSelector: {
+    type: String
   }
 })
 const emits = defineEmits(['update:modelValue', 'close', 'confirm'])
 onErrorCaptured((err) => console.error('组件APopover内部错误:', err))
 
 const virtualRef = toRef(props, 'virtualRef')
-
-watchEffect(() => {
-  console.log(virtualRef.value, 777)
-})
-
 /**
  * 点击外部关闭
  * @param from {'button' | 'outclick'}
@@ -89,11 +87,8 @@ watchEffect(() => {
  * @returns {Promise<void>}
  */
 const handleClose = async (from, event) => {
-  if (from == 'outclick') {
-    if (event.target == virtualRef.value) {
-      return
-    }
-  }
+  // 如果单击触发元素, 不要执行close
+  if (from === 'outclick' && event.target === virtualRef.value) return
 
   const beforeCloseReturn = await props?.beforeClose?.()
   if (beforeCloseReturn === false) {
@@ -110,12 +105,65 @@ const handlerConfirm = () => {
 }
 
 const visible = ref(false)
+
+const contentRef = ref(null)
+
+onMounted(() => {
+  watch(
+    () => props.modelValue,
+    async (visible) => {
+      if (!visible) return
+      if (!props.autoFocusSelector) return
+      const inputEl = await runUntil(
+        () => contentRef.value.querySelector(props.autoFocusSelector),
+        300
+      )
+      if (inputEl) {
+        inputEl.focus()
+        // inputEl.select()
+        selectInputContent(inputEl, /^[^.]+/)
+      }
+    },
+    { immediate: true }
+  )
+})
+
+const runUntil = (fun, timeout = 300, interval = 50) => {
+  return new Promise((resolve, reject) => {
+    const timeoutId = setTimeout(() => {
+      clearInterval(intervalId)
+      resolve(null) // 超时返回false
+    }, timeout)
+
+    const intervalId = setInterval(() => {
+      const ret = fun()
+      if (ret) {
+        clearInterval(intervalId)
+        clearTimeout(timeoutId)
+        resolve(ret) // 成功返回true
+      }
+    }, interval)
+  })
+}
+
+const selectInputContent = (input, yourRegex) => {
+  const match = input.value.match(yourRegex);
+  if (match) {
+    const start = input.value.search(yourRegex);
+    const end = start + match[0].length;
+    input.setSelectionRange(start, end);
+    input.focus()
+  } else {
+    // 未匹配，按需处理
+    input.focus();
+  }
+}
 </script>
 <style lang="less">
 .APopover {
   --padding: var(--el-popover-padding);
   padding: var(--padding);
-  &-header{
+  &-header {
     margin-bottom: var(--padding);
     //font-size: 1em;
   }
