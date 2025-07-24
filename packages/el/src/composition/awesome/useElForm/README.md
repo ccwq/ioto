@@ -1,3 +1,4 @@
+
 # ElForm 表单范式
 
 基于 Vue3 + Element Plus 的声明式表单处理解决方案，通过组合式函数和配置化的方式简化复杂表单开发。
@@ -6,7 +7,7 @@
 
 - 🚀 **声明式配置** - 通过配置数组定义表单结构，无需手写大量模板
 - 🎯 **类型安全** - 完整的 TypeScript 支持，提供类型推导和智能提示
-- 🧩 **组件化封装** - 提供 `<UForm>` 组件，进一步简化模板，无需手动绑定 `ref` 和 `v-bind`
+- 🧩 **组件化封装** - 提供 `<UForm>` 组件，进一步简化模板，并暴露表单数据
 - 🔧 **灵活布局** - 支持自由的表单布局，兼容 Element Plus 栅格系统
 - 🎨 **组件多样** - 支持所有 Element Plus 组件及自定义组件
 - ⚡ **动态表单** - 运行时动态增删表单项，响应式更新
@@ -29,12 +30,16 @@
 
 ```vue
 <template>
-  <UForm label-width="6em">
+  <!-- UForm 现在通过作用域插槽暴露 model -->
+  <UForm label-width="6em" v-slot="{ model }">
     <UFItem prop="nickName" />
     <UFItem prop="email" :itemComponentOptions="{type: 'email'}" />
     <UFItem prop="age" v-slot="{bind}">
       <ElSlider v-bind="bind" />
     </UFItem>
+
+    <!-- 可以直接在模板中使用 model -->
+    <pre>表单实时数据: {{ model }}</pre>
   </UForm>
 </template>
 
@@ -62,8 +67,8 @@ const formItemDef = ref([
   }
 ])
 
-// 解构出 UForm 和 UFItem 组件，以及 model 和验证方法
-const {formValidateTo, UFItem, UForm } = useElFormConf(formItemDef)
+// 解构出 UForm 和 UFItem 组件，以及验证方法
+const { formValidateTo, UFItem, UForm } = useElFormConf(formItemDef)
 </script>
 ```
 
@@ -238,20 +243,30 @@ const validateField = async (fieldName) => {
 **返回值:**
 ```typescript
 {
-  model: Ref<IModel>,                     // 表单数据模型
-  formValidateTo: () => Promise<[Error, null] | [null, IModel]>, // 触发表单验证。成功时返回 [null, 表单数据]
+  model: ShallowRef<IModel>,              // 表单数据模型 (注意: 是 shallowRef)
+  formValidateTo: () => Promise<[Error, null] | [null, IModel]>, // 触发表单验证
   formValidateFiledTo: (field: string) => Promise, // 字段验证
   UFItem: Component,                        // 表单项组件
-  UForm: Component,                         // 表单容器组件，自动绑定
+  UForm: Component,                         // 表单容器组件
   clearValidate: () => void,                // 清除验证状态
   formReset: () => void,                    // 重置表单
-  formRef: Ref<FormInstance>,               // (可选)表单实例引用
-  formBind: ComputedRef<FormProps>          // (可选)表单绑定属性
-}
-```
+  formRef: Ref<FormInstance>,               // (可选)ElForm 实例引用
+}```
 
 ### UForm 组件
-`useElFormConf` 返回的表单容器组件。它是 `ElForm` 的一层封装，自动处理了 `ref` 的绑定和 `v-bind` 的属性（如 `model`, `rules` 等）。它接收所有 `ElForm` 的属性。
+`useElFormConf` 返回的表单容器组件。它是 `ElForm` 的一层封装，自动处理了 `model` 和 `rules` 的绑定。它接收所有 `ElForm` 的属性。
+
+**插槽:**
+- `default: { model: IModel }` - 默认插槽，提供响应式的表单数据 `model`。
+
+```vue
+<template>
+  <UForm v-slot="{ model }">
+    <p>用户名: {{ model.username }}</p>
+    <UFItem prop="username" />
+  </UForm>
+</template>
+```
 
 ### UFItem 组件
 
@@ -271,7 +286,7 @@ const validateField = async (fieldName) => {
 
 ```vue
 <template>
-  <UForm class="user-form" label-width="6em">
+  <UForm class="user-form" label-width="6em" v-slot="{ model }">
     <el-row>
       <el-col :span="12">
         <UFItem prop="nickName" />
@@ -308,6 +323,7 @@ const validateField = async (fieldName) => {
 
     <ElDivider>数据预览</ElDivider>
     <UFItem label=" ">
+      <!-- 使用从插槽获取的 model -->
       <pre>{{ JSON.stringify(model, null, 2) }}</pre>
     </UFItem>
   </UForm>
@@ -338,7 +354,8 @@ const formItemDef = ref<FormRuleItem<IUser>[]>([
   { prop: "sex", label: "性别", value: "1", selectOptions: [{ label: "男", value: "1" }, { label: "女", value: "0" }] }
 ])
 
-const { model, formValidateTo, UFItem, UForm } = useElFormConf(formItemDef)
+// 注意：model 已不需要从 useElFormConf 解构，可直接在 UForm 插槽中使用
+const { formValidateTo, UFItem, UForm } = useElFormConf(formItemDef)
 
 const handleSubmit = async () => {
   const [err, formData] = await formValidateTo()
@@ -372,11 +389,11 @@ const addFormItem = () => {
 
 ## 💡 最佳实践
 
-1.  **优先使用 `<UForm>`**：该组件能免去手动绑定 `ref` 和 `v-bind` 的操作，让模板更简洁。
-2.  **类型定义**: 为表单数据定义清晰的 TypeScript 接口以获得完整的类型支持。
-3.  **组件复用**: 将常用的表单配置抽取为可复用的配置对象。
-4.  **验证规则**: 合理使用 `required` 快捷属性和 `rules` 详细配置。
-5.  **动态表单**: 利用 Vue 的响应式特性实现表单的动态变化。
-6.  **布局设计**: 结合 Element Plus 栅格系统或 Flex 布局实现复杂的响应式布局。
+1.  **优先使用 `<UForm>`**：该组件能免去手动绑定属性，让模板更简洁。
+2.  **使用 `UForm` 作用域插槽**: 在模板中需要访问表单数据时，利用 `<UForm v-slot="{ model }">` 来获取，使数据流更清晰。
+3.  **类型定义**: 为表单数据定义清晰的 TypeScript 接口以获得完整的类型支持。
+4.  **组件复用**: 将常用的表单配置抽取为可复用的配置对象。
+5.  **验证规则**: 合理使用 `required` 快捷属性和 `rules` 详细配置。
+6.  **动态表单**: 利用 Vue 的响应式特性实现表单的动态变化。
 
 这个表单范式为 Vue3 + Element Plus 项目提供了一种高效、类型安全、高度可定制的表单处理方案，大幅减少了表单开发的样板代码，提升了开发效率。

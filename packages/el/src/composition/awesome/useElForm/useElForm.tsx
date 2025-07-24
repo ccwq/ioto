@@ -19,6 +19,7 @@ import {
   getCurrentInstance,
   KeepAlive,
   type Ref,
+  nextTick, shallowRef
 } from 'vue'
 import { ElForm, ElFormItem, ElInput, ElSelect, ElOption } from 'element-plus'
 import type { IUFItem } from './useElFormHelper'
@@ -71,13 +72,13 @@ export const useElFormConf = <IModel = any,>(
   // 生成初始数据模型，使用 Partial 允许部分属性
   const defaultModel = computed(() => {
     return unref(itemList).reduce<Partial<IModel>>((acc, item) => {
-      acc[item.prop] = item.value || ''
+      acc[item.prop] = item.value ?? ''
       return acc
     }, {})
   })
 
   // 表单数据模型，使用 ref 使其成为响应式
-  const model = ref<Partial<IModel>>({ ...defaultModel.value })
+  const model = shallowRef<Partial<IModel>>({ ...defaultModel.value })
 
   // 当表单项改变时,进行响应
   watch(defaultModel, (defModel) => {
@@ -101,7 +102,7 @@ export const useElFormConf = <IModel = any,>(
    * 表单绑定属性
    * 用于直接绑定到 el-form 组件
    */
-  const formBind = computed(() => {
+  const formRules = computed(() => {
     const rules = unref(itemList).reduce<Record<string, any[]>>((acc, el) => {
       if (el.rules) {
         acc[el.prop as string] = el.rules
@@ -121,10 +122,7 @@ export const useElFormConf = <IModel = any,>(
       return acc
     }, {})
 
-    return {
-      model: model.value,
-      rules
-    }
+    return rules
   })
 
   // 表单实例引用
@@ -141,7 +139,7 @@ export const useElFormConf = <IModel = any,>(
     const [err] = await awaitTo(formRef.value.validate())
     if (err) {
       return [err]
-    }else{
+    } else {
       return [null, model.value]
     }
   }
@@ -162,29 +160,40 @@ export const useElFormConf = <IModel = any,>(
     { deep: true }
   )
 
-  const UFItem = generateUFItem(model, itemList)
+  const setModelValue = async (prop: keyof IModel, value: any) => {
+    model.value = {
+      ...model.value,
+      [prop]: value
+    }
+
+    await new Promise((r) => setTimeout(r, 0))
+    clearValidate()
+  }
+
+  const UFItem = generateUFItem(model, itemList, setModelValue)
 
   const UForm = defineComponent({
+    name: 'UForm',
     setup(props, { attrs, slots }) {
       const setFormRef = (el: any) => {
         formRef.value = el
       }
-
-      return ()=>{
+      return () => {
         return (
-          <ElForm ref={setFormRef} {...formBind.value}>
-            {slots?.default()}
+          <ElForm ref={setFormRef} rules={formRules.value} model={model.value}>
+            {slots?.default({
+              model: model.value
+            })}
           </ElForm>
         )
       }
-    },
+    }
   })
 
   return {
     model,
     formRef,
     formReset,
-    formBind,
     formValidateTo,
     formValidateFiledTo,
     UFItem,
@@ -218,12 +227,14 @@ export const awaitTo = <T, U = undefined>(promise: Promise<T>, errorExt?: object
 
 const generateUFItem = <IModel = any,>(
   model: Ref<IModel>,
-  formItemList: Ref<FormRuleItem[]>
+  formItemList: Ref<FormRuleItem[]>,
+  setModelValue: (prop: keyof IModel, value: any) => void
 ): IUFItem => {
   const UFItem = defineComponent({
+    name: 'UFItem',
     props: {
       prop: {
-        type: Object as PropType<keyof IModel>,
+        type: String as unknown as PropType<keyof IModel>,
         required: false
       },
 
@@ -268,7 +279,7 @@ const generateUFItem = <IModel = any,>(
       })
 
       const handlerComponentUpdate = (value: any) => {
-        model.value[prop] = value
+        setModelValue(prop, value)
 
         // todo: 如此如此修改model会导致 jsx反复渲染的bug
         // 尝试过v-memo和keep-alive语法,均无效
