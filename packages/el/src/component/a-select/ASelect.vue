@@ -150,18 +150,19 @@ const isEmpty = computed(()=>{
 
 const vBind = computed(()=>{
     return {
-        placeholder:props.placeholder,
+        disabled: props.disabled,
+        placeholder: props.placeholder,
         ...attrs,
-        modelValue:props.modelValue + "",
-        "onUpdate:modelValue"(v:string|number){
+        modelValue: props.modelValue + "",
+        "onUpdate:modelValue"(v: string | number) {
             const item = optDicByValue.value[v]
             if (item) {
                 emits("update:modelValue", item.value)
-            }else{
+            } else {
                 emits("update:modelValue", v);
             }
         },
-    }
+    };
 })
 </script>
 
